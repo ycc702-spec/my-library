@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-02-25T01:15:00Z",
+  "categories": {
+    "food": {
+      "name": "美食",
+      "icon": "🍽️",
+      "subcategories": ["寵物友善餐廳", "好吃餐廳", "咖啡廳", "小吃"]
+    },
+    "travel": {
+      "name": "旅遊",
+      "icon": "✈️",
+      "subcategories": ["景點", "住宿", "行程規劃"]
+    },
+    "health": {
+      "name": "健康",
+      "icon": "💪",
+      "subcategories": ["膝蓋復健", "籃球訓練", "健身", "醫療"]
+    },
+    "finance": {
+      "name": "財經",
+      "icon": "💰",
+      "subcategories": ["投資", "股票", "新聞", "分析"]
+    },
+    "news": {
+      "name": "新聞",
+      "icon": "📰",
+      "subcategories": ["科技", "國際", "財經", "體育"]
+    },
+    "pets": {
+      "name": "寵物",
+      "icon": "🐕",
+      "subcategories": ["寵物友善", "寵物用品", "寵物知識"]
+    },
+    "basketball": {
+      "name": "籃球",
+      "icon": "🏀",
+      "subcategories": ["訓練", "技巧", "裝備", "比賽"]
+    },
+    "other": {
+      "name": "其他",
+      "icon": "📌",
+      "subcategories": ["待分類"]
+    }
+  },
+  "bookmarks": [],
+  "stats": {
+    "totalBookmarks": 0,
+    "totalByCategory": {},
+    "totalBySource": {}
+  }
+}
