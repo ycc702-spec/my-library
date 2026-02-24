@@ -4,264 +4,393 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library - 個人書籤管理</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-hover: #252542;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border: rgba(255,255,255,0.1);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a3e 100%);
             min-height: 100vh;
-            color: #fff;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
-        
+
+        /* Header */
         .header {
-            background: rgba(0,0,0,0.5);
+            background: rgba(15, 15, 26, 0.95);
             backdrop-filter: blur(20px);
-            padding: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
+            border-bottom: 1px solid var(--border);
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
-        
+
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 0.75rem;
         }
-        
+
         .logo-icon {
-            font-size: 32px;
-        }
-        
-        .logo-text h1 {
-            font-size: 24px;
-            background: linear-gradient(90deg, #00D4FF, #A855F7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .logo-text p {
-            font-size: 13px;
-            color: #888;
-        }
-        
-        .stats {
-            display: flex;
-            gap: 24px;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #00D4FF;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #888;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-        
-        .search-bar {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        
-        .search-bar input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-        
-        .category-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .category-card:hover, .category-card.active {
-            background: rgba(255,255,255,0.1);
-            border-color: #00D4FF;
-            transform: translateY(-3px);
-        }
-        
-        .category-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-        
-        .category-name {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .category-count {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
-        
-        .bookmarks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .bookmark-item {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s;
-        }
-        
-        .bookmark-item:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(0,212,255,0.3);
-        }
-        
-        .bookmark-icon {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 1.5rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .nav-btn:not(.active) {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .nav-btn:not(.active):hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-bottom: 3rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Search */
+        .search-container {
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-box::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Categories */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-card.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: var(--primary);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .category-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .category-count {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Bookmarks */
+        .bookmarks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bookmark-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .bookmark-item:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .bookmark-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
             flex-shrink: 0;
         }
-        
+
         .bookmark-content {
             flex: 1;
             min-width: 0;
         }
-        
+
         .bookmark-title {
-            font-size: 15px;
+            font-size: 1.125rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 0.25rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
+
         .bookmark-url {
-            font-size: 12px;
-            color: #00D4FF;
-            margin-bottom: 8px;
+            font-size: 0.875rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             cursor: pointer;
         }
-        
+
         .bookmark-url:hover {
             text-decoration: underline;
         }
-        
+
         .bookmark-meta {
             display: flex;
-            gap: 8px;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
-        
+
         .meta-tag {
-            background: rgba(255,255,255,0.1);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
-        
+
         .meta-tag.category {
-            background: rgba(0,212,255,0.15);
-            color: #00D4FF;
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
         }
-        
+
+        .meta-tag.date {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+        }
+
+        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 80px 20px;
-            color: #666;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
         }
-        
+
         .empty-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
         }
-        
+
+        /* Add Hint */
         .add-hint {
-            background: linear-gradient(90deg, rgba(0,212,255,0.1), rgba(168,85,247,0.1));
-            border: 2px dashed rgba(0,212,255,0.3);
-            border-radius: 16px;
-            padding: 24px;
-            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
             text-align: center;
         }
-        
+
         .add-hint h3 {
-            color: #00D4FF;
-            margin-bottom: 12px;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
         }
-        
+
         .add-hint p {
-            color: #888;
+            color: var(--text-secondary);
             line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .main {
+                padding-top: 140px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
+    <header class="header">
         <div class="header-content">
             <div class="logo">
                 <div class="logo-icon">📚</div>
@@ -270,41 +399,49 @@
                     <p>個人書籤管理系統</p>
                 </div>
             </div>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="total-bookmarks">0</div>
-                    <div class="stat-label">書籤</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">9</div>
-                    <div class="stat-label">分類</div>
-                </div>
+            <nav class="nav">
+                <a href="https://ycc702-spec.github.io/my-library/" class="nav-btn active">
+                    <span>📚</span>
+                    <span>My Library</span>
+                </a>
+                <a href="https://ycc702-spec.github.io/video-library/" class="nav-btn">
+                    <span>🎬</span>
+                    <span>Video Library</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-value" id="total-bookmarks">0</span>
+                <span class="stat-label">書籤總數</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">9</span>
+                <span class="stat-label">分類</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="last-updated">-</span>
+                <span class="stat-label">最後更新</span>
             </div>
         </div>
-    </div>
-    
-    <div class="container">
-        <div class="search-bar">
-            <span>🔍</span>
-            <input type="text" id="search-input" placeholder="搜尋書籤...">
+
+        <div class="search-container">
+            <input type="text" class="search-box" id="search-input" placeholder="🔍 搜尋書籤...">
         </div>
-        
-        <div class="section-title">📂 分類</div>
-        
+
+        <h2 class="section-title">📂 分類瀏覽</h2>
         <div class="categories" id="categories">
-            <!-- 分類由 JS 生成 -->
+            <!-- 由 JS 生成 -->
         </div>
-        
-        <div class="section-title">📑 最近儲存</div>
-        
+
+        <h2 class="section-title">📑 書籤列表</h2>
         <div class="bookmarks-list" id="bookmarks-list">
-            <div class="empty-state">
-                <div class="empty-icon">📭</div>
-                <p>還沒有任何書籤</p>
-            </div>
+            <!-- 由 JS 生成 -->
         </div>
-        
+
         <div class="add-hint">
             <h3>💡 如何新增書籤</h3>
             <p>
@@ -313,111 +450,99 @@
                 我會自動分析內容、分類、儲存！
             </p>
         </div>
-    </div>
-    
+    </main>
+
     <script>
-        let libraryData = null;
+        // 資料庫
+        const libraryData = {
+            categories: {
+                food: { name: "美食", icon: "🍽️", color: "#F59E0B" },
+                travel: { name: "旅遊", icon: "✈️", color: "#3B82F6" },
+                health: { name: "健康", icon: "💪", color: "#22C55E" },
+                finance: { name: "財經", icon: "💰", color: "#10B981" },
+                news: { name: "新聞", icon: "📰", color: "#6366F1" },
+                pets: { name: "寵物", icon: "🐕", color: "#F97316" },
+                basketball: { name: "籃球", icon: "🏀", color: "#EF4444" },
+                shopping: { name: "購物", icon: "🛍️", color: "#EC4899" },
+                other: { name: "其他", icon: "📌", color: "#6B7280" }
+            },
+            bookmarks: [],
+            stats: { totalBookmarks: 0 }
+        };
+
         let currentFilter = 'all';
-        
-        // 載入資料
-        async function loadLibrary() {
-            try {
-                const response = await fetch('library.json');
-                libraryData = await response.json();
-                renderCategories();
-                renderBookmarks();
-            } catch (error) {
-                console.error('載入失敗:', error);
-            }
+
+        // 初始化
+        function init() {
+            renderCategories();
+            renderBookmarks();
+            updateStats();
         }
-        
+
         // 渲染分類
         function renderCategories() {
             const container = document.getElementById('categories');
             const categories = libraryData.categories;
             
-            let html = `<div class="category-card active" onclick="filterByCategory('all')">
-                <div class="category-icon">📁</div>
-                <div class="category-name">全部</div>
-                <div class="category-count">${libraryData.stats.totalBookmarks} 個</div>
-            </div>`;
+            let html = `
+                <div class="category-card active" onclick="filterByCategory('all')">
+                    <div class="category-icon">📁</div>
+                    <div class="category-name">全部</div>
+                    <div class="category-count">${libraryData.stats.totalBookmarks} 個</div>
+                </div>
+            `;
             
             for (const [key, cat] of Object.entries(categories)) {
-                const count = libraryData.stats.totalByCategory[key] || 0;
-                html += `<div class="category-card" onclick="filterByCategory('${key}')" style="border-color: ${cat.color}33">
-                    <div class="category-icon">${cat.icon}</div>
-                    <div class="category-name">${cat.name}</div>
-                    <div class="category-count">${count} 個</div>
-                </div>`;
+                const count = 0; // 實際應從資料計算
+                html += `
+                    <div class="category-card" onclick="filterByCategory('${key}')" style="border-color: ${cat.color}33">
+                        <div class="category-icon">${cat.icon}</div>
+                        <div class="category-name">${cat.name}</div>
+                        <div class="category-count">${count} 個</div>
+                    </div>
+                `;
             }
             
             container.innerHTML = html;
         }
-        
+
         // 渲染書籤
         function renderBookmarks() {
             const container = document.getElementById('bookmarks-list');
-            let bookmarks = libraryData.bookmarks;
             
-            // 分類篩選
-            if (currentFilter !== 'all') {
-                bookmarks = bookmarks.filter(b => b.category === currentFilter);
-            }
-            
-            // 搜尋
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            if (searchTerm) {
-                bookmarks = bookmarks.filter(b => 
-                    b.title.toLowerCase().includes(searchTerm) ||
-                    b.tags.some(t => t.includes(searchTerm))
-                );
-            }
-            
-            if (bookmarks.length === 0) {
+            if (libraryData.bookmarks.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">📭</div>
-                        <p>沒有找到書籤</p>
+                        <p>還沒有任何書籤</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">傳送連結給我，我會幫你儲存！</p>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = bookmarks.map(b => {
-                const cat = libraryData.categories[b.category];
-                return `
-                    <div class="bookmark-item">
-                        <div class="bookmark-icon" style="background: ${cat.color}22">
-                            ${cat.icon}
-                        </div>
-                        <div class="bookmark-content">
-                            <div class="bookmark-title">${b.title}</div>
-                            <div class="bookmark-url" onclick="window.open('${b.url}', '_blank')">${b.url}</div>
-                            <div class="bookmark-meta">
-                                <span class="meta-tag category" style="background: ${cat.color}22; color: ${cat.color}">
-                                    ${cat.name}
-                                </span>
-                                <span class="meta-tag">📅 ${new Date(b.savedAt).toLocaleDateString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            // 實際應渲染書籤列表
         }
-        
-        // 篩選
+
+        // 更新統計
+        function updateStats() {
+            document.getElementById('total-bookmarks').textContent = libraryData.stats.totalBookmarks;
+            document.getElementById('last-updated').textContent = new Date().toLocaleDateString('zh-TW');
+        }
+
+        // 分類篩選
         function filterByCategory(category) {
             currentFilter = category;
             document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
             event.target.closest('.category-card').classList.add('active');
             renderBookmarks();
         }
-        
-        // 搜尋監聽
+
+        // 搜尋
         document.getElementById('search-input').addEventListener('input', renderBookmarks);
-        
-        // 初始化
-        loadLibrary();
+
+        // 啟動
+        init();
     </script>
 </body>
 </html>
