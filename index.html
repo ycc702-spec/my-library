@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library - 個人知識庫</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #00D4FF, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .category-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .category-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .category-card.active {
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(168,85,247,0.2));
+            border-color: #00D4FF;
+        }
+        
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .bookmarks-list {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 20px;
+        }
+        
+        .bookmark-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .bookmark-item:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(0,212,255,0.3);
+        }
+        
+        .bookmark-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #333, #444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .bookmark-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .bookmark-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .bookmark-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .bookmark-url {
+            font-size: 12px;
+            color: #00D4FF;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .bookmark-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .bookmark-tag {
+            background: rgba(0,212,255,0.2);
+            color: #00D4FF;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        
+        .bookmark-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: rgba(0,212,255,0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00D4FF, #A855F7);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .search-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .search-box::placeholder {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 My Library</h1>
+        <div class="stats">
+            <span>總計: <strong id="total-count">0</strong> 個項目</span>
+            <span>分類: <strong>8</strong> 個類別</span>
+            <span>最後更新: <span id="last-updated">-</span></span>
+        </div>
+    </div>
+    
+    <div class="container">
+        <input type="text" class="search-box" placeholder="🔍 搜尋你的書籤...">
+        
+        <div class="categories" id="categories">
+            <!-- 分類卡片將由 JS 生成 -->
+        </div>
+        
+        <div class="bookmarks-list" id="bookmarks-list">
+            <div class="empty-state">
+                <div class="empty-state-icon">📭</div>
+                <p>還沒有任何書籤</p>
+                <p style="font-size: 13px; margin-top: 8px;">傳送連結給我，我會幫你整理歸類！</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 這裡將從 library.json 載入資料
+        const categories = {
+            "food": { "name": "美食", "icon": "🍽️", "count": 0 },
+            "travel": { "name": "旅遊", "icon": "✈️", "count": 0 },
+            "health": { "name": "健康", "icon": "💪", "count": 0 },
+            "finance": { "name": "財經", "icon": "💰", "count": 0 },
+            "news": { "name": "新聞", "icon": "📰", "count": 0 },
+            "pets": { "name": "寵物", "icon": "🐕", "count": 0 },
+            "basketball": { "name": "籃球", "icon": "🏀", "count": 0 },
+            "other": { "name": "其他", "icon": "📌", "count": 0 }
+        };
+        
+        // 生成分類卡片
+        function renderCategories() {
+            const container = document.getElementById('categories');
+            container.innerHTML = Object.entries(categories).map(([key, cat]) => `
+                <div class="category-card" data-category="${key}">
+                    <div class="category-icon">${cat.icon}</div>
+                    <div class="category-name">${cat.name}</div>
+                    <div class="category-count">${cat.count} 個項目</div>
+                </div>
+            `).join('');
+        }
+        
+        // 初始化
+        renderCategories();
+        document.getElementById('last-updated').textContent = new Date().toLocaleDateString('zh-TW');
+    </script>
+</body>
+</html>
