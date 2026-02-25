@@ -327,12 +327,21 @@
         // 載入資料
         async function loadLibrary() {
             try {
-                const response = await fetch('library.json');
+                console.log('開始載入 library.json...');
+                const response = await fetch('library.json?t=' + Date.now());
                 libraryData = await response.json();
+                console.log('載入成功:', libraryData);
+                console.log('書籤數量:', libraryData.bookmarks ? libraryData.bookmarks.length : 0);
                 renderCategories();
                 renderBookmarks();
             } catch (error) {
                 console.error('載入失敗:', error);
+                document.getElementById('bookmarks-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p>載入失敗: ${error.message}</p>
+                    </div>
+                `;
             }
         }
         
@@ -362,7 +371,20 @@
         // 渲染書籤
         function renderBookmarks() {
             const container = document.getElementById('bookmarks-list');
+            
+            // 確保書籤陣列存在
+            if (!libraryData || !libraryData.bookmarks) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p>資料載入中...</p>
+                    </div>
+                `;
+                return;
+            }
+            
             let bookmarks = libraryData.bookmarks;
+            console.log('渲染書籤, 總數:', bookmarks.length);
             
             // 分類篩選
             if (currentFilter !== 'all') {
@@ -370,11 +392,12 @@
             }
             
             // 搜尋
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const searchInput = document.getElementById('search-input');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
             if (searchTerm) {
                 bookmarks = bookmarks.filter(b => 
                     b.title.toLowerCase().includes(searchTerm) ||
-                    b.tags.some(t => t.includes(searchTerm))
+                    (b.tags && b.tags.some(t => t.includes(searchTerm)))
                 );
             }
             
