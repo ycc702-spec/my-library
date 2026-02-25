@@ -161,15 +161,32 @@
       "note": "DB step up 訓練，建立跑步所需的股四頭肌力量，對 Jumper's Knee 很重要",
       "thumbnail": "",
       "hasVideo": true
+    },
+    {
+      "id": "bk_006",
+      "title": "天下雜誌 - 理財專欄文章",
+      "url": "https://www.cw.com.tw/article/5139869",
+      "source": "website",
+      "sourceIcon": "📰",
+      "category": "finance",
+      "subcategory": "理財",
+      "tags": ["理財", "投資", "天下雜誌", "財經"],
+      "author": "天下雜誌",
+      "savedAt": "2026-02-25T12:55:00Z",
+      "note": "理財相關文章",
+      "thumbnail": "",
+      "hasVideo": false
     }
   ],
   "stats": {
-    "totalBookmarks": 5,
+    "totalBookmarks": 6,
     "totalByCategory": {
-      "health": 5
+      "health": 5,
+      "finance": 1
     },
     "totalBySource": {
-      "instagram": 5
+      "instagram": 5,
+      "website": 1
     }
   }
 }
