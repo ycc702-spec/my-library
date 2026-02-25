@@ -86,10 +86,30 @@
       "description": "其他待分類項目"
     }
   },
-  "bookmarks": [],
+  "bookmarks": [
+    {
+      "id": "bk_001",
+      "title": "Knee Rehab 影片",
+      "url": "https://www.instagram.com/reel/DVJlpunCnsw/",
+      "source": "instagram",
+      "sourceIcon": "📷",
+      "category": "health",
+      "subcategory": "膝蓋復健",
+      "tags": ["knee rehab", "復健", "膝蓋", "IG影片"],
+      "author": "",
+      "savedAt": "2026-02-25T04:05:00Z",
+      "note": "關於膝蓋復健有效的影片",
+      "thumbnail": "",
+      "hasVideo": false
+    }
+  ],
   "stats": {
-    "totalBookmarks": 0,
-    "totalByCategory": {},
-    "totalBySource": {}
+    "totalBookmarks": 1,
+    "totalByCategory": {
+      "health": 1
+    },
+    "totalBySource": {
+      "instagram": 1
+    }
   }
 }
