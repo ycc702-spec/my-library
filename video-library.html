@@ -616,7 +616,10 @@
             const player = document.getElementById('video-player');
             const details = document.getElementById('video-details');
             
-            player.src = ex.videoUrl;
+            // 使用絕對路徑
+            const videoPath = ex.videoUrl.startsWith('http') ? ex.videoUrl : './' + ex.videoUrl;
+            
+            player.src = videoPath;
             details.innerHTML = `
                 <h2>${ex.name} <span style="color:#888">${ex.nameZh}</span></h2>
                 <p style="color:#888; margin-top:8px;">${ex.description}</p>
@@ -626,7 +629,7 @@
             `;
             
             modal.classList.add('active');
-            player.play();
+            player.play().catch(e => console.error('播放失敗:', e));
         }
         
         // 關閉 Modal
