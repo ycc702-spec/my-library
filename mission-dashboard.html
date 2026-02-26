@@ -441,9 +441,14 @@
             },
             "2026-02-26": {
                 completed: [
-                    { title: "Mission Dashboard建立", tag: "system", url: "https://ycc702-spec.github.io/my-library/mission-dashboard.html" }
+                    { title: "Mission Dashboard 建立", tag: "system", url: "https://ycc702-spec.github.io/my-library/mission-dashboard.html" },
+                    { title: "Video Library 導航選單", tag: "system", url: "" },
+                    { title: "修正 library.json 語法錯誤", tag: "system", url: "" }
                 ],
-                inProgress: [],
+                inProgress: [
+                    { title: "My Library 書籤載入問題", tag: "system" },
+                    { title: "Video Library 影片顯示問題", tag: "system" }
+                ],
                 urls: ["https://ycc702-spec.github.io/my-library/mission-dashboard.html"]
             }
         };
@@ -581,7 +586,7 @@
             
             document.getElementById('total-completed').textContent = completed;
             document.getElementById('total-in-progress').textContent = inProgress;
-            document.getElementById('total-pending').textContent = '3'; // 固定待處理數
+            document.getElementById('total-pending').textContent = inProgress; // 待處理 = 進行中
         }
         
         // Initialize
