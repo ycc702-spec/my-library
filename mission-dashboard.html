@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Dashboard - 任務追蹤</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            min-height: 100vh;
+            color: #1e3a5f;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #00D4FF, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00D4FF;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Calendar Styles */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav button {
+            padding: 8px 16px;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .calendar-nav button:hover {
+            background: #e2e8f0;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            padding: 10px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            border-color: #00D4FF;
+            transform: scale(1.05);
+        }
+        
+        .calendar-day.empty {
+            background: transparent;
+            cursor: default;
+        }
+        
+        .calendar-day.empty:hover {
+            border-color: transparent;
+            transform: none;
+        }
+        
+        .calendar-day-number {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .calendar-day.completed {
+            background: linear-gradient(135deg, #00D4FF20, #00D4FF40);
+        }
+        
+        .calendar-day.completed::after {
+            content: '✓';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 12px;
+            color: #00D4FF;
+        }
+        
+        .calendar-day.in-progress {
+            background: linear-gradient(135deg, #F59E0B20, #F59E0B40);
+        }
+        
+        .calendar-day.in-progress::after {
+            content: '⋯';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 12px;
+            color: #F59E0B;
+        }
+        
+        /* Task List Styles */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .task-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid #00D4FF;
+            transition: all 0.3s;
+        }
+        
+        .task-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .task-item.in-progress {
+            border-left-color: #F59E0B;
+        }
+        
+        .task-item.pending {
+            border-left-color: #6B7280;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .task-meta {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .task-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .task-tag.jumpproof {
+            background: #00D4FF20;
+            color: #00D4FF;
+        }
+        
+        .task-tag.my-library {
+            background: #A855F720;
+            color: #A855F7;
+        }
+        
+        .task-tag.system {
+            background: #22C55E20;
+            color: #22C55E;
+        }
+        
+        /* Day Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .completed-task {
+            background: #f0fdf4;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid #22C55E;
+        }
+        
+        .completed-task-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .completed-task-url {
+            font-size: 12px;
+            color: #00D4FF;
+            word-break: break-all;
+        }
+        
+        .completed-task-url:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🎯</div>
+                <h1>Mission Dashboard</h1>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-completed">0</div>
+                    <div class="stat-label">已完成</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-in-progress">0</div>
+                    <div class="stat-label">進行中</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-pending">0</div>
+                    <div class="stat-label">待處理</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Calendar Section -->
+        <div class="section">
+            <div class="section-title">📅 任務日曆</div>
+            <div class="calendar-header">
+                <h3 id="current-month">2026年2月</h3>
+                <div class="calendar-nav">
+                    <button onclick="changeMonth(-1)">◀ 上月</button>
+                    <button onclick="changeMonth(1)">下月 ▶</button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendar">
+                <!-- Calendar generated by JS -->
+            </div>
+        </div>
+        
+        <!-- In Progress Section -->
+        <div class="section">
+            <div class="section-title">⏳ 進行中</div>
+            <div class="task-list" id="in-progress-list">
+                <!-- In progress tasks generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Day Detail Modal -->
+    <div class="modal" id="day-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-date">2026-02-23</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div id="modal-tasks">
+                <!-- Tasks for selected day -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 任務資料庫
+        const tasks = {
+            "2026-02-23": {
+                completed: [
+                    { title: "KneeStrong App Phase 1-4", tag: "jumpproof", url: "https://dist-tan-nu-31.vercel.app" },
+                    { title: "Prisma + SQLite 後端設定", tag: "jumpproof", url: "" },
+                    { title: "API 路由與認證", tag: "jumpproof", url: "" },
+                    { title: "JumpProof App Samsung Z Flip 5 優化", tag: "jumpproof", url: "https://ycc702-spec.github.io/jumpproof-app/" },
+                    { title: "Video Library 14部影片", tag: "jumpproof", url: "" },
+                    { title: "Training Library & Calendar 頁面", tag: "jumpproof", url: "" }
+                ],
+                inProgress: [],
+                urls: ["https://dist-tan-nu-31.vercel.app", "https://ycc702-spec.github.io/jumpproof-app/"]
+            },
+            "2026-02-24": {
+                completed: [
+                    { title: "Nicolas Young 15部影片字幕提取", tag: "system", url: "https://github.com/ycc702-spec/nicolas-young-transcript" },
+                    { title: "每日新聞摘要自動化", tag: "system", url: "" }
+                ],
+                inProgress: [],
+                urls: ["https://github.com/ycc702-spec/nicolas-young-transcript"]
+            },
+            "2026-02-25": {
+                completed: [
+                    { title: "My Library 淡藍色主題", tag: "my-library", url: "https://ycc702-spec.github.io/my-library/" },
+                    { title: "Video Library 淡藍色主題", tag: "my-library", url: "https://ycc702-spec.github.io/my-library/video-library.html" },
+                    { title: "加入IG Knee Rehab影片書籤", tag: "my-library", url: "" },
+                    { title: "Gemini API設定", tag: "system", url: "" },
+                    { title: "加入天下雜誌理財文章", tag: "my-library", url: "" },
+                    { title: "Video Library 6部復健影片", tag: "my-library", url: "" }
+                ],
+                inProgress: [
+                    { title: "memory_search修復", tag: "system" },
+                    { title: "Mission Dashboard建立", tag: "system" }
+                ],
+                urls: ["https://ycc702-spec.github.io/my-library/", "https://ycc702-spec.github.io/my-library/video-library.html"]
+            },
+            "2026-02-26": {
+                completed: [],
+                inProgress: [
+                    { title: "Mission Dashboard建立", tag: "system" }
+                ],
+                urls: []
+            }
+        };
+        
+        let currentDate = new Date(2026, 1, 1); // Feb 2026
+        
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('current-month').textContent = 
+                `${year}年${month + 1}月`;
+            
+            // Day headers
+            const days = ['日', '一', '二', '三', '四', '五', '六'];
+            calendar.innerHTML = days.map(d => 
+                `<div class="calendar-day-header">${d}</div>`
+            ).join('');
+            
+            // Get first day and days in month
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Empty cells
+            for (let i = 0; i < firstDay; i++) {
+                calendar.innerHTML += `<div class="calendar-day empty"></div>`;
+            }
+            
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayTasks = tasks[dateStr];
+                
+                let statusClass = '';
+                if (dayTasks) {
+                    if (dayTasks.completed.length > 0) statusClass = 'completed';
+                    else if (dayTasks.inProgress.length > 0) statusClass = 'in-progress';
+                }
+                
+                calendar.innerHTML += `
+                    <div class="calendar-day ${statusClass}" onclick="openDayModal('${dateStr}')">
+                        <div class="calendar-day-number">${day}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+        
+        function openDayModal(date) {
+            const modal = document.getElementById('day-modal');
+            const modalDate = document.getElementById('modal-date');
+            const modalTasks = document.getElementById('modal-tasks');
+            
+            modalDate.textContent = date;
+            
+            const dayTasks = tasks[date] || { completed: [], inProgress: [] };
+            
+            let html = '';
+            
+            if (dayTasks.completed.length > 0) {
+                html += '<h4 style="margin-bottom: 12px; color: #22C55E;">✅ 已完成</h4>';
+                dayTasks.completed.forEach(task => {
+                    html += `
+                        <div class="completed-task">
+                            <div class="completed-task-title">${task.title}</div>
+                            <span class="task-tag ${task.tag}">${task.tag}</span>
+                            ${task.url ? `<div class="completed-task-url" onclick="window.open('${task.url}', '_blank')">${task.url}</div>` : ''}
+                        </div>
+                    `;
+                });
+            }
+            
+            if (dayTasks.inProgress.length > 0) {
+                html += '<h4 style="margin: 20px 0 12px; color: #F59E0B;">⏳ 進行中</h4>';
+                dayTasks.inProgress.forEach(task => {
+                    html += `
+                        <div class="completed-task" style="border-left-color: #F59E0B; background: #fffbeb;">
+                            <div class="completed-task-title">${task.title}</div>
+                            <span class="task-tag ${task.tag}">${task.tag}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (dayTasks.completed.length === 0 && dayTasks.inProgress.length === 0) {
+                html = '<p style="color: #666; text-align: center;">這天沒有任務記錄</p>';
+            }
+            
+            modalTasks.innerHTML = html;
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('day-modal').classList.remove('active');
+        }
+        
+        function renderInProgress() {
+            const list = document.getElementById('in-progress-list');
+            const inProgressTasks = [];
+            
+            Object.entries(tasks).forEach(([date, dayTasks]) => {
+                dayTasks.inProgress.forEach(task => {
+                    inProgressTasks.push({ ...task, date });
+                });
+            });
+            
+            if (inProgressTasks.length === 0) {
+                list.innerHTML = '<p style="color: #666; text-align: center;">目前沒有進行中的任務</p>';
+                return;
+            }
+            
+            list.innerHTML = inProgressTasks.map(task => `
+                <div class="task-item in-progress">
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-meta">
+                        <span class="task-tag ${task.tag}">${task.tag}</span>
+                        <span>📅 ${task.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStats() {
+            let completed = 0, inProgress = 0;
+            
+            Object.values(tasks).forEach(dayTasks => {
+                completed += dayTasks.completed.length;
+                inProgress += dayTasks.inProgress.length;
+            });
+            
+            document.getElementById('total-completed').textContent = completed;
+            document.getElementById('total-in-progress').textContent = inProgress;
+            document.getElementById('total-pending').textContent = '3'; // 固定待處理數
+        }
+        
+        // Initialize
+        renderCalendar();
+        renderInProgress();
+        updateStats();
+        
+        // Close modal on outside click
+        document.getElementById('day-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+</html>
