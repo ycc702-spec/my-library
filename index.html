@@ -322,43 +322,40 @@
     </div>
     
     <script>
-        let libraryData = null;
+        let libraryData = {
+  "version": "1.0",
+  "appName": "My Library",
+  "description": "個人書籤管理系統 - 儲存各種有用連結",
+  "lastUpdated": "2026-02-26T04:00:00Z",
+  "categories": {
+    "food": {"id": "food", "name": "美食", "nameEn": "Food", "icon": "🍽️", "color": "#F59E0B", "subcategories": ["寵物友善餐廳", "好吃餐廳", "咖啡廳", "小吃", "甜點"], "description": "好吃的餐廳、咖啡廳、寵物友善餐廳"},
+    "travel": {"id": "travel", "name": "旅遊", "nameEn": "Travel", "icon": "✈️", "color": "#3B82F6", "subcategories": ["景點", "住宿", "行程規劃", "交通"], "description": "旅遊景點、住宿推薦、行程規劃"},
+    "health": {"id": "health", "name": "健康", "nameEn": "Health", "icon": "💪", "color": "#22C55E", "subcategories": ["膝蓋復健", "健身", "醫療", "營養"], "description": "復健運動、健身知識、醫療資訊"},
+    "finance": {"id": "finance", "name": "財經", "nameEn": "Finance", "icon": "💰", "color": "#10B981", "subcategories": ["投資", "股票", "加密貨幣", "理財"], "description": "投資分析、股票研究、理財知識"},
+    "news": {"id": "news", "name": "新聞", "nameEn": "News", "icon": "📰", "color": "#6366F1", "subcategories": ["科技", "國際", "財經", "體育", "政治"], "description": "重要新聞、科技趨勢、國際大事"},
+    "pets": {"id": "pets", "name": "寵物", "nameEn": "Pets", "icon": "🐕", "color": "#F97316", "subcategories": ["寵物友善", "寵物用品", "寵物知識", "獸醫"], "description": "寵物友善場所、用品推薦、照護知識"},
+    "basketball": {"id": "basketball", "name": "籃球", "nameEn": "Basketball", "icon": "🏀", "color": "#EF4444", "subcategories": ["訓練", "技巧", "裝備", "比賽", "球員"], "description": "籃球訓練、技巧教學、比賽資訊"},
+    "shopping": {"id": "shopping", "name": "購物", "nameEn": "Shopping", "icon": "🛍️", "color": "#EC4899", "subcategories": ["好物推薦", "優惠", "開箱", "比價"], "description": "好物推薦、優惠資訊、開箱評測"},
+    "other": {"id": "other", "name": "其他", "nameEn": "Other", "icon": "📌", "color": "#6B7280", "subcategories": ["待分類"], "description": "其他待分類項目"}
+  },
+  "bookmarks": [
+    {"id": "bk_001", "title": "Knee Rehab 影片", "url": "https://www.instagram.com/reel/DVJlpunCnsw/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["knee rehab", "復健", "膝蓋", "IG影片"], "author": "", "savedAt": "2026-02-25T04:05:00Z", "note": "關於膝蓋復健有效的影片", "thumbnail": "", "hasVideo": false},
+    {"id": "bk_002", "title": "膝蓋強化運動 - 保護關節減少疼痛", "url": "https://www.instagram.com/p/DVCLGlPkUmi/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["Jumper's Knee", "Patellar Tendonitis", "膝蓋強化", "復健", "IG影片"], "author": "@activefitnessig", "savedAt": "2026-02-25T12:47:00Z", "note": "高讚數(2,678)膝蓋強化運動，適合 Jumper's Knee 復健", "thumbnail": "", "hasVideo": true},
+    {"id": "bk_003", "title": "膝蓋強化訓練 - 保護關節", "url": "https://www.instagram.com/p/DVHBlDGiIpW/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["Jumper's Knee", "膝蓋強化", "關節保護", "復健"], "author": "@womenfitnes_", "savedAt": "2026-02-25T12:47:00Z", "note": "206讚，膝蓋強化訓練動作", "thumbnail": "", "hasVideo": true},
+    {"id": "bk_004", "title": "4個復健動作 - 重建力量", "url": "https://www.instagram.com/p/DVJPlI9jAWm/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["Jumper's Knee", "復健", "力量重建", "運動治療"], "author": "@a.a_sportstherapy", "savedAt": "2026-02-25T12:47:00Z", "note": "4個關鍵復健動作，適合復健階段", "thumbnail": "", "hasVideo": true},
+    {"id": "bk_005", "title": "啞登階訓練 - 建立股四頭肌力量", "url": "https://www.instagram.com/p/DVE39z3Ed9N/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["Jumper's Knee", "股四頭肌", "登階訓練", "力量訓練"], "author": "@rehabrebuilt.drcoop", "savedAt": "2026-02-25T12:47:00Z", "note": "DB step up 訓練，建立跑步所需的股四頭肌力量，對 Jumper's Knee 很重要", "thumbnail": "", "hasVideo": true},
+    {"id": "bk_006", "title": "天下雜誌 - 理財專欄文章", "url": "https://www.cw.com.tw/article/5139869", "source": "website", "sourceIcon": "📰", "category": "finance", "subcategory": "理財", "tags": ["理財", "投資", "天下雜誌", "財經"], "author": "天下雜誌", "savedAt": "2026-02-25T12:55:00Z", "note": "理財相關文章", "thumbnail": "", "hasVideo": false},
+    {"id": "bk_007", "title": "Instagram Reel", "url": "https://www.instagram.com/reel/DVEUOkQEQrw/", "source": "instagram", "sourceIcon": "📷", "category": "health", "subcategory": "膝蓋復健", "tags": ["knee rehab", "Jumper's Knee", "復健", "IG Reel"], "author": "", "savedAt": "2026-02-26T04:00:00Z", "note": "膝蓋復健相關影片", "thumbnail": "", "hasVideo": true}
+  ],
+  "stats": {"totalBookmarks": 7, "totalByCategory": {"health": 6, "finance": 1}, "totalBySource": {"instagram": 6, "website": 1}}
+};
         let currentFilter = 'all';
         
-        // 載入資料
-        async function loadLibrary() {
-            try {
-                console.log('開始載入 library.json...');
-                const response = await fetch('library.json?t=' + Date.now());
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const text = await response.text();
-                console.log('Raw response:', text.substring(0, 200));
-                
-                try {
-                    libraryData = JSON.parse(text);
-                } catch (parseError) {
-                    console.error('JSON parse error:', parseError);
-                    throw new Error('JSON 解析失敗: ' + parseError.message);
-                }
-                
-                console.log('載入成功:', libraryData);
-                console.log('書籤數量:', libraryData.bookmarks ? libraryData.bookmarks.length : 0);
-                renderCategories();
-                renderBookmarks();
-            } catch (error) {
-                console.error('載入失敗:', error);
-                document.getElementById('bookmarks-list').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <p>載入失敗: ${error.message}</p>
-                        <p style="font-size: 12px; color: #999; margin-top: 8px;">請檢查 console 獲取詳細資訊</p>
-                    </div>
-                `;
-            }
+        // 初始化
+        function init() {
+            console.log('直接使用內嵌資料，書籤數量:', libraryData.bookmarks.length);
+            renderCategories();
+            renderBookmarks();
         }
         
         // 渲染分類
@@ -461,7 +458,7 @@
         document.getElementById('search-input').addEventListener('input', renderBookmarks);
         
         // 初始化
-        loadLibrary();
+        init();
     </script>
 </body>
 </html>
