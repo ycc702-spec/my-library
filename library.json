@@ -176,16 +176,30 @@
       "note": "理財相關文章",
       "thumbnail": "",
       "hasVideo": false
+    {
+      "id": "bk_007",
+      "title": "Instagram Reel",
+      "url": "https://www.instagram.com/reel/DVEUOkQEQrw/",
+      "source": "instagram",
+      "sourceIcon": "📷",
+      "category": "health",
+      "subcategory": "膝蓋復健",
+      "tags": ["knee rehab", "Jumper's Knee", "復健", "IG Reel"],
+      "author": "",
+      "savedAt": "2026-02-26T04:00:00Z",
+      "note": "膝蓋復健相關影片",
+      "thumbnail": "",
+      "hasVideo": true
     }
   ],
   "stats": {
-    "totalBookmarks": 6,
+    "totalBookmarks": 7,
     "totalByCategory": {
-      "health": 5,
+      "health": 6,
       "finance": 1
     },
     "totalBySource": {
-      "instagram": 5,
+      "instagram": 6,
       "website": 1
     }
   }
