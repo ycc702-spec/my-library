@@ -355,6 +355,7 @@
         // 初始化
         function init() {
             console.log('直接使用內嵌資料，書籤數量:', libraryData.bookmarks.length);
+            document.getElementById('total-bookmarks').textContent = libraryData.bookmarks.length;
             renderCategories();
             renderBookmarks();
         }
