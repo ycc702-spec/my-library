@@ -256,21 +256,21 @@
         "Video Library 14部影片",
         "Training Library & Calendar 頁面"
       ],
-      "in_progress": [],
       "urls": [
         "https://dist-tan-nu-31.vercel.app",
         "https://ycc702-spec.github.io/jumpproof-app/"
-      ]
+      ],
+      "inProgress": []
     },
     "2026-02-24": {
       "completed": [
         "Nicolas Young 15部影片字幕提取",
         "每日新聞摘要自動化"
       ],
-      "in_progress": [],
       "urls": [
         "https://github.com/ycc702-spec/nicolas-young-transcript"
-      ]
+      ],
+      "inProgress": []
     },
     "2026-02-25": {
       "completed": [
@@ -281,11 +281,11 @@
         "加入天下雜誌理財文章",
         "Video Library 6部復健影片"
       ],
-      "in_progress": [],
       "urls": [
         "https://ycc702-spec.github.io/my-library/",
         "https://ycc702-spec.github.io/my-library/video-library.html"
-      ]
+      ],
+      "inProgress": []
     },
     "2026-02-26": {
       "completed": [
@@ -293,12 +293,12 @@
         "Video Library 導航選單",
         "修正 library.json 語法錯誤"
       ],
-      "in_progress": [
-        "My Library 書籤載入問題",
-        "Video Library 影片顯示問題"
-      ],
       "urls": [
         "https://ycc702-spec.github.io/my-library/mission-dashboard.html"
+      ],
+      "inProgress": [
+        "My Library 書籤載入問題",
+        "Video Library 影片顯示問題"
       ]
     },
     "2026-02-27": {
@@ -306,11 +306,11 @@
         "每日新聞摘要更新 (AI/國際/Trump/緯創)",
         "Mission Control 狀態更新"
       ],
-      "in_progress": [
+      "urls": [],
+      "inProgress": [
         "My Library 書籤載入問題",
         "Video Library 影片顯示問題"
-      ],
-      "urls": []
+      ]
     },
     "2026-02-28": {
       "completed": [
@@ -320,10 +320,10 @@
         "Nicolas Young 內容一致性修復",
         "Mission Board 自動化"
       ],
-      "in_progress": [
+      "urls": [],
+      "inProgress": [
         "Alex Finn 持續追蹤"
-      ],
-      "urls": []
+      ]
     }
   }
 }
