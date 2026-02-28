@@ -1,0 +1,170 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-28T16:30:00Z",
+  "stats": {
+    "total_completed": 45,
+    "total_in_progress": 8,
+    "total_pending": 3
+  },
+  "missions": [
+    {
+      "id": "m001",
+      "title": "Nicolas Young 分析系統",
+      "description": "自動追蹤、分析 Nicolas Young YouTube 頻道",
+      "status": "completed",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-02-24",
+      "completed_date": "2026-02-28",
+      "urls": [
+        "https://ycc702-spec.github.io/nicolas-young-analysis/"
+      ],
+      "tasks": [
+        {"title": "16部影片字幕提取", "status": "completed"},
+        {"title": "AI分析與技巧提取", "status": "completed"},
+        {"title": "自動更新系統", "status": "completed"},
+        {"title": "內容一致性檢查", "status": "completed"}
+      ]
+    },
+    {
+      "id": "m002", 
+      "title": "Jumper's Knee IG 影片收集",
+      "description": "自動收集 Instagram 復健影片",
+      "status": "completed",
+      "category": "jumpproof",
+      "priority": "high",
+      "created_date": "2026-02-28",
+      "completed_date": "2026-02-28",
+      "urls": [],
+      "tasks": [
+        {"title": "建立收集器", "status": "completed"},
+        {"title": "專家評估系統", "status": "completed"},
+        {"title": "自動下載與分類", "status": "completed"},
+        {"title": "整合 Video Library", "status": "completed"}
+      ]
+    },
+    {
+      "id": "m003",
+      "title": "LanceDB 記憶系統",
+      "description": "建立長期記憶儲存系統",
+      "status": "completed",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-02-28",
+      "completed_date": "2026-02-28",
+      "urls": [],
+      "tasks": [
+        {"title": "安裝 LanceDB", "status": "completed"},
+        {"title": "建立記憶模組", "status": "completed"},
+        {"title": "多 scope 隔離", "status": "completed"},
+        {"title": "整合 daily_diagnostic", "status": "completed"}
+      ]
+    },
+    {
+      "id": "m004",
+      "title": "系統優化 (通知/錯誤處理/日誌)",
+      "description": "統一通知、API錯誤處理、日誌輪轉",
+      "status": "completed",
+      "category": "system",
+      "priority": "medium",
+      "created_date": "2026-02-28",
+      "completed_date": "2026-02-28",
+      "urls": [],
+      "tasks": [
+        {"title": "統一通知系統", "status": "completed"},
+        {"title": "API錯誤處理與重試", "status": "completed"},
+        {"title": "日誌輪轉系統", "status": "completed"}
+      ]
+    },
+    {
+      "id": "m005",
+      "title": "Mission Board 自動化",
+      "description": "讓 Mission Board 自動從 missions.json 更新",
+      "status": "in_progress",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-02-28",
+      "completed_date": null,
+      "urls": [
+        "https://ycc702-spec.github.io/my-library/mission-dashboard.html"
+      ],
+      "tasks": [
+        {"title": "建立 missions.json", "status": "completed"},
+        {"title": "更新 Mission Board 讀取 JSON", "status": "in_progress"},
+        {"title": "建立任務回報 API", "status": "pending"}
+      ]
+    },
+    {
+      "id": "m006",
+      "title": "Alex Finn MoltBot 學習",
+      "description": "追蹤 Alex Finn 學習 MoltBot/OpenClaw 技巧",
+      "status": "in_progress",
+      "category": "system",
+      "priority": "medium",
+      "created_date": "2026-02-24",
+      "completed_date": null,
+      "urls": [
+        "https://ycc702-spec.github.io/nicolas-young-analysis/alex.html"
+      ],
+      "tasks": [
+        {"title": "9部影片分析", "status": "completed"},
+        {"title": "34個技巧提取", "status": "completed"},
+        {"title": "自動更新系統", "status": "completed"},
+        {"title": "持續追蹤新影片", "status": "in_progress"}
+      ]
+    },
+    {
+      "id": "m007",
+      "title": "JumpProof App 開發",
+      "description": "膝蓋復健訓練 App",
+      "status": "in_progress",
+      "category": "jumpproof",
+      "priority": "high",
+      "created_date": "2026-02-23",
+      "completed_date": null,
+      "urls": [
+        "https://ycc702-spec.github.io/jumpproof-app/"
+      ],
+      "tasks": [
+        {"title": "MVP Phase 1-4", "status": "completed"},
+        {"title": "Video Library", "status": "completed"},
+        {"title": "Training Library", "status": "completed"},
+        {"title": "IG影片整合", "status": "in_progress"},
+        {"title": "後端API", "status": "pending"}
+      ]
+    },
+    {
+      "id": "m008",
+      "title": "My Library 維護",
+      "description": "書籤與影片管理系統",
+      "status": "in_progress",
+      "category": "my-library",
+      "priority": "medium",
+      "created_date": "2026-02-25",
+      "completed_date": null,
+      "urls": [
+        "https://ycc702-spec.github.io/my-library/"
+      ],
+      "tasks": [
+        {"title": "淡藍色主題", "status": "completed"},
+        {"title": "17個書籤", "status": "completed"},
+        {"title": "Video Library", "status": "completed"},
+        {"title": "自動更新機制", "status": "in_progress"}
+      ]
+    }
+  ],
+  "daily_logs": {
+    "2026-02-28": {
+      "completed": [
+        "Jumper's Knee IG 影片收集系統",
+        "LanceDB 記憶系統實作",
+        "系統優化 (通知/錯誤處理/日誌)",
+        "Nicolas Young 內容一致性修復"
+      ],
+      "in_progress": [
+        "Mission Board 自動化",
+        "Alex Finn 持續追蹤"
+      ]
+    }
+  }
+}
