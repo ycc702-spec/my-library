@@ -1,0 +1,47 @@
+{
+  "iso_quad": {
+    "type": "youtube",
+    "id": "XFn0Xx8G8bE",
+    "url": "https://www.youtube-nocookie.com/embed/XFn0Xx8G8bE?playsinline=1&rel=0"
+  },
+  "straight_leg": {
+    "type": "youtube",
+    "id": "gufWE2M6L0Q",
+    "url": "https://www.youtube-nocookie.com/embed/gufWE2M6L0Q?playsinline=1&rel=0"
+  },
+  "wall_sit": {
+    "type": "youtube",
+    "id": "y-wV4V3wYpk",
+    "url": "https://www.youtube-nocookie.com/embed/y-wV4V3wYpk?playsinline=1&rel=0"
+  },
+  "decline_squat": {
+    "type": "youtube",
+    "id": "h2i8fF2g8c0",
+    "url": "https://www.youtube-nocookie.com/embed/h2i8fF2g8c0?playsinline=1&rel=0"
+  },
+  "step_down": {
+    "type": "youtube",
+    "id": "J9gIFU7iBxE",
+    "url": "https://www.youtube-nocookie.com/embed/J9gIFU7iBxE?playsinline=1&rel=0"
+  },
+  "leg_extension": {
+    "type": "youtube",
+    "id": "YFv8DZx8YvY",
+    "url": "https://www.youtube-nocookie.com/embed/YFv8DZx8YvY?playsinline=1&rel=0"
+  },
+  "single_leg_squat": {
+    "type": "youtube",
+    "id": "Icb6F5Xj5Ww",
+    "url": "https://www.youtube-nocookie.com/embed/Icb6F5Xj5Ww?playsinline=1&rel=0"
+  },
+  "jump_landing": {
+    "type": "youtube",
+    "id": "h2i8fF2g8c0",
+    "url": "https://www.youtube-nocookie.com/embed/h2i8fF2g8c0?playsinline=1&rel=0"
+  },
+  "lateral_hop": {
+    "type": "youtube",
+    "id": "J9gIFU7iBxE",
+    "url": "https://www.youtube-nocookie.com/embed/J9gIFU7iBxE?playsinline=1&rel=0"
+  }
+}
