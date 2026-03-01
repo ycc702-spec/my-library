@@ -3,10 +3,47 @@
   "last_updated": "2026-02-28T16:30:00Z",
   "stats": {
     "total_completed": 45,
-    "total_in_progress": 8,
+    "total_in_progress": 9,
     "total_pending": 3
   },
   "missions": [
+    {
+      "id": "m000",
+      "title": "早安通勤語音播報",
+      "description": "週一至週五早上 7:00 和 7:20 自動發送語音，報告天氣和通勤路況",
+      "status": "in_progress",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-02-28",
+      "completed_date": null,
+      "urls": [],
+      "tasks": [
+        {
+          "title": "7:00 基礎通勤語音 (gTTS)",
+          "status": "completed"
+        },
+        {
+          "title": "7:20 智慧版天氣+通勤 (Emma 聲音)",
+          "status": "completed"
+        },
+        {
+          "title": "週二三四：太太 → 美國運通",
+          "status": "completed"
+        },
+        {
+          "title": "週一五：我 → 緯創資通汐止",
+          "status": "completed"
+        },
+        {
+          "title": "Open-Meteo 天氣 API",
+          "status": "completed"
+        },
+        {
+          "title": "Google Maps 路況 API",
+          "status": "completed"
+        }
+      ]
+    },
     {
       "id": "m001",
       "title": "Nicolas Young 分析系統",
