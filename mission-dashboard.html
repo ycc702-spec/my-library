@@ -424,6 +424,14 @@
     </div>
     
     <div class="container">
+        <!-- Missions Section (All Tasks) -->
+        <div class="section">
+            <div class="section-title">🎯 所有任務</div>
+            <div id="missions-list" style="display: grid; gap: 16px;">
+                <!-- Missions loaded from missions.json -->
+            </div>
+        </div>
+        
         <!-- Calendar Section -->
         <div class="section">
             <div class="section-title">📅 任務日曆</div>
@@ -636,6 +644,135 @@
         renderCalendar();
         renderInProgress();
         updateStats();
+        loadMissions();
+        
+        // Load missions from missions.json
+        async function loadMissions() {
+            try {
+                const response = await fetch('missions.json?t=' + Date.now());
+                const data = await response.json();
+                renderMissions(data.missions);
+                updateStatsFromMissions(data.stats);
+            } catch (error) {
+                console.error('Failed to load missions:', error);
+                document.getElementById('missions-list').innerHTML = '<p style="color: #666; text-align: center;">載入任務失敗，請刷新重試</p>';
+            }
+        }
+        
+        function renderMissions(missions) {
+            const list = document.getElementById('missions-list');
+            if (!missions || missions.length === 0) {
+                list.innerHTML = '<p style="color: #666; text-align: center;">暫無任務</p>';
+                return;
+            }
+            
+            const statusColors = {
+                'completed': '#22C55E',
+                'in_progress': '#F59E0B',
+                'pending': '#6B7280'
+            };
+            
+            const statusLabels = {
+                'completed': '✅ 已完成',
+                'in_progress': '⏳ 進行中',
+                'pending': '📋 待處理'
+            };
+            
+            const categoryColors = {
+                'system': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'jumpproof': 'linear-gradient(135deg, #00D4FF 0%, #00B4D8 100%)',
+                'my-library': 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)'
+            };
+            
+            list.innerHTML = missions.map(mission => `
+                <div class="mission-card" style="
+                    background: white;
+                    border-radius: 16px;
+                    padding: 20px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                    border-left: 4px solid ${statusColors[mission.status] || '#6B7280'};
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span style="
+                                display: inline-block;
+                                padding: 4px 12px;
+                                border-radius: 20px;
+                                font-size: 11px;
+                                font-weight: 600;
+                                color: white;
+                                background: ${categoryColors[mission.category] || '#6B7280'};
+                                margin-bottom: 8px;
+                            ">${mission.category}</span>
+                            <h3 style="font-size: 18px; font-weight: 700; color: #1e3a5f; margin-bottom: 4px;">${mission.title}</h3>
+                            <p style="color: #64748b; font-size: 14px;">${mission.description}</p>
+                        </div>
+                        <span style="
+                            padding: 6px 12px;
+                            border-radius: 20px;
+                            font-size: 12px;
+                            font-weight: 600;
+                            background: ${mission.status === 'completed' ? '#dcfce7' : mission.status === 'in_progress' ? '#fef3c7' : '#f3f4f6'};
+                            color: ${statusColors[mission.status] || '#6B7280'};
+                        ">${statusLabels[mission.status] || mission.status}</span>
+                    </div>
+                    
+                    ${mission.urls && mission.urls.length > 0 ? `
+                        <div style="margin-bottom: 12px;">
+                            ${mission.urls.map(url => `
+                                <a href="${url}" target="_blank" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 4px;
+                                    padding: 6px 12px;
+                                    background: #e0f2fe;
+                                    color: #0284c7;
+                                    border-radius: 8px;
+                                    font-size: 12px;
+                                    text-decoration: none;
+                                    margin-right: 8px;
+                                    margin-bottom: 4px;
+                                ">🔗 查看網站</a>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-top: 12px;">
+                        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 8px;">任務進度:</p>
+                        ${mission.tasks.map(task => `
+                            <div style="
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                padding: 8px 12px;
+                                background: ${task.status === 'completed' ? '#f0fdf4' : '#f8fafc'};
+                                border-radius: 8px;
+                                margin-bottom: 6px;
+                                font-size: 13px;
+                            ">
+                                <span style="color: ${task.status === 'completed' ? '#22C55E' : '#94a3b8'};">
+                                    ${task.status === 'completed' ? '✓' : '○'}
+                                </span>
+                                <span style="${task.status === 'completed' ? 'text-decoration: line-through; color: #94a3b8;' : 'color: #334155;'}">${task.title}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; font-size: 12px; color: #94a3b8;">
+                        創建: ${mission.created_date} | 
+                        ${mission.completed_date ? `完成: ${mission.completed_date}` : '進行中'}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStatsFromMissions(stats) {
+            if (stats) {
+                document.getElementById('total-completed').textContent = stats.total_completed || 0;
+                document.getElementById('total-in-progress').textContent = stats.total_in_progress || 0;
+                document.getElementById('total-pending').textContent = stats.total_pending || 0;
+            }
+        }
         
         // Close modal on outside click
         document.getElementById('day-modal').addEventListener('click', function(e) {
