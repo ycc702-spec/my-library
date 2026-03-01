@@ -3,7 +3,7 @@
   "last_updated": "2026-02-28T16:30:00Z",
   "stats": {
     "total_completed": 45,
-    "total_in_progress": 14,
+    "total_in_progress": 13,
     "total_pending": 3
   },
   "missions": [
@@ -12,7 +12,7 @@
       "title": "早安通勤語音播報",
       "description": "週一至週五早上 7:00 和 7:20 自動發送語音，報告天氣和通勤路況",
       "status": "in_progress",
-      "category": "system",
+      "category": "cron",
       "priority": "high",
       "created_date": "2026-02-28",
       "completed_date": null,
@@ -40,39 +40,6 @@
         },
         {
           "title": "Google Maps 路況 API",
-          "status": "completed"
-        }
-      ]
-    },
-    {
-      "id": "m009",
-      "title": "每日新聞摘要 (AI/國際/Trump/緯創)",
-      "description": "每天 00:00、08:00、16:00 自動搜尋並摘要最新新聞",
-      "status": "in_progress",
-      "category": "cron",
-      "priority": "high",
-      "created_date": "2026-02-20",
-      "completed_date": null,
-      "urls": [],
-      "tasks": [
-        {
-          "title": "AI/LLM 新聞 (10則)",
-          "status": "completed"
-        },
-        {
-          "title": "國際新聞 (10則)",
-          "status": "completed"
-        },
-        {
-          "title": "Trump 新聞 (5則)",
-          "status": "completed"
-        },
-        {
-          "title": "緯創新聞 (5則)",
-          "status": "completed"
-        },
-        {
-          "title": "自動去重機制",
           "status": "completed"
         }
       ]
