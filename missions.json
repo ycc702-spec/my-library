@@ -2,7 +2,7 @@
   "version": "1.0",
   "last_updated": "2026-02-28T16:30:00Z",
   "stats": {
-    "total_completed": 5,
+    "total_completed": 6,
     "total_in_progress": 13,
     "total_pending": 3
   },
@@ -545,6 +545,37 @@
         },
         {
           "title": "寫入長期記憶",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "m019",
+      "title": "建立 YouTube 字幕提取 Skill",
+      "description": "將成功流程標準化為可重複使用的 Skill",
+      "status": "completed",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-03-02",
+      "completed_date": "2026-03-02",
+      "urls": [
+        "/root/.openclaw/workspace/skills/youtube-transcript-extract/SKILL.md"
+      ],
+      "tasks": [
+        {
+          "title": "建立 Skill 檔案",
+          "status": "completed"
+        },
+        {
+          "title": "寫入長期記憶",
+          "status": "completed"
+        },
+        {
+          "title": "更新 RULES.md",
+          "status": "completed"
+        },
+        {
+          "title": "設定每日必讀",
           "status": "completed"
         }
       ]
