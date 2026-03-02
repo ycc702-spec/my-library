@@ -2,7 +2,7 @@
   "version": "1.0",
   "last_updated": "2026-02-28T16:30:00Z",
   "stats": {
-    "total_completed": 45,
+    "total_completed": 5,
     "total_in_progress": 13,
     "total_pending": 3
   },
@@ -511,6 +511,41 @@
         {
           "title": "自動更新機制",
           "status": "in_progress"
+        }
+      ]
+    },
+    {
+      "id": "m018",
+      "title": "OpenClaw 4 Phrase Memory 學習",
+      "description": "學習 YouTube 影片的 4 種記憶技巧並寫入長期記憶",
+      "status": "completed",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-03-02",
+      "completed_date": "2026-03-02",
+      "urls": [
+        "https://youtu.be/Nt03hgxv5TE"
+      ],
+      "tasks": [
+        {
+          "title": "提取影片字幕",
+          "status": "completed"
+        },
+        {
+          "title": "分析 4 種記憶方法",
+          "status": "completed"
+        },
+        {
+          "title": "建立 4 Phrase Memory",
+          "status": "completed"
+        },
+        {
+          "title": "寫入 RULES.md",
+          "status": "completed"
+        },
+        {
+          "title": "寫入長期記憶",
+          "status": "completed"
         }
       ]
     }
