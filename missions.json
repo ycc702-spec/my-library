@@ -2,7 +2,7 @@
   "version": "1.0",
   "last_updated": "2026-02-28T16:30:00Z",
   "stats": {
-    "total_completed": 6,
+    "total_completed": 7,
     "total_in_progress": 13,
     "total_pending": 3
   },
@@ -576,6 +576,40 @@
         },
         {
           "title": "設定每日必讀",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "m020",
+      "title": "4 Phrase Memory 系統優化",
+      "description": "用 4 Phrase 優化記憶系統：建立結構化資料夾、SQLite資料庫、更新USER.md",
+      "status": "completed",
+      "category": "system",
+      "priority": "high",
+      "created_date": "2026-03-02",
+      "completed_date": "2026-03-02",
+      "urls": [
+        "/root/.openclaw/workspace/goals.md",
+        "/root/.openclaw/workspace/decisions.md",
+        "/root/.openclaw/workspace/preferences.md",
+        "/root/.openclaw/workspace/USER.md"
+      ],
+      "tasks": [
+        {
+          "title": "Phrase 1: 建立 Structured Memory Folders",
+          "status": "completed"
+        },
+        {
+          "title": "Phrase 2: 確認 Memory Search 設定",
+          "status": "completed"
+        },
+        {
+          "title": "Phrase 3: 評估 Mem0 Plugin",
+          "status": "completed"
+        },
+        {
+          "title": "Phrase 4: 建立 SQLite Database",
           "status": "completed"
         }
       ]
