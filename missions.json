@@ -9,8 +9,8 @@
   "missions": [
     {
       "id": "m000",
-      "title": "早安通勤語音播報",
-      "description": "週一至週五早上 7:00 和 7:20 自動發送語音，報告天氣和通勤路況",
+      "title": "早安通勤語音播報 (07:20)",
+      "description": "週一至週五早上 7:20 自動發送 Emma 語音，報告天氣和通勤路況 (太太→美國運通/我→緯創)",
       "status": "in_progress",
       "category": "cron",
       "priority": "high",
@@ -18,10 +18,6 @@
       "completed_date": null,
       "urls": [],
       "tasks": [
-        {
-          "title": "7:00 基礎通勤語音 (gTTS)",
-          "status": "completed"
-        },
         {
           "title": "7:20 智慧版天氣+通勤 (Emma 聲音)",
           "status": "completed"
