@@ -612,6 +612,81 @@
             </div>
         </div>
         
+        <!-- Cron Job 排程區塊 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>⏰ 自動化排程任務 (Cron Jobs)</h2>
+                <span class="badge" style="background: #a855f7;">10 個運行中</span>
+            </div>
+            <div class="cron-grid" id="cron-jobs-list">
+                <!-- Cron jobs will be loaded dynamically -->
+            </div>
+        </div>
+        
+        <style>
+        .cron-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+        }
+        .cron-item {
+            background: #151520;
+            border: 1px solid #2a2a3e;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+        .cron-item:hover {
+            border-color: #a855f7;
+            background: #1a1a2e;
+        }
+        .cron-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .cron-icon.daily { background: rgba(0, 212, 255, 0.2); }
+        .cron-icon.news { background: rgba(34, 197, 94, 0.2); }
+        .cron-icon.ig { background: rgba(244, 114, 182, 0.2); }
+        .cron-icon.analysis { background: rgba(168, 85, 247, 0.2); }
+        .cron-icon.commute { background: rgba(251, 191, 36, 0.2); }
+        .cron-info { flex: 1; }
+        .cron-name {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .cron-schedule {
+            color: #a855f7;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 4px;
+        }
+        .cron-desc {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .cron-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+        .cron-status.enabled { color: #22c55e; }
+        .cron-status.disabled { color: #6b7280; }
+        </style>
+        
         <!-- 學習回饋區塊 -->
         <div class="learning-section">
             <div class="learning-header">
@@ -942,9 +1017,122 @@
             }
         }
         
+        // Cron Job 資料
+        const cronJobs = [
+            {
+                id: '9662a448',
+                name: '系統健康檢查',
+                schedule: '每天',
+                desc: '檢查 memory_search、TTS、GitHub Pages 狀態',
+                icon: '🔧',
+                type: 'daily',
+                enabled: true
+            },
+            {
+                id: '5cf7a8dd',
+                name: 'News Update - AI & International',
+                schedule: '00:00 / 08:00 / 16:00',
+                desc: 'AI新聞、國際新聞、Trump、Wistron 摘要',
+                icon: '📰',
+                type: 'news',
+                enabled: true
+            },
+            {
+                id: '299ffbde',
+                name: '早安天氣與通勤資訊',
+                schedule: '週一至週五 07:20',
+                desc: '智慧判斷通勤路線（緯創/美國運通）+ Emma 語音播報',
+                icon: '🌤️',
+                type: 'commute',
+                enabled: true
+            },
+            {
+                id: '3fc7b3c3',
+                name: 'IG 每日熱門貼文摘要',
+                schedule: '每天 08:00',
+                desc: 'AI新知、財經資訊、膝蓋復健 hashtag 追蹤',
+                icon: '📱',
+                type: 'ig',
+                enabled: true
+            },
+            {
+                id: 'a451c623',
+                name: '追蹤 wifevivi_ 財經貼文',
+                schedule: '每天 08:30',
+                desc: 'RapidAPI + Whisper + Gemini 分析財經內容',
+                icon: '💰',
+                type: 'ig',
+                enabled: true
+            },
+            {
+                id: '9c84e25a',
+                name: 'Daily Mission Control Update',
+                schedule: '每天 09:00',
+                desc: '發送任務狀態更新 + Mission Control 截圖',
+                icon: '🎯',
+                type: 'daily',
+                enabled: true
+            },
+            {
+                id: '92988ebd',
+                name: 'Nicolas Young 影片字幕提取',
+                schedule: '每3天 09:00',
+                desc: '使用 TranscriptAPI 提取播放清單影片字幕',
+                icon: '🎬',
+                type: 'analysis',
+                enabled: true
+            },
+            {
+                id: 'ac102c11',
+                name: 'SRBG HRBP Daily Intelligence',
+                schedule: '每天',
+                desc: '電子五哥、NVIDIA、Dell/HP 維修業務新聞監控',
+                icon: '🏢',
+                type: 'news',
+                enabled: true
+            },
+            {
+                id: '35445021',
+                name: '阿Prompt每日Skill研究',
+                schedule: '週三、六 21:00',
+                desc: '研究並推薦3個最有用的 OpenClaw trending skills',
+                icon: '🔍',
+                type: 'analysis',
+                enabled: true
+            },
+            {
+                id: 'ab191660',
+                name: 'Nicolas Young 頻道分析更新',
+                schedule: '週日 21:00',
+                desc: '檢查新影片、驗證預測準確度、更新分析資料庫',
+                icon: '📊',
+                type: 'analysis',
+                enabled: true
+            }
+        ];
+
+        function renderCronJobs() {
+            const container = document.getElementById('cron-jobs-list');
+            container.innerHTML = cronJobs.map(job => `
+                <div class="cron-item">
+                    <div class="cron-icon ${job.type}">${job.icon}</div>
+                    <div class="cron-info">
+                        <div class="cron-name">${job.name}</div>
+                        <div class="cron-schedule">⏰ ${job.schedule}</div>
+                        <div class="cron-desc">${job.desc}</div>
+                        <div class="cron-status ${job.enabled ? 'enabled' : 'disabled'}">
+                            <span class="status-dot ${job.enabled ? 'online' : 'idle'}"></span>
+                            <span>${job.enabled ? '運行中' : '已停用'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // 初始化
         render();
         renderLogs();
+        renderCronJobs();
         
         // Alex Finn Master Prompt 系統
         const MASTER_PROMPT_TEMPLATES = {
