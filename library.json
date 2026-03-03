@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "appName": "My Library",
+  "description": "個人書籤管理系統 - 儲存各種有用連結",
+  "lastUpdated": "2026-02-25T01:40:00Z",
+  "categories": {
+    "food": {
+      "id": "food",
+      "name": "美食",
+      "nameEn": "Food",
+      "icon": "🍽️",
+      "color": "#F59E0B",
+      "subcategories": ["寵物友善餐廳", "好吃餐廳", "咖啡廳", "小吃", "甜點"],
+      "description": "好吃的餐廳、咖啡廳、寵物友善餐廳"
+    },
+    "travel": {
+      "id": "travel",
+      "name": "旅遊",
+      "nameEn": "Travel",
+      "icon": "✈️",
+      "color": "#3B82F6",
+      "subcategories": ["景點", "住宿", "行程規劃", "交通"],
+      "description": "旅遊景點、住宿推薦、行程規劃"
+    },
+    "health": {
+      "id": "health",
+      "name": "健康",
+      "nameEn": "Health",
+      "icon": "💪",
+      "color": "#22C55E",
+      "subcategories": ["膝蓋復健", "健身", "醫療", "營養"],
+      "description": "復健運動、健身知識、醫療資訊"
+    },
+    "finance": {
+      "id": "finance",
+      "name": "財經",
+      "nameEn": "Finance",
+      "icon": "💰",
+      "color": "#10B981",
+      "subcategories": ["投資", "股票", "加密貨幣", "理財"],
+      "description": "投資分析、股票研究、理財知識"
+    },
+    "news": {
+      "id": "news",
+      "name": "新聞",
+      "nameEn": "News",
+      "icon": "📰",
+      "color": "#6366F1",
+      "subcategories": ["科技", "國際", "財經", "體育", "政治"],
+      "description": "重要新聞、科技趨勢、國際大事"
+    },
+    "pets": {
+      "id": "pets",
+      "name": "寵物",
+      "nameEn": "Pets",
+      "icon": "🐕",
+      "color": "#F97316",
+      "subcategories": ["寵物友善", "寵物用品", "寵物知識", "獸醫"],
+      "description": "寵物友善場所、用品推薦、照護知識"
+    },
+    "basketball": {
+      "id": "basketball",
+      "name": "籃球",
+      "nameEn": "Basketball",
+      "icon": "🏀",
+      "color": "#EF4444",
+      "subcategories": ["訓練", "技巧", "裝備", "比賽", "球員"],
+      "description": "籃球訓練、技巧教學、比賽資訊"
+    },
+    "shopping": {
+      "id": "shopping",
+      "name": "購物",
+      "nameEn": "Shopping",
+      "icon": "🛍️",
+      "color": "#EC4899",
+      "subcategories": ["好物推薦", "優惠", "開箱", "比價"],
+      "description": "好物推薦、優惠資訊、開箱評測"
+    },
+    "other": {
+      "id": "other",
+      "name": "其他",
+      "nameEn": "Other",
+      "icon": "📌",
+      "color": "#6B7280",
+      "subcategories": ["待分類"],
+      "description": "其他待分類項目"
+    }
+  },
+  "bookmarks": [],
+  "stats": {
+    "totalBookmarks": 0,
+    "totalByCategory": {},
+    "totalBySource": {}
+  }
+}
