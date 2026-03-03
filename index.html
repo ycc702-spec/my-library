@@ -92,18 +92,22 @@
         .nav {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 70%;
         }
 
         .nav-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.625rem 1.25rem;
-            border-radius: 10px;
+            gap: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-btn.active {
@@ -370,6 +374,17 @@
             .nav {
                 width: 100%;
                 justify-content: center;
+                max-width: 100%;
+                gap: 0.25rem;
+            }
+            
+            .nav-btn {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            
+            .nav-btn span:first-child {
+                font-size: 0.9rem;
             }
 
             .main {
@@ -402,11 +417,27 @@
             <nav class="nav">
                 <a href="https://ycc702-spec.github.io/my-library/" class="nav-btn active">
                     <span>📚</span>
-                    <span>My Library</span>
+                    <span>Library</span>
                 </a>
-                <a href="https://ycc702-spec.github.io/video-library/" class="nav-btn">
+                <a href="https://ycc702-spec.github.io/my-library/videos/" class="nav-btn">
                     <span>🎬</span>
-                    <span>Video Library</span>
+                    <span>Videos</span>
+                </a>
+                <a href="https://ycc702-spec.github.io/my-library/strongerknee-pro/" class="nav-btn">
+                    <span>🦵</span>
+                    <span>KNEEHAB</span>
+                </a>
+                <a href="https://ycc702-spec.github.io/my-library/mission-dashboard.html" class="nav-btn">
+                    <span>🎯</span>
+                    <span>Missions</span>
+                </a>
+                <a href="https://ycc702-spec.github.io/nicolas-young-analysis/" class="nav-btn">
+                    <span>📊</span>
+                    <span>Nicolas</span>
+                </a>
+                <a href="https://ycc702-spec.github.io/nicolas-young-analysis/alex.html" class="nav-btn">
+                    <span>🤖</span>
+                    <span>Alex</span>
                 </a>
             </nav>
         </div>
