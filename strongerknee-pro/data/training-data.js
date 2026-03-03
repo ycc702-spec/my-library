@@ -3,8 +3,8 @@
  * Based on KNEEHAB FOUNDATIONS by Connor Clayton
  * Source: https://www.thekneehaber.com
  * 
- * YouTube Video Sources - All videos from @thekneehaber official channel
- * Extracted from KNEEHAB FOUNDATIONS PDF
+ * YouTube Video Sources - Real KNEEHABER YouTube Shorts
+ * Extracted from official KNEEHAB FOUNDATIONS PDF
  */
 
 const TRAINING_PROGRAM = {
@@ -15,11 +15,18 @@ const TRAINING_PROGRAM = {
   duration: "8 weeks",
   painGuideline: "4/10 or below is acceptable. Scale back if above 4.",
   
+  // Progression guidelines
+  progression: {
+    weeks1to4: "Focus on quality movement, dialing in form, working full range of motion, and decreasing pain.",
+    weeks5to8: "Begin increasing the reps by ~5-10% per week as long as the movements still feel solid and pain-free."
+  },
+  
   schedule: [
     {
       day: 1,
       name: "Day 1 - Quad Strength + Stability",
       focus: "股四頭肌力量 + 穩定性",
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
       exercises: [
         {
           id: "d1_e1",
@@ -28,81 +35,136 @@ const TRAINING_PROGRAM = {
           reps: "20 Reps / Side",
           repsZh: "每側 20 次",
           sets: 3,
+          setsZh: "3 組",
+          duration: null,
           videoId: "wZ1WuEUGcZQ",
           videoUrl: "https://youtube.com/shorts/wZ1WuEUGcZQ",
-          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg",
+          description: "Attach band to door anchor at knee height. Step into band with one leg, facing away from anchor. Slightly bend knee, then fully straighten leg by squeezing quad. Hold 2-3 seconds at full extension.",
+          descriptionZh: "將彈力帶固定在門錨上，高度與膝蓋同高。單腳踩入彈力帶，背對門錨。膝蓋微彎，然後通過收縮股四頭肌完全伸直腿部。在完全伸展時保持 2-3 秒。",
+          tips: ["Keep movement slow and controlled", "Focus on quad squeeze at extension", "Don't let knee cave inward"],
+          tipsZh: ["動作緩慢且有控制", "專注在伸展時收縮股四頭肌", "不要讓膝蓋內扣"]
         },
         {
           id: "d1_e2",
           name: "Spanish Squat Isometric",
           nameZh: "Spanish Squat 等長收縮",
           reps: null,
+          repsZh: null,
           sets: 2,
+          setsZh: "2 組",
           duration: 30,
+          durationZh: "30 秒",
           videoId: "956iceJJfBM",
           videoUrl: "https://youtube.com/shorts/956iceJJfBM",
-          image: "https://img.youtube.com/vi/956iceJJfBM/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/956iceJJfBM/maxresdefault.jpg",
+          description: "Wrap large band behind knees. Step back to create tension. Squat down to comfortable depth (usually 45-90 degrees). Hold position without moving.",
+          descriptionZh: "將大彈力帶繞在膝蓋後方。向後退一步產生張力。下蹲至舒適深度（通常 45-90 度）。保持姿勢不動。",
+          tips: ["Keep shins vertical", "Weight through heels", "Breathe normally during hold"],
+          tipsZh: ["保持小腿垂直", "重量放在腳跟上", "保持時正常呼吸"]
         },
         {
           id: "d1_e3",
           name: "Spanish Squat Pulse",
           nameZh: "Spanish Squat 脈衝式",
           reps: "15 Reps",
+          repsZh: "15 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "P5UNgcQKkFQ",
           videoUrl: "https://youtube.com/shorts/P5UNgcQKkFQ",
-          image: "https://img.youtube.com/vi/P5UNgcQKkFQ/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/P5UNgcQKkFQ/maxresdefault.jpg",
+          description: "Same setup as Spanish Squat Isometric. Perform small pulses in the bottom range of the squat (about 6-12 inches of movement).",
+          descriptionZh: "與 Spanish Squat 等長收縮相同設置。在下蹲底部範圍進行小幅度脈衝運動（約 15-30 公分移動）。",
+          tips: ["Stay in pain-free range", "Keep pulses smooth", "Don't bounce at bottom"],
+          tipsZh: ["保持在無痛範圍內", "脈衝動作流暢", "底部不要彈跳"]
         },
         {
           id: "d1_e4",
           name: "Tibialis Raise",
           nameZh: "脛前肌訓練",
           reps: "20 Reps",
+          repsZh: "20 次",
           sets: 3,
+          setsZh: "3 組",
+          duration: null,
           videoId: "BzAJt1RsIbc",
           videoUrl: "https://youtube.com/shorts/BzAJt1RsIbc",
-          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg",
+          description: "Stand with back against wall. Walk feet out about 1-2 feet. Dorsiflex ankles (pull toes toward shins) while keeping heels on ground. Slowly lower back down.",
+          descriptionZh: "背靠牆站立。雙腳向前移動約 30-60 公分。腳踝背屈（腳趾朝向小腿拉）同時保持腳跟著地。緩慢放下。",
+          tips: ["Keep heels down throughout", "Control the lowering phase", "Feel work in front of shin"],
+          tipsZh: ["全程保持腳跟著地", "控制下放階段", "感受小腿前側發力"]
         },
         {
           id: "d1_e5",
           name: "Wall Sit Calf Raise",
           nameZh: "靠牆靜蹲提踵",
           reps: "15 Reps",
+          repsZh: "15 次",
           sets: 3,
+          setsZh: "3 組",
+          duration: null,
           videoId: "F5zq8Ef_Qog",
           videoUrl: "https://youtube.com/shorts/F5zq8Ef_Qog",
-          image: "https://img.youtube.com/vi/F5zq8Ef_Qog/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/F5zq8Ef_Qog/maxresdefault.jpg",
+          description: "Hold wall sit position (knees at 90 degrees). From this position, perform calf raises by lifting heels off ground and slowly lowering.",
+          descriptionZh: "保持靠牆靜蹲姿勢（膝蓋 90 度）。從這個姿勢進行提踵，抬起腳跟並緩慢放下。",
+          tips: ["Maintain knee angle", "Full range on calf raise", "Control the descent"],
+          tipsZh: ["保持膝蓋角度", "提踵全程活動", "控制下降"]
         },
         {
           id: "d1_e6",
           name: "Poliquin Step Ups",
           nameZh: "Poliquin 階梯上踏",
           reps: "10 Reps / Side",
+          repsZh: "每側 10 次",
           sets: 3,
+          setsZh: "每側 3 組",
+          duration: null,
           videoId: "oZV1BJM5T9w",
           videoUrl: "https://youtube.com/shorts/oZV1BJM5T9w",
-          image: "https://img.youtube.com/vi/oZV1BJM5T9w/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/oZV1BJM5T9w/maxresdefault.jpg",
+          description: "Step up onto a low box or step (4-6 inches). Focus on driving through the heel and keeping knee aligned over toes.",
+          descriptionZh: "踏上低階梯或台階（10-15 公分）。專注通過腳跟發力，保持膝蓋對齊腳趾。",
+          tips: ["Drive through heel", "Keep knee aligned", "Control the movement"],
+          tipsZh: ["通過腳跟發力", "保持膝蓋對齊", "控制動作"]
         },
         {
           id: "d1_e7",
           name: "Wall Assisted Sissy Squats",
           nameZh: "靠牆輔助 Sissy 深蹲",
           reps: "10 Reps",
+          repsZh: "10 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "qYatDCVfEqw",
           videoUrl: "https://youtube.com/shorts/qYatDCVfEqw",
-          image: "https://img.youtube.com/vi/qYatDCVfEqw/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/qYatDCVfEqw/maxresdefault.jpg",
+          description: "Hold onto wall for balance. Rise up onto toes, then lower body down while keeping hips forward. This targets the quad tendon.",
+          descriptionZh: "扶牆保持平衡。抬起腳尖，然後降低身體同時保持臀部向前。這針對股四頭肌肌腱。",
+          tips: ["Keep hips forward", "Go down slowly", "Use wall for balance"],
+          tipsZh: ["保持臀部向前", "緩慢下降", "使用牆壁保持平衡"]
         },
         {
           id: "d1_e8",
           name: "Split Squat Isometric",
           nameZh: "分腿蹲等長收縮",
           reps: null,
+          repsZh: null,
           sets: 2,
+          setsZh: "每側 2 組",
           duration: 30,
+          durationZh: "每側 30 秒",
           videoId: "q63XGmbV7Lk",
           videoUrl: "https://youtube.com/shorts/q63XGmbV7Lk",
-          image: "https://img.youtube.com/vi/q63XGmbV7Lk/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/q63XGmbV7Lk/maxresdefault.jpg",
+          description: "Get into split squat position with back foot elevated. Lower down and hold at comfortable depth.",
+          descriptionZh: "進入分腿蹲姿勢，後腳抬高。降低並保持在舒適深度。",
+          tips: ["Keep front knee over ankle", "Stay tall through torso", "Breathe normally"],
+          tipsZh: ["保持前膝在腳踝上方", "軀幹保持挺直", "正常呼吸"]
         }
       ]
     },
@@ -110,89 +172,146 @@ const TRAINING_PROGRAM = {
       day: 2,
       name: "Day 2 - Hamstrings + Posterior Chain",
       focus: "腿後肌群 + 後側鏈",
+      image: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80",
       exercises: [
         {
           id: "d2_e1",
           name: "Banded TKE's",
           nameZh: "彈力帶終末伸膝",
           reps: "20 Reps / Side",
+          repsZh: "每側 20 次",
           sets: 3,
+          setsZh: "3 組",
+          duration: null,
           videoId: "wZ1WuEUGcZQ",
           videoUrl: "https://youtube.com/shorts/wZ1WuEUGcZQ",
-          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg",
+          description: "Same as Day 1. Attach band to door anchor at knee height. Step into band with one leg, facing away from anchor.",
+          descriptionZh: "與第 1 天相同。將彈力帶固定在門錨上，高度與膝蓋同高。單腳踩入彈力帶，背對門錨。",
+          tips: ["Keep movement slow and controlled", "Focus on quad squeeze at extension"],
+          tipsZh: ["動作緩慢且有控制", "專注在伸展時收縮股四頭肌"]
         },
         {
           id: "d2_e2",
           name: "Single Leg Calf Raises",
           nameZh: "單腳提踵",
           reps: "15 Reps / Side",
+          repsZh: "每側 15 次",
           sets: 2,
+          setsZh: "每側 2 組",
+          duration: null,
           videoId: "ZQY5dDwz_Z8",
           videoUrl: "https://youtube.com/shorts/ZQY5dDwz_Z8",
-          image: "https://img.youtube.com/vi/ZQY5dDwz_Z8/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/ZQY5dDwz_Z8/maxresdefault.jpg",
+          description: "Stand on one leg with ball of foot on edge of step. Lower heel below step level, then raise up as high as possible.",
+          descriptionZh: "單腳站立，前腳掌站在階梯邊緣。腳跟降低到階梯水平以下，然後盡可能抬高。",
+          tips: ["Full range of motion", "Control the lowering", "Squeeze at top"],
+          tipsZh: ["全程活動", "控制下放", "頂部收縮"]
         },
         {
           id: "d2_e3",
           name: "Tibialis Raises",
           nameZh: "脛前肌訓練",
           reps: "15 Reps",
+          repsZh: "15 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "BzAJt1RsIbc",
           videoUrl: "https://youtube.com/shorts/BzAJt1RsIbc",
-          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg",
+          description: "Same as Day 1. Stand with back against wall. Dorsiflex ankles while keeping heels on ground.",
+          descriptionZh: "與第 1 天相同。背靠牆站立。腳踝背屈同時保持腳跟著地。",
+          tips: ["Keep heels down", "Control the lowering", "Feel front of shin"],
+          tipsZh: ["保持腳跟著地", "控制下放", "感受小腿前側"]
         },
         {
           id: "d2_e4",
           name: "Glute Bridge Isometric",
           nameZh: "臀橋等長收縮",
           reps: null,
+          repsZh: null,
           sets: 3,
+          setsZh: "3 組",
           duration: 45,
+          durationZh: "45 秒",
           videoId: "cs2bJ77AR6s",
           videoUrl: "https://youtube.com/shorts/cs2bJ77AR6s",
-          image: "https://img.youtube.com/vi/cs2bJ77AR6s/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/cs2bJ77AR6s/maxresdefault.jpg",
+          description: "Lie on back with knees bent and feet flat. Lift hips up until body forms straight line from shoulders to knees. Hold.",
+          descriptionZh: "仰臥，膝蓋彎曲，腳平放。抬起臀部直到身體從肩膀到膝蓋形成直線。保持。",
+          tips: ["Squeeze glutes", "Keep core engaged", "Don't arch lower back"],
+          tipsZh: ["收縮臀部", "核心保持收緊", "不要拱起下背"]
         },
         {
           id: "d2_e5",
           name: "Glute Bridge Walkouts",
           nameZh: "臀橋步行",
           reps: "8 Reps",
+          repsZh: "8 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "ONB4ffAAXK4",
           videoUrl: "https://youtube.com/shorts/ONB4ffAAXK4",
-          image: "https://img.youtube.com/vi/ONB4ffAAXK4/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/ONB4ffAAXK4/maxresdefault.jpg",
+          description: "In glute bridge position, walk feet out one at a time while keeping hips elevated, then walk back in.",
+          descriptionZh: "在臀橋姿勢，一次一隻腳將腳向外移動同時保持臀部抬高，然後走回來。",
+          tips: ["Keep hips up", "Move slowly", "Control the movement"],
+          tipsZh: ["保持臀部抬高", "緩慢移動", "控制動作"]
         },
         {
           id: "d2_e6",
           name: "Banded Hamstring Curls",
           nameZh: "彈力帶腿後肌彎舉",
           reps: "10 Reps / Side",
+          repsZh: "每側 10 次",
           sets: 3,
+          setsZh: "每側 3 組",
+          duration: null,
           videoId: "tUZTdrO2pxE",
           videoUrl: "https://youtube.com/shorts/tUZTdrO2pxE",
-          image: "https://img.youtube.com/vi/tUZTdrO2pxE/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/tUZTdrO2pxE/maxresdefault.jpg",
+          description: "Lie on stomach with band around ankle. Curl heel toward buttock, squeezing hamstring. Lower with control.",
+          descriptionZh: "趴臥，彈力帶繞在腳踝。將腳跟彎向臀部，收縮腿後肌群。有控制地放下。",
+          tips: ["Keep hips down", "Squeeze hamstring", "Control the lowering"],
+          tipsZh: ["保持臀部著地", "收縮腿後肌群", "控制下放"]
         },
         {
           id: "d2_e7",
           name: "KOT Wall Sit",
           nameZh: "KOT 靠牆靜蹲",
           reps: null,
+          repsZh: null,
           sets: 2,
+          setsZh: "2 組",
           duration: 20,
+          durationZh: "20 秒",
           videoId: "30Vo_x2UxXU",
           videoUrl: "https://youtube.com/shorts/30Vo_x2UxXU",
-          image: "https://img.youtube.com/vi/30Vo_x2UxXU/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/30Vo_x2UxXU/maxresdefault.jpg",
+          description: "Knees Over Toes wall sit. Position feet further from wall so knees travel forward over toes. Hold squat position.",
+          descriptionZh: "膝蓋過腳趾靠牆靜蹲。將腳放在離牆較遠的位置，讓膝蓋向前超過腳趾。保持深蹲姿勢。",
+          tips: ["Knees over toes", "Stay comfortable", "Breathe normally"],
+          tipsZh: ["膝蓋過腳趾", "保持舒適", "正常呼吸"]
         },
         {
           id: "d2_e8",
           name: "Single Leg Balance",
           nameZh: "單腳平衡",
           reps: null,
+          repsZh: null,
           sets: 2,
+          setsZh: "每側 2 組",
           duration: 30,
+          durationZh: "每側 30 秒",
           videoId: "PGhT3y2zHQc",
           videoUrl: "https://youtube.com/shorts/PGhT3y2zHQc",
-          image: "https://img.youtube.com/vi/PGhT3y2zHQc/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/PGhT3y2zHQc/maxresdefault.jpg",
+          description: "Stand on one leg with slight knee bend. Focus on balance and stability. Use wall if needed for support.",
+          descriptionZh: "單腳站立，膝蓋微彎。專注於平衡和穩定性。如需要可使用牆壁支撐。",
+          tips: ["Keep knee slightly bent", "Focus on a point", "Engage core"],
+          tipsZh: ["保持膝蓋微彎", "專注於一個點", "核心收緊"]
         }
       ]
     },
@@ -200,103 +319,202 @@ const TRAINING_PROGRAM = {
       day: 3,
       name: "Day 3 - Hip Strength",
       focus: "髖部力量",
+      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
       exercises: [
         {
           id: "d3_e1",
           name: "Banded TKE's",
           nameZh: "彈力帶終末伸膝",
           reps: "20 Reps / Side",
+          repsZh: "每側 20 次",
           sets: 3,
+          setsZh: "3 組",
+          duration: null,
           videoId: "wZ1WuEUGcZQ",
           videoUrl: "https://youtube.com/shorts/wZ1WuEUGcZQ",
-          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/wZ1WuEUGcZQ/maxresdefault.jpg",
+          description: "Same as previous days. Focus on quality quad contraction.",
+          descriptionZh: "與前幾天相同。專注於高品質的股四頭肌收縮。",
+          tips: ["Maximize quad squeeze", "Hold at full extension", "Control throughout"],
+          tipsZh: ["最大化股四頭肌收縮", "在完全伸展時保持", "全程控制"]
         },
         {
           id: "d3_e2",
           name: "Banded Side Steps",
           nameZh: "彈力帶側向跨步",
           reps: "10 Reps / Side",
+          repsZh: "每側 10 次",
           sets: 2,
+          setsZh: "每側 2 組",
+          duration: null,
           videoId: "JhyhTeNX2Aw",
           videoUrl: "https://youtube.com/shorts/JhyhTeNX2Aw",
-          image: "https://img.youtube.com/vi/JhyhTeNX2Aw/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/JhyhTeNX2Aw/maxresdefault.jpg",
+          description: "Place small band around ankles or just above knees. Assume athletic stance with slight knee bend. Step sideways while keeping tension on band.",
+          descriptionZh: "將小型彈力帶繞在腳踝或膝蓋上方。採取運動姿勢，膝蓋微彎。側向跨步同時保持彈力帶張力。",
+          tips: ["Keep knees aligned with toes", "Don't let band pull feet together", "Stay low throughout"],
+          tipsZh: ["膝蓋對齊腳趾", "不要讓彈力帶將腳拉在一起", "全程保持低姿勢"]
         },
         {
           id: "d3_e3",
           name: "Banded Taps",
           nameZh: "彈力帶點地訓練",
           reps: "5 Reps / Direction",
+          repsZh: "每方向 5 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "b9xWOOURFZw",
           videoUrl: "https://youtube.com/shorts/b9xWOOURFZw",
-          image: "https://img.youtube.com/vi/b9xWOOURFZw/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/b9xWOOURFZw/maxresdefault.jpg",
+          description: "Band around ankles. Stand on one leg with slight knee bend. Tap other foot forward, then back to center. Repeat to side, then behind. That's one rep.",
+          descriptionZh: "彈力帶繞在腳踝。單腳站立，膝蓋微彎。另一隻腳向前點地，然後回到中心。向側面重複，然後向後。這是一次動作。",
+          tips: ["Keep standing knee stable", "Control the tapping motion", "Don't let knee cave inward"],
+          tipsZh: ["保持站立膝蓋穩定", "控制點地動作", "不要讓膝蓋內扣"]
         },
         {
           id: "d3_e4",
           name: "Banded Fire Hydrants",
           nameZh: "彈力帶消防栓式",
           reps: "10 Reps / Side",
+          repsZh: "每側 10 次",
           sets: 3,
+          setsZh: "每側 3 組",
+          duration: null,
           videoId: "gGxNHpax2JE",
           videoUrl: "https://youtube.com/shorts/gGxNHpax2JE",
-          image: "https://img.youtube.com/vi/gGxNHpax2JE/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/gGxNHpax2JE/maxresdefault.jpg",
+          description: "Start on hands and knees. Band around knees. Lift one knee out to side while keeping hips level. Lower with control. Don't let hips rotate.",
+          descriptionZh: "從四肢著地開始。彈力帶繞在膝蓋。將一側膝蓋向側面抬起，同時保持臀部水平。有控制地放下。不要讓臀部旋轉。",
+          tips: ["Keep core engaged", "Don't arch lower back", "Lift to hip height only"],
+          tipsZh: ["核心保持收緊", "不要拱起下背", "只抬到臀部高度"]
         },
         {
           id: "d3_e5",
           name: "Banded Hip Abductions",
           nameZh: "彈力帶髖外展",
           reps: "10 Reps / Side",
+          repsZh: "每側 10 次",
           sets: 3,
+          setsZh: "每側 3 組",
+          duration: null,
           videoId: "Wg3MGqzS2x4",
           videoUrl: "https://youtube.com/shorts/Wg3MGqzS2x4",
-          image: "https://img.youtube.com/vi/Wg3MGqzS2x4/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/Wg3MGqzS2x4/maxresdefault.jpg",
+          description: "Lie on side with band around ankles. Keep bottom leg bent for stability. Lift top leg up and slightly back, focusing on outer hip/glute. Lower with control.",
+          descriptionZh: "側躺，彈力帶繞在腳踝。下方腿彎曲保持穩定。上方腿向上並稍微向後抬起，專注在外側臀部/臀肌。有控制地放下。",
+          tips: ["Lead with heel", "Don't let hips roll back", "Feel glute working"],
+          tipsZh: ["腳跟帶動", "不要讓臀部向後滾", "感受臀肌發力"]
         },
         {
           id: "d3_e6",
           name: "Adductor Isometrics",
           nameZh: "內收肌等長收縮",
           reps: null,
+          repsZh: null,
           sets: 3,
+          setsZh: "每側 3 組",
           duration: 30,
+          durationZh: "每側 30 秒",
           videoId: "9HvEf5LG8t0",
           videoUrl: "https://youtube.com/shorts/9HvEf5LG8t0",
-          image: "https://img.youtube.com/vi/9HvEf5LG8t0/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/9HvEf5LG8t0/maxresdefault.jpg",
+          description: "Lie on side with bottom leg straight. Place top foot on floor in front of bottom leg. Lift bottom leg up and hold, squeezing inner thigh.",
+          descriptionZh: "側躺，下方腿伸直。將上方腳放在下方腿前方的地板上。抬起下方腿並保持，收縮大腿內側。",
+          tips: ["Keep leg straight", "Lift 6-12 inches off ground", "Breathe normally"],
+          tipsZh: ["保持腿部伸直", "離地 15-30 公分", "正常呼吸"]
         },
         {
           id: "d3_e7",
           name: "Banded Hip Flexor Isometrics",
           nameZh: "彈力帶髖屈肌等長收縮",
           reps: null,
+          repsZh: null,
           sets: 2,
+          setsZh: "2 組",
           duration: 30,
+          durationZh: "30 秒",
           videoId: null,
           videoUrl: null,
-          image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
-          note: "PDF中未提供影片連結，請至 @thekneehaber Instagram 搜尋"
+          image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80",
+          description: "⚠️ PDF 中未嵌入連結。建議至 @thekneehaber 網站或 Instagram 搜尋該動作影片。Attach band to low anchor. Face away, wrap band around ankle. Step forward to create tension. Drive knee up and hold against band resistance.",
+          descriptionZh: "⚠️ PDF中未提供影片連結。將彈力帶固定在低處錨點。背對，將彈力帶繞在腳踝。向前一步產生張力。驅動膝蓋向上並對抗彈力帶阻力保持。",
+          tips: ["Keep torso upright", "Drive knee toward chest", "Hold steady position"],
+          tipsZh: ["保持軀幹直立", "膝蓋朝向胸部", "保持穩定姿勢"]
         },
         {
           id: "d3_e8",
           name: "Banded Hip Flexor Kick Outs",
           nameZh: "彈力帶髖屈肌踢出",
           reps: "20 Reps / Side",
+          repsZh: "每側 20 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "y8NKFonO7Is",
           videoUrl: "https://youtube.com/shorts/y8NKFonO7Is",
-          image: "https://img.youtube.com/vi/y8NKFonO7Is/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/y8NKFonO7Is/maxresdefault.jpg",
+          description: "Same band setup as isometric. Drive knee up, then extend leg straight out. Return to start with control.",
+          descriptionZh: "與等長收縮相同的彈力帶設置。驅動膝蓋向上，然後伸直腿向外踢出。有控制地回到起始位置。",
+          tips: ["Control the extension", "Don't arch lower back", "Feel hip flexor working"],
+          tipsZh: ["控制伸展", "不要拱起下背", "感受髖屈肌發力"]
         },
         {
           id: "d3_e9",
           name: "Tibialis Raises",
           nameZh: "脛前肌訓練",
           reps: "20 Reps",
+          repsZh: "20 次",
           sets: 2,
+          setsZh: "2 組",
+          duration: null,
           videoId: "BzAJt1RsIbc",
           videoUrl: "https://youtube.com/shorts/BzAJt1RsIbc",
-          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg"
+          image: "https://img.youtube.com/vi/BzAJt1RsIbc/maxresdefault.jpg",
+          description: "Same as previous days. Stand with back against wall. Dorsiflex ankles while keeping heels on ground.",
+          descriptionZh: "與前幾天相同。背靠牆站立。腳踝背屈同時保持腳跟著地。",
+          tips: ["Keep heels down", "Control the lowering", "Feel front of shin"],
+          tipsZh: ["保持腳跟著地", "控制下放", "感受小腿前側"]
         }
       ]
     }
-  ]
+  ],
+
+  equipment: [
+    {
+      name: "Small Resistance Bands",
+      nameZh: "小型彈力帶",
+      description: "For ankle/knee level exercises",
+      amazonLink: "https://www.amazon.com/s?k=small+resistance+bands"
+    },
+    {
+      name: "Large Resistance Bands",
+      nameZh: "大型彈力帶",
+      description: "For Spanish Squat and hip exercises",
+      amazonLink: "https://www.amazon.com/s?k=large+resistance+bands+heavy+duty"
+    },
+    {
+      name: "Slant Board",
+      nameZh: "斜板",
+      description: "For calf and tibialis exercises",
+      amazonLink: "https://www.amazon.com/s?k=slant+board+calf+stretch"
+    },
+    {
+      name: "Door Anchor",
+      nameZh: "門錨",
+      description: "For attaching bands to door",
+      amazonLink: "https://www.amazon.com/s?k=resistance+band+door+anchor"
+    }
+  ],
+
+  progression: {
+    weeks1to4: "Focus on form and quality. Don't worry about adding weight or resistance. Master the movements.",
+    weeks1to4Zh: "第1-4週：專注於動作品質。不要擔心增加重量或阻力。掌握動作。",
+    weeks5to8: "Add 5-10% more volume each week. This could be an extra set, more reps, or longer holds.",
+    weeks5to8Zh: "第5-8週：每週增加5-10%訓練量。可以是額外一組、更多次數、或更長保持時間。",
+    painGuideline: "Pain 4/10 or below is acceptable. If above 4, scale back.",
+    painGuidelineZh: "疼痛4/10分以下可接受。如果超過4分，請減量。"
+  }
 };
 
 // Export for use in other files
