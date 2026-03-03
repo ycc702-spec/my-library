@@ -237,6 +237,49 @@
             font-size: 11px;
         }
         
+        .ig-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(225, 48, 108, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .video-series {
+            font-size: 12px;
+            color: #A855F7;
+            margin-bottom: 4px;
+        }
+        
+        .video-desc {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .ig-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #833AB4, #E1306C);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .ig-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 48, 108, 0.4);
+        }
+        
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -356,22 +399,28 @@
             
             container.innerHTML = videos.map(v => {
                 const cat = libraryData.categories[v.category];
+                // 使用 Instagram 原始連結作為主要連結
+                const igUrl = v.sourceUrl || v.videoUrl;
                 return `
                     <div class="video-card">
-                        <div class="video-thumbnail" onclick="window.open('${v.videoUrl}', '_blank')">
-                            <img src="${v.thumbnail}" alt="${v.title}">
+                        <div class="video-thumbnail" onclick="window.open('${igUrl}', '_blank')">
+                            <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Instagram+Video'">
                             <div class="play-overlay">
                                 <div class="play-btn">▶</div>
                             </div>
+                            <div class="ig-badge">📷 IG</div>
                         </div>
                         <div class="video-info">
                             <div class="video-title">${v.titleZh}</div>
+                            <div class="video-series">${v.series || ''} #${v.seriesOrder || ''}</div>
+                            <div class="video-desc">${v.description ? v.description.substring(0, 50) + '...' : ''}</div>
                             <div class="video-meta">
                                 <span class="meta-tag" style="background: ${cat.color}22; color: ${cat.color}">
                                     ${cat.icon} ${cat.name}
                                 </span>
-                                <span class="meta-tag">📷 ${v.source}</span>
+                                <span class="meta-tag">👤 ${v.author || 'Unknown'}</span>
                             </div>
+                            <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看 →</a>
                         </div>
                     </div>
                 `;
@@ -389,21 +438,27 @@
                 const container = document.getElementById('video-grid');
                 container.innerHTML = filtered.map(v => {
                     const cat = libraryData.categories[v.category];
+                    const igUrl = v.sourceUrl || v.videoUrl;
                     return `
                         <div class="video-card">
-                            <div class="video-thumbnail" onclick="window.open('${v.videoUrl}', '_blank')">
-                                <img src="${v.thumbnail}" alt="${v.title}">
+                            <div class="video-thumbnail" onclick="window.open('${igUrl}', '_blank')">
+                                <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Instagram+Video'">
                                 <div class="play-overlay">
                                     <div class="play-btn">▶</div>
                                 </div>
+                                <div class="ig-badge">📷 IG</div>
                             </div>
                             <div class="video-info">
                                 <div class="video-title">${v.titleZh}</div>
+                                <div class="video-series">${v.series || ''} #${v.seriesOrder || ''}</div>
+                                <div class="video-desc">${v.description ? v.description.substring(0, 50) + '...' : ''}</div>
                                 <div class="video-meta">
                                     <span class="meta-tag" style="background: ${cat.color}22; color: ${cat.color}">
                                         ${cat.icon} ${cat.name}
                                     </span>
+                                    <span class="meta-tag">👤 ${v.author || 'Unknown'}</span>
                                 </div>
+                                <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看 →</a>
                             </div>
                         </div>
                     `;
