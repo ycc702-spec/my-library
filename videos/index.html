@@ -249,6 +249,18 @@
             font-weight: 600;
         }
         
+        .local-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 212, 255, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
         .video-series {
             font-size: 12px;
             color: #A855F7;
@@ -390,25 +402,36 @@
             const videos = libraryData.videos;
             
             if (videos.length === 0) {
-                container.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;">
-                    <div style="font-size: 64px; margin-bottom: 20px;">📭</div>
-                    <p>尚無影片</p>
-                </div>`;
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div style="font-size: 64px; margin-bottom: 20px;">📭</div>
+                        <p>尚無影片</p>
+                    </div>
+                `;
                 return;
             }
             
             container.innerHTML = videos.map(v => {
                 const cat = libraryData.categories[v.category];
-                // 使用 Instagram 原始連結作為主要連結
-                const igUrl = v.sourceUrl || v.videoUrl;
+                const isLocal = v.localFile;
+                const videoPath = isLocal ? v.videoUrl : v.videoUrl;
+                const igUrl = v.sourceUrl;
+                
                 return `
                     <div class="video-card">
-                        <div class="video-thumbnail" onclick="window.open('${igUrl}', '_blank')">
-                            <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Instagram+Video'">
-                            <div class="play-overlay">
-                                <div class="play-btn">▶</div>
-                            </div>
-                            <div class="ig-badge">📷 IG</div>
+                        <div class="video-thumbnail">
+                            ${isLocal ? `
+                                <video controls preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <source src="${videoPath}" type="video/mp4">
+                                    您的瀏覽器不支援影片播放
+                                </video>
+                            ` : `
+                                <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Video'">
+                                <div class="play-overlay" onclick="window.open('${videoPath}', '_blank')">
+                                    <div class="play-btn">▶</div>
+                                </div>
+                            `}
+                            ${!isLocal ? `<div class="ig-badge">📷 IG</div>` : `<div class="local-badge">💾 本地</div>`}
                         </div>
                         <div class="video-info">
                             <div class="video-title">${v.titleZh}</div>
@@ -420,7 +443,7 @@
                                 </span>
                                 <span class="meta-tag">👤 ${v.author || 'Unknown'}</span>
                             </div>
-                            <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看 →</a>
+                            <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看原始影片 →</a>
                         </div>
                     </div>
                 `;
@@ -438,15 +461,25 @@
                 const container = document.getElementById('video-grid');
                 container.innerHTML = filtered.map(v => {
                     const cat = libraryData.categories[v.category];
-                    const igUrl = v.sourceUrl || v.videoUrl;
+                    const isLocal = v.localFile;
+                    const videoPath = isLocal ? v.videoUrl : v.videoUrl;
+                    const igUrl = v.sourceUrl;
+                    
                     return `
                         <div class="video-card">
-                            <div class="video-thumbnail" onclick="window.open('${igUrl}', '_blank')">
-                                <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Instagram+Video'">
-                                <div class="play-overlay">
-                                    <div class="play-btn">▶</div>
-                                </div>
-                                <div class="ig-badge">📷 IG</div>
+                            <div class="video-thumbnail">
+                                ${isLocal ? `
+                                    <video controls preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <source src="${videoPath}" type="video/mp4">
+                                        您的瀏覽器不支援影片播放
+                                    </video>
+                                ` : `
+                                    <img src="${v.thumbnail}" alt="${v.title}" onerror="this.src='https://via.placeholder.com/400x225/1a1a2e/ffffff?text=Video'">
+                                    <div class="play-overlay" onclick="window.open('${videoPath}', '_blank')">
+                                        <div class="play-btn">▶</div>
+                                    </div>
+                                `}
+                                ${!isLocal ? `<div class="ig-badge">📷 IG</div>` : `<div class="local-badge">💾 本地</div>`}
                             </div>
                             <div class="video-info">
                                 <div class="video-title">${v.titleZh}</div>
@@ -458,7 +491,7 @@
                                     </span>
                                     <span class="meta-tag">👤 ${v.author || 'Unknown'}</span>
                                 </div>
-                                <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看 →</a>
+                                <a href="${igUrl}" target="_blank" class="ig-link">在 Instagram 觀看原始影片 →</a>
                             </div>
                         </div>
                     `;
