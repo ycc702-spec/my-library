@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>StrongerKnee - 髕骨肌腱炎復健訓練</title>
+    <title>StrongerKnee Pro - 髕骨肌腱炎復健</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
@@ -22,246 +22,329 @@
         }
     </script>
     <style>
-        * { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .gradient-primary { background: linear-gradient(135deg, #0EA5E9 0%, #22C55E 100%); }
-        .gradient-text { background: linear-gradient(135deg, #0EA5E9 0%, #22C55E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
-        .glass-dark { background: rgba(17,24,39,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        * { 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
         
-        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(14,165,233,0.4); } 50% { box-shadow: 0 0 40px rgba(14,165,233,0.7); } }
-        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .gradient-primary { 
+            background: linear-gradient(135deg, #0EA5E9 0%, #22C55E 100%); 
+        }
         
-        @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-slide-up { animation: slide-up 0.5s ease-out forwards; }
+        .gradient-text { 
+            background: linear-gradient(135deg, #0EA5E9 0%, #22C55E 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         
-        .progress-ring { transform: rotate(-90deg); }
+        .glass { 
+            background: rgba(255,255,255,0.08); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.12); 
+        }
         
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-dark { 
+            background: rgba(17,24,39,0.85); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.06); 
+        }
         
-        /* Audio visualizer bars */
-        .audio-bar { width: 4px; background: linear-gradient(to top, #0EA5E9, #22C55E); border-radius: 2px; animation: dance 0.5s ease-in-out infinite alternate; }
-        @keyframes dance { from { height: 20%; } to { height: 100%; } }
+        /* Animations */
+        @keyframes pulse-glow { 
+            0%, 100% { box-shadow: 0 0 20px rgba(14,165,233,0.4); } 
+            50% { box-shadow: 0 0 40px rgba(14,165,233,0.7); } 
+        }
+        
+        .animate-pulse-glow { 
+            animation: pulse-glow 2s ease-in-out infinite; 
+        }
+        
+        @keyframes slide-up { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .animate-slide-up { 
+            animation: slide-up 0.5s ease-out forwards; 
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out forwards;
+        }
+        
+        .progress-ring { 
+            transform: rotate(-90deg); 
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar { 
+            display: none; 
+        }
+        
+        .hide-scrollbar { 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+        }
+        
+        /* Touch-friendly buttons */
+        .btn-touch {
+            min-height: 56px;
+            min-width: 56px;
+        }
+        
+        /* Safe area for notched phones */
+        .safe-top { padding-top: env(safe-area-inset-top, 20px); }
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        
+        /* Audio visualizer */
+        .audio-bar { 
+            width: 3px; 
+            background: linear-gradient(to top, #0EA5E9, #22C55E); 
+            border-radius: 2px; 
+            animation: dance 0.5s ease-in-out infinite alternate; 
+        }
+        
+        @keyframes dance { 
+            from { height: 20%; } 
+            to { height: 100%; } 
+        }
+        
         .audio-bar:nth-child(2) { animation-delay: 0.1s; }
         .audio-bar:nth-child(3) { animation-delay: 0.2s; }
         .audio-bar:nth-child(4) { animation-delay: 0.3s; }
-        .audio-bar:nth-child(5) { animation-delay: 0.4s; }
+        
+        /* Page transitions */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .page-hidden {
+            display: none;
+        }
+        
+        /* Better text rendering */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white antialiased">
 
-    <!-- Audio Element (Hidden) -->
-    <audio id="bgMusic" loop></audio>
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop preload="auto"></audio>
 
     <!-- HERO PAGE -->
-    <div id="heroPage" class="min-h-screen relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/4498150/pexels-photo-4498150.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                 alt="Fitness background" 
+    <div id="heroPage" class="page">
+        <!-- Background with overlay -->
+        <div class="fixed inset-0">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+                 alt="Professional fitness" 
                  class="w-full h-full object-cover"
-                 id="heroBg">
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-gray-950/30"></div>
+                 style="filter: brightness(0.7);">
+            <div class="absolute inset-0 bg-gradient-to-b from-gray-950/60 via-gray-950/40 to-gray-950"></div>
         </div>
 
-        <!-- Header -->
-        <header class="relative z-10 flex items-center justify-between p-6">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl gradient-primary flex items-center justify-center shadow-lg shadow-sky-500/30">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                </div>
-                <span class="text-2xl font-bold">StrongerKnee</span>
-            </div>
+        <!-- Content -->
+        <div class="relative z-10 min-h-screen flex flex-col">
             
-            <div class="flex items-center gap-3">
-                <div class="glass px-4 py-2 rounded-full flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                    </svg>
-                    <span id="streakCount" class="font-bold">12</span>
-                    <span class="text-white/60 text-sm">天</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Hero Content -->
-        <div class="relative z-10 flex flex-col justify-end min-h-[calc(100vh-100px)] px-6 pb-8">
-            
-            <!-- Progress Ring -->
-            <div class="flex items-center gap-4 mb-6 animate-slide-up">
-                <div class="relative w-20 h-20">
-                    <svg class="w-full h-full progress-ring">
-                        <circle cx="40" cy="40" r="36" stroke="#374151" stroke-width="6" fill="none"/>
-                        <circle id="progressCircle" cx="40" cy="40" r="36" 
-                            stroke="url(#gradient)" stroke-width="6" fill="none"
-                            stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="72"
-                            class="transition-all duration-1000"></circle>
-                        <defs>
-                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#0EA5E9"/>
-                                <stop offset="100%" stop-color="#22C55E"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span id="progressPercent" class="text-xl font-bold">68%</span>
+            <!-- Header -->
+            <header class="safe-top px-5 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-lg shadow-sky-500/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
+                    <span class="text-xl font-bold tracking-tight">StrongerKnee</span>
                 </div>
                 
-                <div>
-                    <p class="text-white/60 text-sm">本週進度</p>
-                    <p id="weekProgress" class="text-white font-bold text-xl">第 4/5 次訓練</p>
+                <div class="flex items-center gap-2">
+                    <div class="glass px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="streakCount" class="font-bold text-sm">12</span>
+                        <span class="text-white/60 text-xs">天</span>
+                    </div>
                 </div>
-            </div>
+            </header>
 
-            <!-- Title -->
-            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 animate-slide-up" style="animation-delay: 0.1s">
-                讓你的膝蓋<br>
-                <span class="gradient-text">更強壯 💪</span>
-            </h1>
-            
-            <p class="text-white/70 text-lg mb-8 max-w-md animate-slide-up" style="animation-delay: 0.2s">
-                科學化髕骨肌腱炎復健計畫，12週重返運動場
-            </p>
-
-            <!-- CTA Buttons -->
-            <div class="flex flex-col gap-3 animate-slide-up" style="animation-delay: 0.3s">
-                <button onclick="startTraining()" 
-                        class="h-16 px-8 text-lg font-bold rounded-2xl gradient-primary text-white shadow-xl shadow-sky-500/30 animate-pulse-glow flex items-center justify-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    今天開始訓練
-                </button>
+            <!-- Main Content -->
+            <div class="flex-1 flex flex-col justify-end px-5 pb-8 safe-bottom">
                 
-                <button onclick="showLibrary()" 
-                        class="h-16 px-8 text-lg font-bold rounded-2xl glass text-white flex items-center justify-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    瀏覽動作庫
-                </button>
-            </div>
-
-            <!-- Phase Indicator -->
-            <div class="glass-dark rounded-2xl p-4 mt-6 animate-slide-up" style="animation-delay: 0.4s">
-                <div class="flex justify-between mb-2">
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-sky-500"></div>
-                        <span class="text-sm">急性期</span>
+                <!-- Progress -->
+                <div class="flex items-center gap-3 mb-5 animate-slide-up">
+                    <div class="relative w-16 h-16">
+                        <svg class="w-full h-full progress-ring">
+                            <circle cx="32" cy="32" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="5" fill="none"/>
+                            <circle id="progressCircle" cx="32" cy="32" r="28" 
+                                stroke="url(#gradient)" stroke-width="5" fill="none"
+                                stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="56"
+                                class="transition-all duration-1000"></circle>
+                            
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#0EA5E9"/>
+                                    <stop offset="100%" stop-color="#22C55E"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span id="progressPercent" class="text-base font-bold">68%</span>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-teal-500"></div>
-                        <span class="text-sm">恢復期</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-gray-600"></div>
-                        <span class="text-sm text-gray-500">強化期</span>
+                    
+                    <div>
+                        <p class="text-white/60 text-xs mb-0.5">本週進度</p>
+                        <p id="weekProgress" class="text-white font-semibold text-base">第 4/5 次訓練</p>
                     </div>
                 </div>
-                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
-                    <div class="h-full w-2/3 bg-gradient-to-r from-sky-500 via-teal-500 to-green-500 rounded-full"></div>
+
+                <!-- Title -->
+                <div class="mb-5 animate-slide-up" style="animation-delay: 0.1s">
+                    <p class="text-white/70 text-sm mb-1.5">科學化髕骨肌腱炎復健</p>
+                    <h1 class="text-4xl font-extrabold leading-tight">
+                        讓你的<br>
+                        <span class="gradient-text">膝蓋更強壯</span> 💪
+                    </h1>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="space-y-3 animate-slide-up" style="animation-delay: 0.2s">
+                    <button onclick="startTraining()" 
+                            class="btn-touch w-full px-6 text-lg font-bold rounded-2xl gradient-primary text-white shadow-xl shadow-sky-500/30 animate-pulse-glow flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                        今天開始訓練
+                    </button>
+                    
+                    <button onclick="showLibrary()" 
+                            class="btn-touch w-full px-6 text-base font-semibold rounded-2xl glass text-white flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 7a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM9 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM9 9a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V9zM9 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                        瀏覽動作庫
+                    </button>
+                </div>
+
+                <!-- Phase Indicator -->
+                <div class="glass-dark rounded-2xl p-4 mt-5 animate-slide-up" style="animation-delay: 0.3s">
+                    <div class="flex justify-between mb-2.5">
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-sky-500"></div>
+                            <span class="text-xs">急性期</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                            <span class="text-xs">恢復期</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                            <span class="text-xs text-gray-500">強化期</span>
+                        </div>
+                    </div>
+                    
+                    <div class="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                        <div class="h-full w-2/3 bg-gradient-to-r from-sky-500 via-teal-500 to-green-500 rounded-full"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- TRAINING PAGE -->
-    <div id="trainingPage" class="hidden min-h-screen bg-gray-950">
-        <!-- Training Header -->
-        <header class="sticky top-0 z-50 glass-dark">
-            <div class="flex items-center justify-between p-4">
-                <button onclick="backToHero()" class="p-2 -ml-2 rounded-full hover:bg-white/10">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    <div id="trainingPage" class="page page-hidden bg-gray-950">
+        
+        <!-- Header -->
+        <header class="sticky top-0 z-20 glass-dark safe-top">
+            <div class="flex items-center justify-between px-4 py-3">
+                <button onclick="backToHero()" class="btn-touch p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
                 
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 text-sm">
                     <span class="text-white/60">動作</span>
                     <span id="currentExerciseNum" class="font-bold text-primary">1</span>
                     <span class="text-white/40">/</span>
-                    <span id="totalExerciseNum">12</span>
+                    <span id="totalExerciseNum" class="text-white/60">12</span>
                 </div>
                 
-                <button onclick="toggleMusicPanel()" class="p-2 -mr-2 rounded-full hover:bg-white/10 relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                <button onclick="toggleMusicPanel()" class="btn-touch p-2 -mr-2 rounded-full hover:bg-white/10 transition-colors relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                     </svg>
                     <span id="musicIndicator" class="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full hidden"></span>
                 </button>
             </div>
         </header>
 
-        <!-- Exercise Display -->
-        <div class="p-4">
+        <!-- Content -->
+        <div class="px-4 py-4 pb-24">
+            
             <!-- Exercise Image -->
-            <div class="relative aspect-video rounded-3xl overflow-hidden mb-4 shadow-2xl">
+            <div class="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 shadow-2xl">
                 <img id="exerciseImage" src="" alt="Exercise" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 
                 <!-- Category Badge -->
-                <div class="absolute top-4 left-4">
-                    <span id="exerciseCategory" class="px-3 py-1.5 rounded-full text-xs font-bold bg-sky-500">
+                <div class="absolute top-3 left-3">
+                    <span id="exerciseCategory" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-500">
                         急性期
                     </span>
                 </div>
                 
                 <!-- Video Link -->
-                <a id="videoLink" href="#" target="_blank" class="absolute bottom-4 right-4 glass px-4 py-2 rounded-full flex items-center gap-2 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <a id="videoLink" href="#" target="_blank" 
+                   class="absolute bottom-3 right-3 glass px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                     </svg>
                     教學影片
                 </a>
             </div>
 
             <!-- Exercise Info -->
-            <div class="mb-6">
+            <div class="mb-5">
                 <h2 id="exerciseName" class="text-2xl font-bold mb-1">臀橋</h2>
-                <p id="exerciseNameEn" class="text-white/50 text-sm mb-3">Glute Bridge</p>
-                <p id="exerciseDesc" class="text-white/70 leading-relaxed mb-4">
-                    平躺屈膝，雙腳與肩同寬。臀部向上推起，頂點維持2秒，緩慢放下。感受臀部收緊。
-                </p>
+                <p id="exerciseNameEn" class="text-white/50 text-sm mb-2">Glute Bridge</p>
+                <p id="exerciseDesc" class="text-white/70 text-sm leading-relaxed mb-3"></p>
                 
-                <div class="glass-dark rounded-2xl p-4">
-                    <p class="text-sm text-white/50 mb-2">💡 動作要點</p>
-                    <ul id="exerciseTips" class="space-y-2 text-sm">
-                        <li class="flex items-start gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>腳跟著地</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>臀部夾緊</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>不要拱腰</span>
-                        </li>
-                    </ul>
+                <div class="glass-dark rounded-xl p-3">
+                    <p class="text-xs text-white/50 mb-2">💡 動作要點</p>
+                    <ul id="exerciseTips" class="space-y-1.5 text-sm"></ul>
                 </div>
             </div>
 
             <!-- Timer -->
-            <div class="text-center mb-6">
-                <div class="relative w-48 h-48 mx-auto mb-6">
+            <div class="text-center mb-5">
+                <div class="relative w-40 h-40 mx-auto mb-4">
                     <svg class="w-full h-full progress-ring">
-                        <circle cx="96" cy="96" r="88" stroke="#374151" stroke-width="8" fill="none"/>
-                        <circle id="timerCircle" cx="96" cy="96" r="88" 
-                            stroke="url(#timerGradient)" stroke-width="8" fill="none"
-                            stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="0"
+                        <circle cx="80" cy="80" r="72" stroke="#1f2937" stroke-width="6" fill="none"/>
+                        <circle id="timerCircle" cx="80" cy="80" r="72" 
+                            stroke="url(#timerGradient)" stroke-width="6" fill="none"
+                            stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="0"
                             class="transition-all duration-1000"></circle>
+                        
                         <defs>
                             <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#0EA5E9"/>
@@ -271,31 +354,31 @@
                     </svg>
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <span id="timerDisplay" class="text-5xl font-bold tabular-nums">00:45</span>
-                        <span id="exerciseReps" class="text-white/50 text-sm mt-1">3組 x 15次</span>
+                        <span id="timerDisplay" class="text-4xl font-bold tabular-nums">00:45</span>
+                        <span id="exerciseReps" class="text-white/50 text-xs mt-1"></span>
                     </div>
                 </div>
 
                 <!-- Timer Controls -->
-                <div class="flex items-center justify-center gap-4">
-                    <button onclick="resetTimer()" class="w-14 h-14 rounded-full glass flex items-center justify-center hover:bg-white/10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="flex items-center justify-center gap-3">
+                    <button onclick="resetTimer()" class="btn-touch w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
                     </button>
                     
                     <button id="timerBtn" onclick="toggleTimer()" 
-                            class="w-20 h-20 rounded-full gradient-primary flex items-center justify-center shadow-xl shadow-sky-500/30">
-                        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
+                            class="btn-touch w-16 h-16 rounded-full gradient-primary flex items-center justify-center shadow-xl shadow-sky-500/30">
+                        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                         </svg>
-                        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 hidden" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 hidden" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                         </svg>
                     </button>
                     
-                    <button onclick="nextExercise()" class="w-14 h-14 rounded-full glass flex items-center justify-center hover:bg-white/10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button onclick="nextExercise()" class="btn-touch w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -304,9 +387,9 @@
 
             <!-- Complete Button -->
             <button onclick="completeExercise()" 
-                    class="w-full h-16 rounded-2xl gradient-primary text-white font-bold text-lg shadow-xl shadow-green-500/30 flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    class="btn-touch w-full py-4 rounded-2xl gradient-primary text-white font-bold text-base shadow-xl shadow-green-500/30 flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
                 完成動作 (+20%)
             </button>
@@ -314,26 +397,27 @@
     </div>
 
     <!-- MUSIC PANEL -->
-    <div id="musicPanel" class="hidden fixed inset-0 z-50 bg-black/80">
-        <div class="absolute bottom-0 left-0 right-0 glass-dark rounded-t-3xl p-6 max-h-[80vh] overflow-y-auto">
-            <div class="w-12 h-1 bg-gray-700 rounded-full mx-auto mb-6"></div>
+    <div id="musicPanel" class="hidden fixed inset-0 z-50">
+        <div class="absolute inset-0 bg-black/60" onclick="closeMusicPanel()"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 glass-dark rounded-t-3xl p-5 safe-bottom animate-slide-up">
+            <div class="w-10 h-1 bg-gray-700 rounded-full mx-auto mb-4"></div>
             
-            <h3 class="text-xl font-bold mb-4">選擇音樂風格</h3>
+            <h3 class="text-lg font-bold mb-3">選擇音樂風格</h3>
             
-            <div class="space-y-3 mb-6">
+            <div class="space-y-2 mb-4">
                 <!-- Phonk -->
-                <button onclick="selectMusic('phonk')" id="music-phonk" class="w-full p-4 rounded-2xl glass flex items-center gap-4 transition-all">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="selectMusic('phonk')" id="music-phonk" class="w-full p-3 rounded-xl glass flex items-center gap-3 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                         </svg>
                     </div>
                     <div class="flex-1 text-left">
-                        <p class="font-bold">Phonk Hype 🔥</p>
-                        <p class="text-sm text-white/50">2026 最火健身節奏</p>
+                        <p class="font-semibold text-sm">Phonk Hype 🔥</p>
+                        <p class="text-xs text-white/50">2026 最火健身節奏</p>
                     </div>
-                    <div id="visualizer-phonk" class="hidden flex items-end gap-1 h-8">
-                        <div class="audio-bar"></div>
+                    <div id="visualizer-phonk" class="hidden flex items-end gap-0.5 h-6">
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
@@ -342,18 +426,17 @@
                 </button>
                 
                 <!-- EDM -->
-                <button onclick="selectMusic('edm')" id="music-edm" class="w-full p-4 rounded-2xl glass flex items-center gap-4 transition-all">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="selectMusic('edm')" id="music-edm" class="w-full p-3 rounded-xl glass flex items-center gap-3 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <div class="flex-1 text-left">
-                        <p class="font-bold">Energetic EDM ⚡</p>
-                        <p class="text-sm text-white/50">高能量電子音樂</p>
+                        <p class="font-semibold text-sm">Energetic EDM ⚡</p>
+                        <p class="text-xs text-white/50">高能量電子音樂</p>
                     </div>
-                    <div id="visualizer-edm" class="hidden flex items-end gap-1 h-8">
-                        <div class="audio-bar"></div>
+                    <div id="visualizer-edm" class="hidden flex items-end gap-0.5 h-6">
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
@@ -362,18 +445,17 @@
                 </button>
                 
                 <!-- Trap -->
-                <button onclick="selectMusic('trap')" id="music-trap" class="w-full p-4 rounded-2xl glass flex items-center gap-4 transition-all">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="selectMusic('trap')" id="music-trap" class="w-full p-3 rounded-xl glass flex items-center gap-3 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                         </svg>
                     </div>
                     <div class="flex-1 text-left">
-                        <p class="font-bold">Motivational Trap 💪</p>
-                        <p class="text-sm text-white/50">重低音激勵節奏</p>
+                        <p class="font-semibold text-sm">Motivational Trap 💪</p>
+                        <p class="text-xs text-white/50">重低音激勵節奏</p>
                     </div>
-                    <div id="visualizer-trap" class="hidden flex items-end gap-1 h-8">
-                        <div class="audio-bar"></div>
+                    <div id="visualizer-trap" class="hidden flex items-end gap-0.5 h-6">
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
@@ -382,18 +464,17 @@
                 </button>
                 
                 <!-- Pop -->
-                <button onclick="selectMusic('pop')" id="music-pop" class="w-full p-4 rounded-2xl glass flex items-center gap-4 transition-all">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="selectMusic('pop')" id="music-pop" class="w-full p-3 rounded-xl glass flex items-center gap-3 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
                     <div class="flex-1 text-left">
-                        <p class="font-bold">Upbeat Pop 🌟</p>
-                        <p class="text-sm text-white/50">輕快流行音樂</p>
+                        <p class="font-semibold text-sm">Upbeat Pop 🌟</p>
+                        <p class="text-xs text-white/50">輕快流行音樂</p>
                     </div>
-                    <div id="visualizer-pop" class="hidden flex items-end gap-1 h-8">
-                        <div class="audio-bar"></div>
+                    <div id="visualizer-pop" class="hidden flex items-end gap-0.5 h-6">
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
                         <div class="audio-bar"></div>
@@ -402,29 +483,32 @@
                 </button>
             </div>
 
-            <!-- Volume Control -->
-            <div class="flex items-center gap-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            <!-- Volume -->
+            <div class="flex items-center gap-3 mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/50" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 11H2.757c-.828 0-1.5-.672-1.5-1.5v-3c0-.828.672-1.5 1.5-1.5h1.829l3.707-5.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
                 <input type="range" id="volumeSlider" min="0" max="100" value="50" 
-                       class="flex-1 h-2 bg-gray-700 rounded-full appearance-none cursor-pointer"
-                       oninput="setVolume(this.value)">
+                       class="flex-1 h-1.5 bg-gray-700 rounded-full appearance-none cursor-pointer"
+                       oninput="setVolume(this.value)"
+                       style="background: linear-gradient(to right, #0EA5E9 50%, #374151 50%);"
+                >
             </div>
 
-            <button onclick="closeMusicPanel()" class="w-full mt-4 py-3 rounded-2xl glass text-white font-medium">
+            <button onclick="closeMusicPanel()" class="w-full py-3 rounded-xl glass text-white font-medium text-sm">
                 關閉
             </button>
         </div>
     </div>
 
     <!-- LIBRARY PAGE -->
-    <div id="libraryPage" class="hidden min-h-screen bg-gray-950">
-        <header class="sticky top-0 z-10 glass-dark">
-            <div class="flex items-center justify-between p-4">
-                <button onclick="backToHeroFromLibrary()" class="p-2 -ml-2 rounded-full hover:bg-white/10">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    <div id="libraryPage" class="page page-hidden bg-gray-950">
+        
+        <header class="sticky top-0 z-10 glass-dark safe-top">
+            <div class="flex items-center justify-between px-4 py-3">
+                <button onclick="backToHeroFromLibrary()" class="btn-touch p-2 -ml-2 rounded-full hover:bg-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
                 
@@ -433,25 +517,25 @@
                 <div class="w-10"></div>
             </div>
             
-            <!-- Category Filter -->
-            <div class="flex gap-2 px-4 pb-4 overflow-x-auto hide-scrollbar">
-                <button onclick="filterExercises('all')" class="filter-btn active px-4 py-2 rounded-full bg-primary text-white text-sm font-medium whitespace-nowrap" data-filter="all">
+            <!-- Filter -->
+            <div class="flex gap-2 px-4 pb-3 overflow-x-auto hide-scrollbar">
+                <button onclick="filterExercises('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap bg-primary text-white" data-filter="all">
                     全部
                 </button>
-                <button onclick="filterExercises('acute')" class="filter-btn px-4 py-2 rounded-full glass text-white/70 text-sm font-medium whitespace-nowrap" data-filter="acute">
+                <button onclick="filterExercises('acute')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap glass text-white/70" data-filter="acute">
                     急性期
                 </button>
-                <button onclick="filterExercises('subacute')" class="filter-btn px-4 py-2 rounded-full glass text-white/70 text-sm font-medium whitespace-nowrap" data-filter="subacute">
+                <button onclick="filterExercises('subacute')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap glass text-white/70" data-filter="subacute">
                     恢復期
                 </button>
-                <button onclick="filterExercises('recovery')" class="filter-btn px-4 py-2 rounded-full glass text-white/70 text-sm font-medium whitespace-nowrap" data-filter="recovery">
+                <button onclick="filterExercises('recovery')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap glass text-white/70" data-filter="recovery">
                     強化期
                 </button>
             </div>
         </header>
 
-        <div id="exerciseGrid" class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 pb-24">
-            <!-- Exercise cards will be generated by JS -->
+        <div id="exerciseGrid" class="p-4 grid grid-cols-1 gap-3 pb-24">
+            <!-- Cards generated by JS -->
         </div>
     </div>
 
@@ -465,9 +549,9 @@
                 category: 'acute',
                 duration: 45,
                 reps: '3組 x 15次',
-                desc: '平躺屈膝，雙腳與肩同寬。臀部向上推起，頂點維持2秒，緩慢放下。感受臀部收緊。',
+                desc: '平躺屈膝，雙腳與肩同寬。臀部向上推起，頂點維持2秒，緩慢放下。',
                 tips: ['腳跟著地', '臀部夾緊', '不要拱腰'],
-                image: 'https://images.pexels.com/photos/4498150/pexels-photo-4498150.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80',
                 videoId: 'XFn0Xx8G8bE'
             },
             {
@@ -479,7 +563,7 @@
                 reps: '3組 x 15次',
                 desc: '平躺，一膝彎曲，另一腿伸直抬高15-20公分，維持2秒放下。',
                 tips: ['腳尖朝上', '膝蓋不要彎曲', '緩慢控制'],
-                image: 'https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80',
                 videoId: 'gufWE2M6L0Q'
             },
             {
@@ -489,9 +573,9 @@
                 category: 'acute',
                 duration: 30,
                 reps: '3組 x 10次',
-                desc: '坐姿，膝蓋伸直，收緊大腿前側肌肉5秒，放鬆。完全不彎曲膝蓋。',
+                desc: '坐姿，膝蓋伸直，收緊大腿前側肌肉5秒，放鬆。',
                 tips: ['膝蓋完全伸直', '感受大腿前側緊繃', '保持正常呼吸'],
-                image: 'https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
                 videoId: 'XFn0Xx8G8bE'
             },
             {
@@ -503,7 +587,7 @@
                 reps: '3組 x 30-45秒',
                 desc: '背靠牆，膝蓋彎曲30-45度，維持靜止姿勢。',
                 tips: ['膝蓋不超過腳尖', '背部貼牆', '大腿平行地面'],
-                image: 'https://images.pexels.com/photos/4498605/pexels-photo-4498605.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80',
                 videoId: 'y-wV4V3wYpk'
             },
             {
@@ -513,9 +597,9 @@
                 category: 'subacute',
                 duration: 60,
                 reps: '3組 x 12次',
-                desc: '3秒緩慢下蹲，1秒快速站起。強化離心收縮，促進肌腱修復。',
+                desc: '3秒緩慢下蹲，1秒快速站起。強化離心收縮。',
                 tips: ['重心在腳跟', '膝蓋對準腳尖', '挺胸收腹'],
-                image: 'https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1574680096141-1cddd32e04ca?w=800&q=80',
                 videoId: 'h2i8fF2g8c0'
             },
             {
@@ -525,9 +609,9 @@
                 category: 'subacute',
                 duration: 60,
                 reps: '3組 x 10次/腳',
-                desc: '站在階梯邊緣，緩慢下降單腳著地，再返回。控制離心階段。',
+                desc: '站在階梯邊緣，緩慢下降單腳著地，再返回。',
                 tips: ['膝蓋穩定不內扣', '身體挺直', '控制下降速度'],
-                image: 'https://images.pexels.com/photos/6456140/pexels-photo-6456140.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&q=80',
                 videoId: 'J9gIFU7iBxE'
             },
             {
@@ -539,7 +623,7 @@
                 reps: '3組 x 15次',
                 desc: '坐姿，從90度緩慢伸直膝蓋，維持2秒，控制放下。',
                 tips: ['最後10度暫停', '不要鎖死膝蓋', '感受股四頭肌'],
-                image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
                 videoId: 'YFv8DZx8YvY'
             },
             {
@@ -551,7 +635,7 @@
                 reps: '3組 x 12次/方向',
                 desc: '側向跨步，膝蓋微彎，重心轉移，訓練側向穩定性。',
                 tips: ['膝蓋對準腳尖', '臀部向後推', '保持軀幹穩定'],
-                image: 'https://images.pexels.com/photos/3757954/pexels-photo-3757954.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1574680096141-1cddd32e04ca?w=800&q=80',
                 videoId: 'J9gIFU7iBxE'
             },
             {
@@ -563,7 +647,7 @@
                 reps: '3組 x 8次/腳',
                 desc: '單腳站立，緩慢下蹲至45度，返回。進階穩定性訓練。',
                 tips: ['膝蓋對準腳尖', '骨盆保持水平', '控制速度'],
-                image: 'https://images.pexels.com/photos/4761352/pexels-photo-4761352.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80',
                 videoId: 'Icb6F5Xj5Ww'
             },
             {
@@ -575,7 +659,7 @@
                 reps: '3組 x 10次/腳',
                 desc: '踏上箱子，膝蓋伸直，控制下降。低衝擊功能性訓練。',
                 tips: ['全腳掌踏上', '膝蓋穩定', '核心收緊'],
-                image: 'https://images.pexels.com/photos/5262853/pexels-photo-5262853.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&q=80',
                 videoId: 'h2i8fF2g8c0'
             },
             {
@@ -587,7 +671,7 @@
                 reps: '3組 x 10次/方向',
                 desc: '側向小跳躍，著地穩定2秒，訓練動態膝蓋穩定性。',
                 tips: ['輕柔著地', '膝蓋微彎吸收衝擊', '保持平衡'],
-                image: 'https://images.pexels.com/photos/4662349/pexels-photo-4662349.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1574680096141-1cddd32e04ca?w=800&q=80',
                 videoId: 'J9gIFU7iBxE'
             },
             {
@@ -599,12 +683,12 @@
                 reps: '3組 x 6次',
                 desc: '從低箱子跳下，立即輕柔著地，膝蓋微彎吸收衝擊。',
                 tips: ['輕柔著地如貓', '膝蓋不要內扣', '臀部向後推'],
-                image: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&w=800',
+                image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80',
                 videoId: 'h2i8fF2g8c0'
             }
         ];
 
-        // Music URLs (using free music from Pixabay)
+        // Music URLs
         const musicTracks = {
             phonk: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3',
             edm: 'https://cdn.pixabay.com/download/audio/2022/10/25/audio_9839f15c4d.mp3',
@@ -629,26 +713,26 @@
 
         // Navigation
         function startTraining() {
-            document.getElementById('heroPage').classList.add('hidden');
-            document.getElementById('trainingPage').classList.remove('hidden');
+            document.getElementById('heroPage').classList.add('page-hidden');
+            document.getElementById('trainingPage').classList.remove('page-hidden');
             loadExercise(currentExerciseIndex);
         }
 
         function backToHero() {
-            document.getElementById('trainingPage').classList.add('hidden');
-            document.getElementById('heroPage').classList.remove('hidden');
+            document.getElementById('trainingPage').classList.add('page-hidden');
+            document.getElementById('heroPage').classList.remove('page-hidden');
             stopTimer();
         }
 
         function showLibrary() {
-            document.getElementById('heroPage').classList.add('hidden');
-            document.getElementById('libraryPage').classList.remove('hidden');
+            document.getElementById('heroPage').classList.add('page-hidden');
+            document.getElementById('libraryPage').classList.remove('page-hidden');
             renderLibrary();
         }
 
         function backToHeroFromLibrary() {
-            document.getElementById('libraryPage').classList.add('hidden');
-            document.getElementById('heroPage').classList.remove('hidden');
+            document.getElementById('libraryPage').classList.add('page-hidden');
+            document.getElementById('heroPage').classList.remove('page-hidden');
         }
 
         // Exercise Functions
@@ -664,26 +748,23 @@
             document.getElementById('currentExerciseNum').textContent = index + 1;
             document.getElementById('videoLink').href = `https://youtu.be/${ex.videoId}`;
             
-            // Category badge
             const catBadge = document.getElementById('exerciseCategory');
             catBadge.textContent = ex.category === 'acute' ? '急性期' : ex.category === 'subacute' ? '恢復期' : '強化期';
-            catBadge.className = `px-3 py-1.5 rounded-full text-xs font-bold ${
+            catBadge.className = `px-2.5 py-1 rounded-lg text-xs font-bold ${
                 ex.category === 'acute' ? 'bg-sky-500' : 
                 ex.category === 'subacute' ? 'bg-teal-500' : 'bg-green-500'
             }`;
             
-            // Tips
             const tipsList = document.getElementById('exerciseTips');
             tipsList.innerHTML = ex.tips.map(tip => `
                 <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                     </svg>
                     <span>${tip}</span>
                 </li>
             `).join('');
             
-            // Reset timer
             timeLeft = ex.duration;
             updateTimerDisplay();
             stopTimer();
@@ -693,16 +774,15 @@
             if (currentExerciseIndex < exercises.length - 1) {
                 loadExercise(currentExerciseIndex + 1);
             } else {
-                alert('恭喜完成所有動作！');
+                alert('🎉 恭喜完成所有動作！');
             }
         }
 
         function completeExercise() {
             progress = Math.min(100, progress + 20);
             document.getElementById('progressPercent').textContent = progress + '%';
-            document.getElementById('progressCircle').style.strokeDashoffset = 226 - (226 * progress / 100);
+            document.getElementById('progressCircle').style.strokeDashoffset = 176 - (176 * progress / 100);
             
-            // Show completion animation
             setTimeout(() => {
                 if (currentExerciseIndex < exercises.length - 1) {
                     loadExercise(currentExerciseIndex + 1);
@@ -733,7 +813,6 @@
                     updateTimerDisplay();
                 } else {
                     stopTimer();
-                    // Auto complete when timer finishes
                     completeExercise();
                 }
             }, 1000);
@@ -758,9 +837,8 @@
             document.getElementById('timerDisplay').textContent = 
                 `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             
-            // Update circle
             const total = exercises[currentExerciseIndex].duration;
-            const offset = 553 - (553 * timeLeft / total);
+            const offset = 452 - (452 * timeLeft / total);
             document.getElementById('timerCircle').style.strokeDashoffset = offset;
         }
 
@@ -774,21 +852,17 @@
         }
 
         function selectMusic(type) {
-            // Stop current music
             audio.pause();
             
-            // Update UI
             document.querySelectorAll('[id^="visualizer-"]').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('[id^="music-"]').forEach(el => {
                 el.classList.remove('ring-2', 'ring-primary');
             });
             
-            // Set new music
             currentMusic = type;
             audio.src = musicTracks[type];
-            audio.play();
+            audio.play().catch(e => console.log('Audio play failed:', e));
             
-            // Update UI
             document.getElementById(`visualizer-${type}`).classList.remove('hidden');
             document.getElementById(`music-${type}`).classList.add('ring-2', 'ring-primary');
             document.getElementById('musicIndicator').classList.remove('hidden');
@@ -796,6 +870,8 @@
 
         function setVolume(value) {
             audio.volume = value / 100;
+            const slider = document.getElementById('volumeSlider');
+            slider.style.background = `linear-gradient(to right, #0EA5E9 ${value}%, #374151 ${value}%)`;
         }
 
         // Library Functions
@@ -804,10 +880,10 @@
             const filtered = filter === 'all' ? exercises : exercises.filter(ex => ex.category === filter);
             
             grid.innerHTML = filtered.map(ex => `
-                <div onclick="selectFromLibrary(${ex.id - 1})" class="glass-dark rounded-2xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all">
-                    <div class="relative aspect-video">
+                <div onclick="selectFromLibrary(${ex.id - 1})" class="glass-dark rounded-xl overflow-hidden cursor-pointer active:scale-98 transition-transform">
+                    <div class="relative aspect-[16/9]">
                         <img src="${ex.image}" alt="${ex.name}" class="w-full h-full object-cover">
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-2.5 left-2.5">
                             <span class="px-2 py-1 rounded-lg text-xs font-bold ${
                                 ex.category === 'acute' ? 'bg-sky-500' : 
                                 ex.category === 'subacute' ? 'bg-teal-500' : 'bg-green-500'
@@ -817,9 +893,9 @@
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">${ex.name}</h3>
-                        <p class="text-white/50 text-sm mb-2">${ex.nameEn}</p>
+                    <div class="p-3">
+                        <h3 class="font-bold text-base mb-0.5">${ex.name}</h3>
+                        <p class="text-white/50 text-xs mb-1">${ex.nameEn}</p>
                         <p class="text-sm text-white/70">${ex.reps}</p>
                     </div>
                 </div>
@@ -827,7 +903,6 @@
         }
 
         function filterExercises(category) {
-            // Update buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.dataset.filter === category) {
                     btn.classList.remove('glass', 'text-white/70');
