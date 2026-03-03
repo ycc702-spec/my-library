@@ -1,0 +1,158 @@
+{
+  "version": "1.0",
+  "appName": "Video Library",
+  "description": "個人影片庫 - 儲存各種有用影片",
+  "lastUpdated": "2026-02-25T01:55:00Z",
+  "categories": {
+    "rehab": {
+      "id": "rehab",
+      "name": "復健",
+      "icon": "🦵",
+      "color": "#00D4FF",
+      "description": "膝蓋復健、健身、物理治療"
+    },
+    "basketball": {
+      "id": "basketball", 
+      "name": "籃球",
+      "icon": "🏀",
+      "color": "#F97316",
+      "description": "籃球訓練、技巧、比賽"
+    },
+    "finance": {
+      "id": "finance",
+      "name": "財經",
+      "icon": "💰",
+      "color": "#10B981",
+      "description": "投資分析、股票研究"
+    },
+    "food": {
+      "id": "food",
+      "name": "美食",
+      "icon": "🍽️",
+      "color": "#F59E0B",
+      "description": "餐廳、食譜、推薦"
+    },
+    "travel": {
+      "id": "travel",
+      "name": "旅遊",
+      "icon": "✈️",
+      "color": "#3B82F6",
+      "description": "景點、行程、住宿"
+    },
+    "pets": {
+      "id": "pets",
+      "name": "寵物",
+      "icon": "🐕",
+      "color": "#8B5CF6",
+      "description": "寵物知識、訓練"
+    },
+    "other": {
+      "id": "other",
+      "name": "其他",
+      "icon": "📌",
+      "color": "#6B7280",
+      "description": "其他類型"
+    }
+  },
+  "videos": [
+    {
+      "id": "vid_001",
+      "title": "Sit to Stand - 坐到站",
+      "titleZh": "坐到站 - 功能性訓練",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/p/DVJg1HVAOM-/",
+      "author": "heidinealfitness",
+      "series": "5 Moves for Strong Knees",
+      "seriesOrder": 1,
+      "videoUrl": "https://instagram.ffod1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQPT6tLx0kVQQF9OixSQZFm0c3nW6j23xfT1GHoPwK9tIW2az8lfi69K9X7a3OsSvG44jV56_KJXkOKbSI_ffoHzoszH_sTGj1W9Ki0.mp4",
+      "thumbnail": "https://instagram.ffod1-1.fna.fbcdn.net/v/t51.2885-15/641056694_18107743159813653_7580984738858403967_n.jpg",
+      "description": "5個強化膝蓋動作 - 第1個：坐到站 (Sit to Stand)。功能性訓練，強化膝蓋和臀腿。",
+      "tags": ["膝蓋", "復健", "坐到站", "功能性訓練", "健身"],
+      "savedAt": "2026-02-25T01:55:00Z",
+      "status": "active"
+    },
+    {
+      "id": "vid_002",
+      "title": "Elevated SO Bridge - 墊高單腳臀橋",
+      "titleZh": "墊高單腳臀橋 - 強化臀肌",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/p/DVJg1HVAOM-/",
+      "author": "heidinealfitness",
+      "series": "5 Moves for Strong Knees",
+      "seriesOrder": 2,
+      "videoUrl": "https://instagram.ffod1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQNTNTkr07MqT6t4V0qdngI-6kfljAUp7LXF3Vp-LpeU9VwCaNpL5Pdy_CbbUdpIIpLLVYTI1b0Ij_O5d5jZhrAqqjYRc7weCJ2KHjE.mp4",
+      "thumbnail": "https://instagram.ffod1-1.fna.fbcdn.net/v/t51.2885-15/639744761_18107743168813653_724541281372885563_n.jpg",
+      "description": "5個強化膝蓋動作 - 第2個：墊高單腳臀橋 (Elevated SO Bridge)。單腳墊高臀橋，強化臀肌和核心。",
+      "tags": ["膝蓋", "復健", "臀橋", "單腳", "臀肌", "健身"],
+      "savedAt": "2026-02-25T01:55:00Z",
+      "status": "active"
+    },
+    {
+      "id": "vid_003",
+      "title": "SL Wall Hinge - 單腳牆面鉸鏈",
+      "titleZh": "單腳牆面鉸鏈 - 強化髖關節",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/p/DVJg1HVAOM-/",
+      "author": "heidinealfitness",
+      "series": "5 Moves for Strong Knees",
+      "seriesOrder": 3,
+      "videoUrl": "https://instagram.ffod1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQMVsQ2_SxR6hpfQVdoILVUVwNN1LI6pkAaflnzsraAWC82H1XWOPDp5OgSjiG_PnL4_W-b1HntiIKhxPVE1FGOrgypkE6vNRvns7sE.mp4",
+      "thumbnail": "https://instagram.ffod1-1.fna.fbcdn.net/v/t51.2885-15/638870821_18107743177813653_936437954756282389_n.jpg",
+      "description": "5個強化膝蓋動作 - 第3個：單腳牆面鉸鏈 (SL Wall Hinge)。單腳牆面髖鉸鏈動作，強化髖關節靈活性。",
+      "tags": ["膝蓋", "復健", "髖關節", "牆面", "靈活性", "健身"],
+      "savedAt": "2026-02-25T01:55:00Z",
+      "status": "active"
+    },
+    {
+      "id": "vid_004",
+      "title": "Reverse Tap Down - 反向點地",
+      "titleZh": "反向點地 - 強化膝蓋控制",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/p/DVJg1HVAOM-/",
+      "author": "heidinealfitness",
+      "series": "5 Moves for Strong Knees",
+      "seriesOrder": 4,
+      "videoUrl": "https://instagram.ffod1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQMq_w1IEk2bm_cxSuk0jAP2jZV2GDbLK7Hoa68_5RvYOPLZQ9M0PhoZ4Ag0kt530WQEOT8EFnzN6R8i8b-eh7FZSQKe1tFIj4EV13w.mp4",
+      "thumbnail": "https://instagram.ffod1-1.fna.fbcdn.net/v/t51.2885-15/639745058_18107743186813653_4048957433011866542_n.jpg",
+      "description": "5個強化膝蓋動作 - 第4個：反向點地 (Reverse Tap Down)。強化膝蓋控制和穩定性。",
+      "tags": ["膝蓋", "復健", "點地", "控制", "穩定性", "健身"],
+      "savedAt": "2026-02-25T01:55:00Z",
+      "status": "active"
+    },
+    {
+      "id": "vid_005",
+      "title": "Star Hold - 星形支撐",
+      "titleZh": "星形支撐 - 強化核心穩定",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/p/DVJg1HVAOM-/",
+      "author": "heidinealfitness",
+      "series": "5 Moves for Strong Knees",
+      "seriesOrder": 5,
+      "videoUrl": "https://instagram.ffod1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQOckTiEaDyIi6DMjfARP4L5l1T5Hb6kt7mVcjevofRE5DmAS4zV0KFvOuE9ajOrYSf8dazLwDt84ggvjRVOK_LtK9-wtodLRbz_3TA.mp4",
+      "thumbnail": "https://instagram.ffod1-1.fna.fbcdn.net/v/t51.2885-15/643018876_18107743195813653_7593161847224443964_n.jpg",
+      "description": "5個強化膝蓋動作 - 第5個：星形支撐 (Star Hold)。靜態支撐動作，強化核心和全身穩定性。",
+      "tags": ["膝蓋", "復健", "星形支撐", "核心", "穩定性", "健身"],
+      "savedAt": "2026-02-25T01:55:00Z",
+      "status": "active"
+    }
+  ],
+  "stats": {
+    "totalVideos": 5,
+    "totalByCategory": {
+      "rehab": 5
+    },
+    "totalBySource": {
+      "instagram": 5
+    }
+  }
+}

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Library - 個人影片庫</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .header {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #00D4FF, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text p {
+            font-size: 13px;
+            color: #888;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00D4FF;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        .search-bar {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .category-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .category-card:hover, .category-card.active {
+            background: rgba(255,255,255,0.1);
+            border-color: #00D4FF;
+            transform: translateY(-3px);
+        }
+        
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,212,255,0.3);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-card:hover .play-overlay {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00D4FF, #A855F7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .video-info {
+            padding: 16px;
+        }
+        
+        .video-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .video-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-tag {
+            background: rgba(0,212,255,0.15);
+            color: #00D4FF;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+        
+        .add-hint {
+            background: linear-gradient(90deg, rgba(0,212,255,0.1), rgba(168,85,247,0.1));
+            border: 2px dashed rgba(0,212,255,0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .add-hint h3 {
+            color: #00D4FF;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🎬</div>
+                <div class="logo-text">
+                    <h1>Video Library</h1>
+                    <p>個人影片庫 - 儲存各種有用影片</p>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-videos">5</div>
+                    <div class="stat-label">影片</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">分類</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" id="search-input" placeholder="搜尋影片...">
+        </div>
+        
+        <div class="section-title">📂 分類</div>
+        
+        <div class="categories" id="categories">
+            <!-- 由 JS 生成 -->
+        </div>
+        
+        <div class="section-title">🎬 影片</div>
+        
+        <div class="video-grid" id="video-grid">
+            <!-- 由 JS 生成 -->
+        </div>
+        
+        <div class="add-hint">
+            <h3>💡 如何新增影片</h3>
+            <p style="color: #888; line-height: 1.8;">
+                傳送影片連結給我（IG、FB、YouTube...）<br>
+                說：「儲存到 Video Library」<br>
+                我會自動分類整理！
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        let libraryData = null;
+        
+        async function loadLibrary() {
+            const response = await fetch('library.json');
+            libraryData = await response.json();
+            renderCategories();
+            renderVideos();
+        }
+        
+        function renderCategories() {
+            const container = document.getElementById('categories');
+            const categories = libraryData.categories;
+            
+            let html = `<div class="category-card active" onclick="filterByCategory('all')">
+                <div class="category-icon">📁</div>
+                <div class="category-name">全部</div>
+                <div class="category-count">${libraryData.stats.totalVideos} 部</div>
+            </div>`;
+            
+            for (const [key, cat] of Object.entries(categories)) {
+                const count = libraryData.stats.totalByCategory[key] || 0;
+                html += `<div class="category-card" onclick="filterByCategory('${key}')">
+                    <div class="category-icon">${cat.icon}</div>
+                    <div class="category-name">${cat.name}</div>
+                    <div class="category-count">${count} 部</div>
+                </div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function renderVideos() {
+            const container = document.getElementById('video-grid');
+            const videos = libraryData.videos;
+            
+            if (videos.length === 0) {
+                container.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">📭</div>
+                    <p>尚無影片</p>
+                </div>`;
+                return;
+            }
+            
+            container.innerHTML = videos.map(v => {
+                const cat = libraryData.categories[v.category];
+                return `
+                    <div class="video-card">
+                        <div class="video-thumbnail" onclick="window.open('${v.videoUrl}', '_blank')">
+                            <img src="${v.thumbnail}" alt="${v.title}">
+                            <div class="play-overlay">
+                                <div class="play-btn">▶</div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${v.titleZh}</div>
+                            <div class="video-meta">
+                                <span class="meta-tag" style="background: ${cat.color}22; color: ${cat.color}">
+                                    ${cat.icon} ${cat.name}
+                                </span>
+                                <span class="meta-tag">📷 ${v.source}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function filterByCategory(category) {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+            event.target.closest('.category-card').classList.add('active');
+            
+            if (category === 'all') {
+                renderVideos();
+            } else {
+                const filtered = libraryData.videos.filter(v => v.category === category);
+                const container = document.getElementById('video-grid');
+                container.innerHTML = filtered.map(v => {
+                    const cat = libraryData.categories[v.category];
+                    return `
+                        <div class="video-card">
+                            <div class="video-thumbnail" onclick="window.open('${v.videoUrl}', '_blank')">
+                                <img src="${v.thumbnail}" alt="${v.title}">
+                                <div class="play-overlay">
+                                    <div class="play-btn">▶</div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">${v.titleZh}</div>
+                                <div class="video-meta">
+                                    <span class="meta-tag" style="background: ${cat.color}22; color: ${cat.color}">
+                                        ${cat.icon} ${cat.name}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+        
+        loadLibrary();
+    </script>
+</body>
+</html>
