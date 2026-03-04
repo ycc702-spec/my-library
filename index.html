@@ -504,10 +504,44 @@
         let currentFilter = 'all';
 
         // 初始化
-        function init() {
+        async function init() {
+            await loadLibraryData();
             renderCategories();
             renderBookmarks();
             updateStats();
+        }
+
+        // 載入 library-data.json
+        async function loadLibraryData() {
+            try {
+                const response = await fetch('library-data.json?t=' + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    // 轉換格式以相容現有程式碼
+                    libraryData.categories = {};
+                    libraryData.bookmarks = [];
+                    
+                    data.categories.forEach(cat => {
+                        libraryData.categories[cat.id] = {
+                            name: cat.name,
+                            icon: cat.icon,
+                            color: '#6366f1'
+                        };
+                        // 將書籤加入總列表
+                        cat.bookmarks.forEach(bk => {
+                            libraryData.bookmarks.push({
+                                ...bk,
+                                category: cat.id
+                            });
+                        });
+                    });
+                    
+                    libraryData.stats.totalBookmarks = libraryData.bookmarks.length;
+                    console.log('✅ 已載入', libraryData.stats.totalBookmarks, '個書籤');
+                }
+            } catch (err) {
+                console.error('載入資料失敗:', err);
+            }
         }
 
         // 渲染分類
@@ -524,9 +558,10 @@
             `;
             
             for (const [key, cat] of Object.entries(categories)) {
-                const count = 0; // 實際應從資料計算
+                // 計算該分類的書籤數量
+                const count = libraryData.bookmarks.filter(b => b.category === key).length;
                 html += `
-                    <div class="category-card" onclick="filterByCategory('${key}')" style="border-color: ${cat.color}33">
+                    <div class="category-card" onclick="filterByCategory('${key}')">
                         <div class="category-icon">${cat.icon}</div>
                         <div class="category-name">${cat.name}</div>
                         <div class="category-count">${count} 個</div>
@@ -540,19 +575,50 @@
         // 渲染書籤
         function renderBookmarks() {
             const container = document.getElementById('bookmarks-list');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
             
-            if (libraryData.bookmarks.length === 0) {
+            // 篩選書籤
+            let filtered = libraryData.bookmarks;
+            
+            // 按分類篩選
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(b => b.category === currentFilter);
+            }
+            
+            // 按搜尋詞篩選
+            if (searchTerm) {
+                filtered = filtered.filter(b => 
+                    b.title.toLowerCase().includes(searchTerm) ||
+                    b.tags.some(t => t.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">📭</div>
-                        <p>還沒有任何書籤</p>
-                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">傳送連結給我，我會幫你儲存！</p>
+                        <p>沒有找到書籤</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">試試其他分類或搜尋詞</p>
                     </div>
                 `;
                 return;
             }
             
-            // 實際應渲染書籤列表
+            // 渲染書籤列表
+            container.innerHTML = filtered.map(bk => `
+                <div class="bookmark-card">
+                    <div class="bookmark-header">
+                        <div class="bookmark-title">
+                            <a href="${bk.url}" target="_blank" rel="noopener">${bk.title}</a>
+                        </div>
+                        <div class="bookmark-source">${bk.source} · ${bk.author}</div>
+                    </div>
+                    <div class="bookmark-tags">
+                        ${bk.tags.map(tag => `<span class="bookmark-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="bookmark-date">📅 ${bk.date_added}</div>
+                </div>
+            `).join('');
         }
 
         // 更新統計

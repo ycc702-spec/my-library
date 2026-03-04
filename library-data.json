@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-03-04",
+  "categories": [
+    {
+      "id": "knee-rehab",
+      "name": "🦵 膝蓋復健",
+      "icon": "🦵",
+      "description": "Jumper's Knee 復健相關資源",
+      "bookmarks": [
+        {
+          "id": "bk_knee_001",
+          "title": "停止讓膝蓋在練腿日發炎",
+          "url": "https://www.instagram.com/p/DVZaaiBkaRV/",
+          "source": "Instagram",
+          "author": "@knee_pain_cheat_codes",
+          "tags": ["膝蓋疼痛", "訓練調整", "負荷管理"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_knee_002",
+          "title": "ForceDecks 復健評估工具",
+          "url": "https://www.instagram.com/p/DVZXkQWgcnd/",
+          "source": "Instagram",
+          "author": "@prime_fitness_physical_therapy",
+          "tags": ["復健工具", "力量評估", "爆發力"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_knee_003",
+          "title": "Gladiator MD 膝蓋復健設備",
+          "url": "https://www.instagram.com/p/DVZVxabGlgI/",
+          "source": "Instagram",
+          "author": "@gladiatorfarinfrared",
+          "tags": ["復健設備", "腫脹管理", "物理治療"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_knee_004",
+          "title": "膝蓋疼痛位置診斷指南",
+          "url": "https://www.instagram.com/p/DVZKoqZjK2t/",
+          "source": "Instagram",
+          "author": "@empowerfitness_mt",
+          "tags": ["疼痛診斷", "膝蓋前方", "內側外側"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_knee_005",
+          "title": "樓梯疼痛解決方案",
+          "url": "https://www.instagram.com/p/DVZKH7QkiVQ/",
+          "source": "Instagram",
+          "author": "Physical Therapy Account",
+          "tags": ["樓梯疼痛", "4週計畫", "復健訓練"],
+          "date_added": "2026-03-03"
+        }
+      ]
+    },
+    {
+      "id": "ai-tech",
+      "name": "🤖 AI 技術",
+      "icon": "🤖",
+      "description": "AI 新知與技術應用",
+      "bookmarks": [
+        {
+          "id": "bk_ai_001",
+          "title": "Photoleap AI 照片編輯應用",
+          "url": "https://www.instagram.com/p/DVZqKDMjNIG/",
+          "source": "Instagram",
+          "author": "@azavoice",
+          "tags": ["AI工具", "照片編輯", "設計"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_ai_002",
+          "title": "AI 重寫 COBOL 程式碼震撼金融界",
+          "url": "https://www.instagram.com/p/DVZpVVklV6p/",
+          "source": "Instagram",
+          "author": "@artificialintelligence9999",
+          "tags": ["Claude Code", "COBOL", "金融"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_ai_003",
+          "title": "本週 AI 九大更新摘要",
+          "url": "https://www.instagram.com/p/DVZnLlhDBqd/",
+          "source": "Instagram",
+          "author": "@theaitrack",
+          "tags": ["AI新聞", "OpenAI", "Meta", "Google"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_ai_004",
+          "title": "Claude 推出記憶匯入功能",
+          "url": "https://www.instagram.com/p/DVZmDkpEicD/",
+          "source": "Instagram",
+          "author": "@zerotoagi",
+          "tags": ["Claude", "記憶匯入", "平台轉移"],
+          "date_added": "2026-03-03"
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "💰 財經理財",
+      "icon": "💰",
+      "description": "財經資訊與理財觀念",
+      "bookmarks": [
+        {
+          "id": "bk_fin_001",
+          "title": "責任不等於痛苦 — 財務療癒觀點",
+          "url": "https://www.instagram.com/p/DVZWIHKgX5F/",
+          "source": "Instagram",
+          "author": "@chipaway.app",
+          "tags": ["財務療癒", "債務", "心理健康"],
+          "date_added": "2026-03-03"
+        },
+        {
+          "id": "bk_fin_002",
+          "title": "人生不會在還清債務後才開始",
+          "url": "https://www.instagram.com/p/DVZT7EFgdzo/",
+          "source": "Instagram",
+          "author": "@chipaway.app",
+          "tags": ["活在當下", "無罪惡感消費", "財務平衡"],
+          "date_added": "2026-03-03"
+        }
+      ]
+    }
+  ]
+}
