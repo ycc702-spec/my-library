@@ -73,44 +73,4 @@
       ]
     }
   ]
-}_added": "2026-03-03"
-        },
-        {
-          "id": "bk_ai_004",
-          "title": "Claude 推出記憶匯入功能",
-          "url": "https://www.instagram.com/p/DVZmDkpEicD/",
-          "source": "Instagram",
-          "author": "@zerotoagi",
-          "tags": ["Claude", "記憶匯入", "平台轉移"],
-          "date_added": "2026-03-03"
-        }
-      ]
-    },
-    {
-      "id": "finance",
-      "name": "💰 財經理財",
-      "icon": "💰",
-      "description": "財經資訊與理財觀念",
-      "bookmarks": [
-        {
-          "id": "bk_fin_001",
-          "title": "責任不等於痛苦 — 財務療癒觀點",
-          "url": "https://www.instagram.com/p/DVZWIHKgX5F/",
-          "source": "Instagram",
-          "author": "@chipaway.app",
-          "tags": ["財務療癒", "債務", "心理健康"],
-          "date_added": "2026-03-03"
-        },
-        {
-          "id": "bk_fin_002",
-          "title": "人生不會在還清債務後才開始",
-          "url": "https://www.instagram.com/p/DVZT7EFgdzo/",
-          "source": "Instagram",
-          "author": "@chipaway.app",
-          "tags": ["活在當下", "無罪惡感消費", "財務平衡"],
-          "date_added": "2026-03-03"
-        }
-      ]
-    }
-  ]
 }
