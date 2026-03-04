@@ -967,16 +967,24 @@
                 return;
             }
             
-            container.innerHTML = missionList.map(m => `
+            container.innerHTML = missionList.map(m => {
+                // 完成任務顯示完成日期
+                let dateInfo = '';
+                if (m.status === 'completed' && m.completedAt) {
+                    const completedDate = new Date(m.completedAt).toLocaleDateString('zh-TW');
+                    dateInfo = `<span style="color: #ff6b6b; font-size: 11px; margin-left: 8px;">✓ 完成於 ${completedDate}</span>`;
+                }
+                
+                return `
                 <div class="mission-item">
                     <div class="status-icon ${getStatusIcon(m.status)}"></div>
                     <div class="mission-content">
-                        <div class="mission-title">${m.title}</div>
+                        <div class="mission-title">${m.title}${dateInfo}</div>
                         <div class="mission-meta">${m.type} · ${m.priority}</div>
                     </div>
                     <div class="mission-time">${formatTime(m.createdAt)}</div>
                 </div>
-            `).join('');
+            `}).join('');
         }
         
         function renderLogs() {
