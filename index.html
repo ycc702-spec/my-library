@@ -638,8 +638,12 @@
         // 搜尋
         document.getElementById('search-input').addEventListener('input', renderBookmarks);
 
-        // 啟動
-        init();
+        // 啟動 - 等待 DOM 載入完成
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
