@@ -2,7 +2,7 @@
   "version": "1.0",
   "appName": "Video Library",
   "description": "個人影片庫 - 儲存各種有用影片",
-  "lastUpdated": "2026-02-25T01:55:00Z",
+  "lastUpdated": "2026-03-05T14:30:00Z",
   "categories": {
     "rehab": {
       "id": "rehab",
@@ -151,13 +151,109 @@
       "localFile": true
     }
   ],
+    {
+      "id": "vid_006",
+      "title": "Spanish Squat Isometrics - 髕骨肌腱等長收縮訓練",
+      "titleZh": "髕骨肌腱等長收縮訓練 (Spanish Squat)",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/",
+      "author": "jumperknee_expert",
+      "series": "Jumper's Knee Rehab",
+      "seriesOrder": 1,
+      "videoUrl": "rehab/06_spanish_squat_isometrics.mp4",
+      "thumbnail": "https://via.placeholder.com/400x225/1a1a2e/00D4FF?text=Spanish+Squat",
+      "description": "急性期 / 運動前疼痛管理期。5組，每組維持45秒，休息2分鐘。",
+      "tags": ["膝蓋", "復健", "等長收縮", "Spanish Squat", "急性期"],
+      "savedAt": "2026-03-05T14:30:00Z",
+      "status": "active",
+      "localFile": true
+    },
+    {
+      "id": "vid_007",
+      "title": "Eccentric Step-downs - 離心控制階梯下放",
+      "titleZh": "離心控制階梯下放 (Eccentric Step-downs)",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/",
+      "author": "jumperknee_expert",
+      "series": "Jumper's Knee Rehab",
+      "seriesOrder": 2,
+      "videoUrl": "rehab/07_eccentric_step_downs.mp4",
+      "thumbnail": "https://via.placeholder.com/400x225/1a1a2e/00D4FF?text=Step+Downs",
+      "description": "恢復期。3組10-15次。Poliquin Step-up變化式。",
+      "tags": ["膝蓋", "復健", "離心訓練", "階梯", "恢復期"],
+      "savedAt": "2026-03-05T14:30:00Z",
+      "status": "active",
+      "localFile": true
+    },
+    {
+      "id": "vid_008",
+      "title": "Isometric Training - 等長收縮訓練",
+      "titleZh": "等長收縮訓練 (Isometric Training)",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/",
+      "author": "jumperknee_expert",
+      "series": "Jumper's Knee Rehab",
+      "seriesOrder": 3,
+      "videoUrl": "rehab/08_isometric_training.mp4",
+      "thumbnail": "https://via.placeholder.com/400x225/1a1a2e/00D4FF?text=Isometric",
+      "description": "急性期/亞急性期。5次45秒，中間休息2分鐘。",
+      "tags": ["膝蓋", "復健", "等長收縮", "Wall Sit", "亞急性期"],
+      "savedAt": "2026-03-05T14:30:00Z",
+      "status": "active",
+      "localFile": true
+    },
+    {
+      "id": "vid_009",
+      "title": "Load Modification - 下肢訓練負荷調整策略",
+      "titleZh": "下肢訓練負荷調整策略",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/",
+      "author": "jumperknee_expert",
+      "series": "Jumper's Knee Rehab",
+      "seriesOrder": 4,
+      "videoUrl": "rehab/09_load_modification.mp4",
+      "thumbnail": "https://via.placeholder.com/400x225/1a1a2e/00D4FF?text=Load+Mod",
+      "description": "亞急性期/恢復期。減少訓練總量Volume並調整Tempo。",
+      "tags": ["膝蓋", "復健", "負荷調整", "訓練量", "亞急性期"],
+      "savedAt": "2026-03-05T14:30:00Z",
+      "status": "active",
+      "localFile": true
+    },
+    {
+      "id": "vid_010",
+      "title": "Isometric Training 70% - 等長收縮訓練(70%強度)",
+      "titleZh": "等長收縮訓練 - 70%最大自覺強度",
+      "category": "rehab",
+      "subcategory": "膝蓋復健",
+      "source": "instagram",
+      "sourceUrl": "https://www.instagram.com/",
+      "author": "jumperknee_expert",
+      "series": "Jumper's Knee Rehab",
+      "seriesOrder": 5,
+      "videoUrl": "rehab/10_isometric_70_percent.mp4",
+      "thumbnail": "https://via.placeholder.com/400x225/1a1a2e/00D4FF?text=Isometric+70%",
+      "description": "急性期/亞急性期。5組45秒，維持70%最大自覺強度。",
+      "tags": ["膝蓋", "復健", "等長收縮", "70%強度", "急性期"],
+      "savedAt": "2026-03-05T14:30:00Z",
+      "status": "active",
+      "localFile": true
+    }
+  ],
   "stats": {
-    "totalVideos": 5,
+    "totalVideos": 10,
     "totalByCategory": {
-      "rehab": 5
+      "rehab": 10
     },
     "totalBySource": {
-      "instagram": 5
+      "instagram": 10
     }
   }
 }
