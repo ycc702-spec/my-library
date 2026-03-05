@@ -1,7 +1,65 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-04",
+  "last_updated": "2026-03-05",
   "categories": [
+    {
+      "id": "knee-rehab",
+      "name": "🦵 膝蓋復健",
+      "icon": "🦵",
+      "description": "Jumper's Knee 復健訓練影片",
+      "bookmarks": [
+        {
+          "id": "bk_knee_001",
+          "title": "髕骨肌腱等長收縮訓練 (Spanish Squat)",
+          "url": "https://www.instagram.com/",
+          "source": "Instagram",
+          "author": "jumperknee_expert",
+          "tags": ["膝蓋", "復健", "等長收縮", "Spanish Squat", "急性期"],
+          "description": "急性期 / 運動前疼痛管理期。5組，每組維持45秒，休息2分鐘。",
+          "date_added": "2026-03-05"
+        },
+        {
+          "id": "bk_knee_002",
+          "title": "離心控制階梯下放 (Eccentric Step-downs)",
+          "url": "https://www.instagram.com/",
+          "source": "Instagram",
+          "author": "jumperknee_expert",
+          "tags": ["膝蓋", "復健", "離心訓練", "階梯", "恢復期"],
+          "description": "恢復期。3組10-15次。Poliquin Step-up變化式。",
+          "date_added": "2026-03-05"
+        },
+        {
+          "id": "bk_knee_003",
+          "title": "等長收縮訓練 (Isometric Training)",
+          "url": "https://www.instagram.com/",
+          "source": "Instagram",
+          "author": "jumperknee_expert",
+          "tags": ["膝蓋", "復健", "等長收縮", "Wall Sit", "亞急性期"],
+          "description": "急性期/亞急性期。5次45秒，中間休息2分鐘。",
+          "date_added": "2026-03-05"
+        },
+        {
+          "id": "bk_knee_004",
+          "title": "下肢訓練負荷調整策略",
+          "url": "https://www.instagram.com/",
+          "source": "Instagram",
+          "author": "jumperknee_expert",
+          "tags": ["膝蓋", "復健", "負荷調整", "訓練量", "亞急性期"],
+          "description": "亞急性期/恢復期。減少訓練總量Volume並調整Tempo。",
+          "date_added": "2026-03-05"
+        },
+        {
+          "id": "bk_knee_005",
+          "title": "等長收縮訓練 - 70%最大自覺強度",
+          "url": "https://www.instagram.com/",
+          "source": "Instagram",
+          "author": "jumperknee_expert",
+          "tags": ["膝蓋", "復健", "等長收縮", "70%強度", "急性期"],
+          "description": "急性期/亞急性期。5組45秒，維持70%最大自覺強度。",
+          "date_added": "2026-03-05"
+        }
+      ]
+    },
     {
       "id": "ai-tech",
       "name": "🤖 AI 技術",
