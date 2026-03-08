@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-05",
+  "last_updated": "2026-03-08",
   "categories": [
     {
       "id": "knee-rehab",
@@ -57,6 +57,19 @@
           "tags": ["膝蓋", "復健", "等長收縮", "70%強度", "急性期"],
           "description": "急性期/亞急性期。5組45秒，維持70%最大自覺強度。",
           "date_added": "2026-03-05"
+        },
+        {
+          "id": "bk_knee_006",
+          "title": "膝蓋復健綜合訓練 (Knees Over Toes Guy 風格)",
+          "url": "https://www.instagram.com/reel/DVl6Yu2iYNV/",
+          "source": "Instagram",
+          "author": "kneesovertoesguy",
+          "tags": ["膝蓋", "復健", "Knees Over Toes Guy", "綜合訓練", "Treadmill Walking", "ATG Split Squat"],
+          "description": "包含 Treadmill Walking、ATG Split Squat、Mobility、Side Plank 等綜合訓練動作。適合髕骨肌腱炎復健。",
+          "date_added": "2026-03-08",
+          "video_file": "/tmp/ig_video_DVl6Yu2iYNV.mp4",
+          "audio_file": "/tmp/audio_DVl6Yu2iYNV.mp3",
+          "transcript_file": "/tmp/audio_DVl6Yu2iYNV.txt"
         }
       ]
     },
