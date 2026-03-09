@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-08",
+  "last_updated": "2026-03-09",
   "categories": [
     {
       "id": "knee-rehab",
@@ -140,6 +140,24 @@
           "author": "@chipaway.app",
           "tags": ["活在當下", "無罪惡感消費", "財務平衡"],
           "date_added": "2026-03-03"
+        }
+      ]
+    },
+    {
+      "id": "basketball",
+      "name": "🏀 籃球訓練",
+      "icon": "🏀",
+      "description": "籃球技巧與訓練影片",
+      "bookmarks": [
+        {
+          "id": "bk_bball_001",
+          "title": "籃球訓練影片",
+          "url": "https://www.instagram.com/reel/DVbM8VujI8w/",
+          "source": "Instagram",
+          "author": "@basketball_training",
+          "tags": ["籃球", "訓練", "技巧"],
+          "description": "籃球訓練技巧與動作示範",
+          "date_added": "2026-03-09"
         }
       ]
     }
