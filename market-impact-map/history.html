@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Impact Map - 歷史案例庫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #0a0a0f; --bg-card: #14141a; --bg-hover: #1e1e28;
+            --border: rgba(255,255,255,0.08); --text-primary: #ffffff; --text-secondary: #8b8b9a;
+            --accent-green: #22c55e; --accent-red: #ef4444; --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6; --accent-purple: #8b5cf6;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: var(--bg-dark); color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .logo-text {
+            font-size: 1.1rem; font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav { display: flex; gap: 12px; }
+        .nav a {
+            padding: 8px 16px; border-radius: 8px; text-decoration: none;
+            color: var(--text-secondary); font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .nav a:hover, .nav a.active {
+            background: var(--bg-hover); color: var(--text-primary);
+        }
+        .container { padding: 80px 24px 40px; max-width: 1400px; margin: 0 auto; }
+        .page-title {
+            font-size: 2rem; font-weight: 700; margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .page-subtitle { color: var(--text-secondary); margin-bottom: 32px; }
+        
+        /* Timeline */
+        .timeline { position: relative; }
+        .timeline::before {
+            content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(180deg, var(--accent-gold), var(--accent-red));
+        }
+        .timeline-item {
+            display: flex; gap: 24px; margin-bottom: 32px;
+            position: relative;
+        }
+        .timeline-marker {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--bg-card); border: 2px solid var(--accent-gold);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0; z-index: 1;
+        }
+        .timeline-content {
+            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 24px;
+        }
+        .timeline-date {
+            font-size: 0.75rem; color: var(--accent-gold);
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .timeline-title {
+            font-size: 1.25rem; font-weight: 600; margin-bottom: 12px;
+        }
+        .timeline-desc {
+            color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;
+        }
+        .impact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px; margin-bottom: 16px;
+        }
+        .impact-card {
+            background: var(--bg-hover); border-radius: 10px; padding: 16px;
+            border: 1px solid var(--border);
+        }
+        .impact-label {
+            font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px;
+        }
+        .impact-value {
+            font-size: 1.25rem; font-weight: 700;
+        }
+        .impact-value.up { color: var(--accent-green); }
+        .impact-value.down { color: var(--accent-red); }
+        .sources {
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
+        .source-tag {
+            padding: 6px 12px; border-radius: 6px;
+            background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);
+            font-size: 0.75rem; color: var(--accent-blue); text-decoration: none;
+        }
+        .source-tag:hover { background: rgba(59, 130, 246, 0.2); }
+        
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
+        }
+        .filter-tab {
+            padding: 8px 16px; border-radius: 8px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            font-size: 0.875rem; cursor: pointer; transition: all 0.2s ease;
+        }
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--accent-gold); color: #000; border-color: var(--accent-gold);
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px; margin-bottom: 40px;
+        }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px;
+        }
+        .stat-value {
+            font-size: 2rem; font-weight: 700; margin-bottom: 4px;
+        }
+        .stat-label { font-size: 0.875rem; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <div class="logo-text">Market Impact Map - 歷史案例庫</div>
+        </div>
+        <nav class="nav">
+            <a href="index.html">🎯 因果圖</a>
+            <a href="history.html" class="active">📚 歷史案例</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">歷史案例庫</h1>
+        <p class="page-subtitle">真實市場事件與數據驗證的因果關係</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-gold);">8</div>
+                <div class="stat-label">重大歷史事件</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-red);">2020-2025</div>
+                <div class="stat-label">涵蓋時間範圍</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-green);">50+</div>
+                <div class="stat-label">數據來源</div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">全部事件</div>
+            <div class="filter-tab" data-filter="oil">🛢️ 油價/通膨</div>
+            <div class="filter-tab" data-filter="war">⚔️ 地緣衝突</div>
+            <div class="filter-tab" data-filter="fed">🏦 Fed政策</div>
+            <div class="filter-tab" data-filter="ai">🤖 AI熱潮</div>
+            <div class="filter-tab" data-filter="crisis">💥 金融危機</div>
+        </div>
+
+        <div class="timeline" id="timeline">
+            <!-- 事件將由JS生成 -->
+        </div>
+    </div>
+
+    <script>
+const historicalEvents = [
+    {
+        date: "2024年8月5日",
+        category: "fed",
+        icon: "💥",
+        title: "日圓套息交易平倉潮 - 全球股市閃崩",
+        description: "日本央行意外升息，日圓急劇升值，觸發大規模套息交易平倉。日經225指數單日暴跌12.4%，創1987年黑色星期一以來最大跌幅。全球股市市值蒸發約6.4兆美元。",
+        impacts: [
+            { label: "日經225跌幅", value: "-12.4%", direction: "down" },
+            { label: "韓國綜指跌幅", value: "-9.83%", direction: "down" },
+            { label: "台股跌幅", value: "-8.35%", direction: "down" },
+            { label: "全球市值蒸發", value: "6.4兆美元", direction: "down" },
+            { label: "VIX飆升", value: "65.73", direction: "up" }
+        ],
+        sources: [
+            { name: "日經新聞", url: "https://zh.cn.nikkei.com/politicsaeconomy/stockforex/56334-2024-08-05-14-37-02.html" },
+            { name: "工商時報", url: "https://www.ctee.com.tw/news/20240808701134-430702" },
+            { name: "今周刊", url: "https://www.businesstoday.com.tw/article/category/183025/post/202408140042/" }
+        ]
+    },
+    {
+        date: "2023年3月",
+        category: "crisis",
+        icon: "🏦",
+        title: "矽谷銀行倒閉 - 債券收益率危機",
+        description: "Fed激進升息導致SVB持有的長期債券市值暴跌，產生巨額未實現虧損。客戶擠兌導致銀行在48小時內倒閉，引發區域性銀行股重挫，市場恐慌情緒蔓延。",
+        impacts: [
+            { label: "SVB倒閉時間", value: "48小時", direction: "down" },
+            { label: "未實現虧損", value: "數十億美元", direction: "down" },
+            { label: "標普500波動", value: "劇烈下跌", direction: "down" },
+            { label: "Fed反應", value: "BTFP計畫", direction: "up" }
+        ],
+        sources: [
+            { name: "維基百科", url: "https://zh.wikipedia.org/zh-tw/%E7%A1%85%E8%B0%B7%E9%93%B6%E8%A1%8C%E5%80%92%E9%97%AD%E4%BA%8B%E4%BB%B6" },
+            { name: "商業周刊", url: "https://wealth.businessweekly.com.tw/GArticle.aspx?id=ARTL003012471" },
+            { name: "PIMCO", url: "https://www.pimco.com/tw/zh/insights/bank-failures-and-the-fed" }
+        ]
+    },
+    {
+        date: "2022年2月-2023年",
+        category: "war",
+        icon: "⚔️",
+        title: "俄烏戰爭 - 能源危機與通膨飆升",
+        description: "俄羅斯入侵烏克蘭導致全球能源供應中斷，布蘭特原油突破每桶120美元。歐洲天然氣價格飆升，全球通膨率創40年新高，Fed被迫激進升息。",
+        impacts: [
+            { label: "布蘭特原油高點", value: "$120+/桶", direction: "up" },
+            { label: "美國CPI峰值", value: "9.1%", direction: "up" },
+            { label: "Fed升息幅度", value: "15碼(3.75%)", direction: "up" },
+            { label: "歐股戰爭首日", value: "-3%~-4%", direction: "down" },
+            { label: "俄股跌幅", value: "-33%", direction: "down" }
+        ],
+        sources: [
+            { name: "財經M平方", url: "https://www.macromicro.me/blog/market-update-the-middle-east-situation-spirals-out-of-control-four-key-turning-points-after-oil-prices-broke-100" },
+            { name: "工商時報", url: "https://topic.ctee.com.tw/russia-ukraine-war/story6.htm" },
+            { name: "維基百科", url: "https://zh.wikipedia.org/zh-cn/2021%E5%B9%B4%E2%80%942023%E5%B9%B4%E9%80%9A%E8%B4%A7%E8%86%A8%E8%83%80%E9%A3%99%E5%8D%87" }
+        ]
+    },
+    {
+        date: "2021-2022年",
+        category: "oil",
+        icon: "📈",
+        title: "後疫情通膨飆升 - CPI創40年新高",
+        description: "疫情後需求復甦遇上供應鏈短缺，加上財政刺激措施，美國CPI年增率在2022年6月達到9.1%，創1982年以來新高。核心CPI連續多個月突破6%，形成黏性通膨。",
+        impacts: [
+            { label: "CPI峰值(2022/6)", value: "9.1%", direction: "up" },
+            { label: "核心CPI高點", value: "6.8%", direction: "up" },
+            { label: "上一次高點", value: "1982年", direction: "up" },
+            { label: "升息循環", value: "2022/3啟動", direction: "up" }
+        ],
+        sources: [
+            { name: "維基百科", url: "https://zh.wikipedia.org/zh-cn/2021%E5%B9%B4%E2%80%942023%E5%B9%B4%E9%80%9A%E8%B4%A7%E8%86%A8%E8%83%80%E9%A3%99%E5%8D%87" },
+            { name: "財經M平方", url: "https://www.macromicro.me/blog/general-manager-spotlight-inflation-hitting-a-40year-high-should-pay-attention-to-four-issues-first" },
+            { name: "公視新聞", url: "https://news.pts.org.tw/article/581761" }
+        ]
+    },
+    {
+        date: "2022年11月-2024年",
+        category: "ai",
+        icon: "🤖",
+        title: "ChatGPT引爆AI熱潮 - NVIDIA股價飆升",
+        description: "OpenAI發布ChatGPT，兩個月內用戶突破1億。生成式AI投資在2023年達到204億美元。NVIDIA作為AI晶片龍頭，股價在2023年飆升239%，市值從1.2兆增至3.28兆美元。",
+        impacts: [
+            { label: "NVIDIA 2023漲幅", value: "+239%", direction: "up" },
+            { label: "2024上半年漲幅", value: "+154%", direction: "up" },
+            { label: "市值增長", value: "+2兆美元", direction: "up" },
+            { label: "ChatGPT用戶", value: "2個月破1億", direction: "up" },
+            { label: "AI投資(2023)", value: "204億美元", direction: "up" }
+        ],
+        sources: [
+            { name: "資策會", url: "https://www.iii.org.tw/zh-TW/news/newsroom/iii-news/87aa780a-6365-45a7-9a44-bbbfa091ec78" },
+            { name: "趨勢科技", url: "https://www.trendmicro.com/zh_tw/research/25/a/top-ai-trends-from-2024-review.html" },
+            { name: "Titan FX", url: "https://research.titanfx.com/zh-hant/us-stock-trading/nvidia" }
+        ]
+    },
+    {
+        date: "2020年3月",
+        category: "crisis",
+        icon: "🦠",
+        title: "新冠疫情全球大流行 - 股市多次熔斷",
+        description: "WHO宣布COVID-19為全球大流行，各國封鎖導致經濟活動停滯。美國股市在10天內4次熔斷，創歷史紀錄。全球股市下跌20-30%，進入二戰以來最嚴重衰退。",
+        impacts: [
+            { label: "美股熔斷次數", value: "4次/10天", direction: "down" },
+            { label: "熔斷日期", value: "3/9,12,16,19", direction: "down" },
+            { label: "全球股市跌幅", value: "20-30%", direction: "down" },
+            { label: "VIX高點", value: "82.69", direction: "up" }
+        ],
+        sources: [
+            { name: "維基百科", url: "https://zh.wikipedia.org/zh-tw/2020%E5%B9%B4%E5%9B%BD%E9%99%85%E9%87%91%E8%9E%8D%E6%81%90%E6%85%8C" },
+            { name: "世界銀行", url: "https://www.shihang.org/zh/news/press-release/2020/06/08/covid-19-to-plunge-global-economy-into-worst-recession-since-world-war-ii" },
+            { name: "WHO", url: "https://www.who.int/zh/news/item/27-04-2020-who-timeline---covid-19" }
+        ]
+    },
+    {
+        date: "2020年4月20日",
+        category: "oil",
+        icon: "🛢️",
+        title: "WTI原油期貨跌至負值 - 歷史首次",
+        description: "疫情導致需求崩潰，加上沙俄價格戰，WTI原油05合約結算價跌至-37.63美元/桶，盤中一度觸及-40.32美元/桶。儲存空間見底，賣方被迫倒貼買家。",
+        impacts: [
+            { label: "WTI結算價", value: "-$37.63/桶", direction: "down" },
+            { label: "盤中低點", value: "-$40.32/桶", direction: "down" },
+            { label: "歷史意義", value: "首次負值", direction: "down" }
+        ],
+        sources: [
+            { name: "維基百科", url: "https://zh.wikipedia.org/zh-cn/2020%E5%B9%B4%E5%9B%BD%E9%99%85%E9%87%91%E8%9E%8D%E6%81%90%E6%85%8C" },
+            { name: "上海期貨交易所", url: "https://www.shfe.com.cn/upload/20200709/1594275440874.pdf" }
+        ]
+    },
+    {
+        date: "2025年",
+        category: "fed",
+        icon: "🏦",
+        title: "Fed降息預期與市場反應 - 歷史統計",
+        description: "根據歷史數據，Fed首次降息後12個月內S&P500平均上漲14.1%。若經濟軟著陸，平均漲幅達20.6%。但若伴隨衰退，平均下跌2.7%。2025年Fed預計降息2碼。",
+        impacts: [
+            { label: "降息後12月平均漲幅", value: "+14.1%", direction: "up" },
+            { label: "軟著陸情境漲幅", value: "+20.6%", direction: "up" },
+            { label: "衰退情境跌幅", value: "-2.7%", direction: "down" },
+            { label: "2025預計降息", value: "2碼(50bps)", direction: "up" }
+        ],
+        sources: [
+            { name: "Visual Capitalist", url: "https://www.visualcapitalist.com/sp-500-performance-after-interest-rate-cuts/" },
+            { name: "LPL Financial", url: "https://www.lpl.com/research/blog/the-federal-reserve-cut-rates-now-what.html" },
+            { name: "Seeking Alpha", url: "https://seekingalpha.com/article/4823076-since-1980-this-is-how-rate-cuts-impact-the-s-and-p-500-near-all-time-highs" }
+        ]
+    }
+];
+
+function renderTimeline(filter = 'all') {
+    const timeline = document.getElementById('timeline');
+    const filteredEvents = filter === 'all' 
+        ? historicalEvents 
+        : historicalEvents.filter(e => e.category === filter || (filter === 'crisis' && (e.category === 'crisis' || e.date.includes('崩盤') || e.date.includes('熔斷'))));
+    
+    timeline.innerHTML = filteredEvents.map(event => `
+        <div class="timeline-item" data-category="${event.category}">
+            <div class="timeline-marker">${event.icon}</div>
+            <div class="timeline-content">
+                <div class="timeline-date">${event.date}</div>
+                <div class="timeline-title">${event.title}</div>
+                <div class="timeline-desc">${event.description}</div>
+                <div class="impact-grid">
+                    ${event.impacts.map(impact => `
+                        <div class="impact-card">
+                            <div class="impact-label">${impact.label}</div>
+                            <div class="impact-value ${impact.direction}">${impact.value}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="sources">
+                    ${event.sources.map(source => `
+                        <a href="${source.url}" target="_blank" class="source-tag">🔗 ${source.name}</a>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Filter tabs
+document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderTimeline(tab.dataset.filter);
+    });
+});
+
+// Initial render
+renderTimeline();
+    </script>
+</body>
+</html>
