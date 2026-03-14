@@ -302,6 +302,8 @@ const scenarios = {
             { source: "stock_pressure", target: "consumer", strength: 0.7, type: "direct" },
             // 回饋迴路與交叉影響
             { source: "usd_strength", target: "oil_price", strength: -0.6, type: "feedback", desc: "美元走強使油價對非美買家更貴，抑制需求" },
+            { source: "usd_strength", target: "gold", strength: -0.8, type: "feedback", desc: "美元走強使黃金對非美買家更貴，壓抑金價" },
+            { source: "gold", target: "usd_strength", strength: -0.4, type: "feedback", desc: "金價暴跌可能反映美元流動性危機，推升美元避險需求" },
             { source: "bond_yield", target: "stock_pressure", strength: 0.7, type: "indirect", desc: "債券收益率上升增加股票風險溢價要求" },
             { source: "consumer", target: "cpi_up", strength: -0.5, type: "feedback", desc: "消費疲軟可能壓抑物價上漲壓力" },
             { source: "gold", target: "inflation_exp", strength: 0.4, type: "feedback", desc: "金價上漲強化通膨預期心理" },
@@ -341,6 +343,7 @@ const scenarios = {
             { source: "conflict", target: "semiconductor", strength: -0.6, type: "direct" },
             // 回饋迴路
             { source: "gold_war", target: "safe_haven", strength: 0.5, type: "feedback", desc: "金價暴漲強化避險情緒" },
+            { source: "usd_strength", target: "gold_war", strength: -0.7, type: "feedback", desc: "美元走強通常壓抑黃金（負相關）" },
             { source: "inflation_war", target: "conflict", strength: -0.4, type: "feedback", desc: "高通膨可能加速戰爭結束的經濟壓力" },
             { source: "emerging", target: "volatility", strength: 0.6, type: "feedback", desc: "新興市場拋售加劇市場波動" }
         ]
@@ -379,6 +382,8 @@ const scenarios = {
             { source: "rate_expectation", target: "gold_fed", strength: -0.7, type: "direct" },
             // 回饋迴路
             { source: "dollar", target: "em_fund", strength: 0.6, type: "indirect", desc: "美元走強加劇新興市場資金外流" },
+            { source: "dollar", target: "gold_fed", strength: -0.7, type: "feedback", desc: "美元走強壓抑黃金價格（負相關約-0.8）" },
+            { source: "gold_fed", target: "dollar", strength: -0.3, type: "feedback", desc: "金價暴跌可能反映美元流動性需求" },
             { source: "tech_valuation", target: "fed_hawkish", strength: -0.5, type: "feedback", desc: "科技股大跌可能促使Fed轉鴿" },
             { source: "em_fund", target: "yield_curve", strength: -0.4, type: "feedback", desc: "新興市場危機可能迫使Fed放寬政策" }
         ]
@@ -418,7 +423,8 @@ const scenarios = {
             // 回饋迴路 - 工資-物價螺旋
             { source: "wage_spiral", target: "services", strength: 0.8, type: "feedback", desc: "工資上漲推動服務業成本上升" },
             { source: "services", target: "wage_spiral", strength: 0.7, type: "feedback", desc: "服務價格上漲要求更高工資" },
-            { source: "real_rates", target: "sticky", strength: -0.6, type: "feedback", desc: "高實質利率最終壓抑通膨" }
+            { source: "real_rates", target: "sticky", strength: -0.6, type: "feedback", desc: "高實質利率最終壓抑通膨" },
+            { source: "usd_strength", target: "commodities", strength: -0.6, type: "feedback", desc: "美元走強使大宗商品對非美買家更貴" }
         ]
     },
     ai: {
