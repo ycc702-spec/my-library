@@ -12,7 +12,7 @@
             --bg-dark: #0a0a0f; --bg-card: #14141a; --bg-hover: #1e1e28;
             --border: rgba(255,255,255,0.08); --text-primary: #ffffff; --text-secondary: #8b8b9a;
             --accent-green: #22c55e; --accent-red: #ef4444; --accent-gold: #f59e0b;
-            --accent-blue: #3b82f6; --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6; --accent-purple: #8b5cf6; --accent-cyan: #06b6d4;
         }
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
@@ -80,6 +80,7 @@
             display: flex; align-items: center; gap: 10px;
         }
         .event-item:hover { border-color: var(--accent-gold); transform: translateX(4px); }
+        .event-item.active { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.1); }
         .event-icon {
             width: 32px; height: 32px; border-radius: 8px;
             display: flex; align-items: center; justify-content: center; font-size: 1rem;
@@ -99,10 +100,10 @@
         .main { flex: 1; position: relative; overflow: hidden; }
         #graph-container { width: 100%; height: 100%; }
         .info-panel {
-            position: absolute; top: 20px; right: 20px; width: 340px;
+            position: absolute; top: 20px; right: 20px; width: 360px;
             background: rgba(20, 20, 26, 0.95); backdrop-filter: blur(20px);
             border: 1px solid var(--border); border-radius: 16px; padding: 20px;
-            transform: translateX(380px); transition: transform 0.3s ease;
+            transform: translateX(400px); transition: transform 0.3s ease;
             max-height: calc(100vh - 100px); overflow-y: auto;
         }
         .info-panel.active { transform: translateX(0); }
@@ -121,18 +122,28 @@
             font-size: 0.75rem; color: var(--text-secondary);
             text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
         }
-        .info-desc {
-            font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary);
+        .info-desc { font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); }
+        .impact-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .impact-tab {
+            padding: 6px 12px; border-radius: 6px; background: var(--bg-hover);
+            border: 1px solid var(--border); font-size: 0.75rem; cursor: pointer;
         }
+        .impact-tab.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
         .impact-list { display: flex; flex-direction: column; gap: 6px; }
         .impact-item {
             display: flex; align-items: center; gap: 8px;
             padding: 8px 12px; background: var(--bg-hover); border-radius: 8px;
-            font-size: 0.875rem;
+            font-size: 0.875rem; cursor: pointer; transition: all 0.2s ease;
         }
+        .impact-item:hover { border: 1px solid var(--accent-cyan); }
         .impact-arrow { color: var(--accent-red); }
         .impact-arrow.up { color: var(--accent-green); }
         .impact-arrow.down { color: var(--accent-red); }
+        .impact-arrow.bidirectional { color: var(--accent-cyan); }
+        .loop-badge {
+            font-size: 0.65rem; padding: 2px 6px; border-radius: 4px;
+            background: var(--accent-purple); color: #fff; margin-left: auto;
+        }
         .sources-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
         .sources-list { display: flex; flex-direction: column; gap: 6px; }
         .source-link {
@@ -145,12 +156,23 @@
             background: rgba(20, 20, 26, 0.95); backdrop-filter: blur(10px);
             border: 1px solid var(--border); border-radius: 10px;
             font-size: 0.875rem; pointer-events: none; opacity: 0;
-            transition: opacity 0.2s ease; z-index: 1000; max-width: 250px;
+            transition: opacity 0.2s ease; z-index: 1000; max-width: 280px;
         }
         .tooltip.visible { opacity: 1; }
+        .connection-info {
+            background: var(--bg-hover); border-radius: 8px; padding: 12px;
+            margin-bottom: 12px; font-size: 0.8rem;
+        }
+        .connection-type {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 0.7rem; margin-right: 8px;
+        }
+        .connection-type.direct { background: rgba(239, 68, 68, 0.3); }
+        .connection-type.indirect { background: rgba(245, 158, 11, 0.3); }
+        .connection-type.feedback { background: rgba(139, 92, 246, 0.3); }
         @media (max-width: 1024px) {
             .sidebar { width: 280px; }
-            .info-panel { width: 280px; }
+            .info-panel { width: 300px; }
         }
         @media (max-width: 768px) {
             .sidebar { position: absolute; left: -340px; height: calc(100% - 60px); transition: left 0.3s ease; z-index: 100; }
@@ -195,6 +217,7 @@
                     <div class="legend-item"><div class="legend-dot" style="background: #f59e0b;"></div><span>連鎖反應 (Chain)</span></div>
                     <div class="legend-item"><div class="legend-dot" style="background: #22c55e;"></div><span>最終影響 (Impact)</span></div>
                     <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div><span>資產價格 (Asset)</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #8b5cf6;"></div><span>回饋迴路 (Feedback Loop)</span></div>
                 </div>
             </div>
         </aside>
@@ -213,8 +236,17 @@
                     <div class="info-section-title">描述</div>
                     <div class="info-desc" id="info-desc">點擊圖表中的節點，查看該事件如何影響市場，以及與其他事件的關聯。</div>
                 </div>
+                <div class="connection-info" id="connection-info" style="display: none;">
+                    <span class="connection-type" id="connection-type"></span>
+                    <span id="connection-desc"></span>
+                </div>
                 <div class="info-section">
-                    <div class="info-section-title">影響路徑</div>
+                    <div class="info-section-title">影響關係</div>
+                    <div class="impact-tabs">
+                        <div class="impact-tab active" data-tab="outgoing">影響其他 →</div>
+                        <div class="impact-tab" data-tab="incoming">← 被影響</div>
+                        <div class="impact-tab" data-tab="bidirectional">↔ 互相影響</div>
+                    </div>
                     <div class="impact-list" id="impact-list"></div>
                 </div>
                 <div class="sources-section" id="sources-section" style="display: none;">
@@ -228,7 +260,7 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
-// 市場因果關係數據
+// 市場因果關係數據 - 包含雙向影響與回饋迴路
 const scenarios = {
     oil: {
         name: "油價上漲情境",
@@ -253,20 +285,27 @@ const scenarios = {
             { id: "consumer", name: "消費股疲軟", type: "asset", icon: "🛒", desc: "通膨侵蝕購買力，消費支出放緩，零售業績受影響", x: 1100, y: 600 }
         ],
         links: [
-            { source: "oil_price", target: "transport_cost", strength: 0.9 },
-            { source: "oil_price", target: "production_cost", strength: 0.9 },
-            { source: "transport_cost", target: "cpi_up", strength: 0.7 },
-            { source: "production_cost", target: "cpi_up", strength: 0.8 },
-            { source: "cpi_up", target: "inflation_exp", strength: 0.9 },
-            { source: "cpi_up", target: "fed_delay", strength: 0.8 },
-            { source: "inflation_exp", target: "bond_yield", strength: 0.8 },
-            { source: "fed_delay", target: "bond_yield", strength: 0.9 },
-            { source: "fed_delay", target: "stock_pressure", strength: 0.8 },
-            { source: "fed_delay", target: "usd_strength", strength: 0.7 },
-            { source: "inflation_exp", target: "gold", strength: 0.8 },
-            { source: "oil_price", target: "oil_stocks", strength: 0.9 },
-            { source: "oil_price", target: "airlines", strength: -0.9 },
-            { source: "stock_pressure", target: "consumer", strength: 0.7 }
+            // 主要因果鏈
+            { source: "oil_price", target: "transport_cost", strength: 0.9, type: "direct" },
+            { source: "oil_price", target: "production_cost", strength: 0.9, type: "direct" },
+            { source: "transport_cost", target: "cpi_up", strength: 0.7, type: "direct" },
+            { source: "production_cost", target: "cpi_up", strength: 0.8, type: "direct" },
+            { source: "cpi_up", target: "inflation_exp", strength: 0.9, type: "direct" },
+            { source: "cpi_up", target: "fed_delay", strength: 0.8, type: "direct" },
+            { source: "inflation_exp", target: "bond_yield", strength: 0.8, type: "direct" },
+            { source: "fed_delay", target: "bond_yield", strength: 0.9, type: "direct" },
+            { source: "fed_delay", target: "stock_pressure", strength: 0.8, type: "direct" },
+            { source: "fed_delay", target: "usd_strength", strength: 0.7, type: "direct" },
+            { source: "inflation_exp", target: "gold", strength: 0.8, type: "direct" },
+            { source: "oil_price", target: "oil_stocks", strength: 0.9, type: "direct" },
+            { source: "oil_price", target: "airlines", strength: -0.9, type: "direct" },
+            { source: "stock_pressure", target: "consumer", strength: 0.7, type: "direct" },
+            // 回饋迴路與交叉影響
+            { source: "usd_strength", target: "oil_price", strength: -0.6, type: "feedback", desc: "美元走強使油價對非美買家更貴，抑制需求" },
+            { source: "bond_yield", target: "stock_pressure", strength: 0.7, type: "indirect", desc: "債券收益率上升增加股票風險溢價要求" },
+            { source: "consumer", target: "cpi_up", strength: -0.5, type: "feedback", desc: "消費疲軟可能壓抑物價上漲壓力" },
+            { source: "gold", target: "inflation_exp", strength: 0.4, type: "feedback", desc: "金價上漲強化通膨預期心理" },
+            { source: "stock_pressure", target: "fed_delay", strength: -0.5, type: "feedback", desc: "股市大跌可能迫使Fed提前降息" }
         ]
     },
     war: {
@@ -290,16 +329,20 @@ const scenarios = {
             { id: "semiconductor", name: "半導體股波動", type: "asset", icon: "💻", desc: "供應鏈中斷擔憂，晶片產業面臨不確定性", x: 1100, y: 400 }
         ],
         links: [
-            { source: "conflict", target: "oil_supply", strength: 0.9 },
-            { source: "conflict", target: "safe_haven", strength: 0.9 },
-            { source: "oil_supply", target: "oil_spike", strength: 0.9 },
-            { source: "conflict", target: "volatility", strength: 0.9 },
-            { source: "oil_spike", target: "inflation_war", strength: 0.8 },
-            { source: "safe_haven", target: "gold_war", strength: 0.9 },
-            { source: "safe_haven", target: "bonds", strength: 0.8 },
-            { source: "conflict", target: "defense", strength: 0.9 },
-            { source: "volatility", target: "emerging", strength: -0.8 },
-            { source: "conflict", target: "semiconductor", strength: -0.6 }
+            { source: "conflict", target: "oil_supply", strength: 0.9, type: "direct" },
+            { source: "conflict", target: "safe_haven", strength: 0.9, type: "direct" },
+            { source: "oil_supply", target: "oil_spike", strength: 0.9, type: "direct" },
+            { source: "conflict", target: "volatility", strength: 0.9, type: "direct" },
+            { source: "oil_spike", target: "inflation_war", strength: 0.8, type: "direct" },
+            { source: "safe_haven", target: "gold_war", strength: 0.9, type: "direct" },
+            { source: "safe_haven", target: "bonds", strength: 0.8, type: "direct" },
+            { source: "conflict", target: "defense", strength: 0.9, type: "direct" },
+            { source: "volatility", target: "emerging", strength: -0.8, type: "direct" },
+            { source: "conflict", target: "semiconductor", strength: -0.6, type: "direct" },
+            // 回饋迴路
+            { source: "gold_war", target: "safe_haven", strength: 0.5, type: "feedback", desc: "金價暴漲強化避險情緒" },
+            { source: "inflation_war", target: "conflict", strength: -0.4, type: "feedback", desc: "高通膨可能加速戰爭結束的經濟壓力" },
+            { source: "emerging", target: "volatility", strength: 0.6, type: "feedback", desc: "新興市場拋售加劇市場波動" }
         ]
     },
     fed: {
@@ -323,17 +366,21 @@ const scenarios = {
             { id: "gold_fed", name: "黃金承壓", type: "asset", icon: "🥇", desc: "無息資產吸引力下降，持有機會成本上升", x: 1100, y: 400 }
         ],
         links: [
-            { source: "fed_hawkish", target: "rate_expectation", strength: 0.9 },
-            { source: "fed_hawkish", target: "dot_plot", strength: 0.9 },
-            { source: "rate_expectation", target: "yield_curve", strength: 0.8 },
-            { source: "dot_plot", target: "yield_curve", strength: 0.8 },
-            { source: "yield_curve", target: "dollar", strength: 0.8 },
-            { source: "yield_curve", target: "em_fund", strength: 0.8 },
-            { source: "rate_expectation", target: "tech_valuation", strength: -0.8 },
-            { source: "rate_expectation", target: "bank_benefit", strength: 0.7 },
-            { source: "rate_expectation", target: "reit", strength: -0.8 },
-            { source: "rate_expectation", target: "crypto", strength: -0.7 },
-            { source: "rate_expectation", target: "gold_fed", strength: -0.7 }
+            { source: "fed_hawkish", target: "rate_expectation", strength: 0.9, type: "direct" },
+            { source: "fed_hawkish", target: "dot_plot", strength: 0.9, type: "direct" },
+            { source: "rate_expectation", target: "yield_curve", strength: 0.8, type: "direct" },
+            { source: "dot_plot", target: "yield_curve", strength: 0.8, type: "direct" },
+            { source: "yield_curve", target: "dollar", strength: 0.8, type: "direct" },
+            { source: "yield_curve", target: "em_fund", strength: 0.8, type: "direct" },
+            { source: "rate_expectation", target: "tech_valuation", strength: -0.8, type: "direct" },
+            { source: "rate_expectation", target: "bank_benefit", strength: 0.7, type: "direct" },
+            { source: "rate_expectation", target: "reit", strength: -0.8, type: "direct" },
+            { source: "rate_expectation", target: "crypto", strength: -0.7, type: "direct" },
+            { source: "rate_expectation", target: "gold_fed", strength: -0.7, type: "direct" },
+            // 回饋迴路
+            { source: "dollar", target: "em_fund", strength: 0.6, type: "indirect", desc: "美元走強加劇新興市場資金外流" },
+            { source: "tech_valuation", target: "fed_hawkish", strength: -0.5, type: "feedback", desc: "科技股大跌可能促使Fed轉鴿" },
+            { source: "em_fund", target: "yield_curve", strength: -0.4, type: "feedback", desc: "新興市場危機可能迫使Fed放寬政策" }
         ]
     },
     inflation: {
@@ -357,17 +404,21 @@ const scenarios = {
             { id: "utilities", name: "公用事業抗跌", type: "asset", icon: "⚡", desc: "定價能力轉嫁成本，必需性服務需求穩定", x: 1100, y: 550 }
         ],
         links: [
-            { source: "cpi_surprise", target: "core_goods", strength: 0.8 },
-            { source: "cpi_surprise", target: "services", strength: 0.8 },
-            { source: "core_goods", target: "sticky", strength: 0.7 },
-            { source: "services", target: "sticky", strength: 0.8 },
-            { source: "sticky", target: "wage_spiral", strength: 0.7 },
-            { source: "sticky", target: "fed_response", strength: 0.8 },
-            { source: "fed_response", target: "real_rates", strength: 0.9 },
-            { source: "real_rates", target: "debt_burden", strength: 0.8 },
-            { source: "cpi_surprise", target: "tips", strength: 0.8 },
-            { source: "sticky", target: "commodities", strength: 0.7 },
-            { source: "sticky", target: "utilities", strength: 0.6 }
+            { source: "cpi_surprise", target: "core_goods", strength: 0.8, type: "direct" },
+            { source: "cpi_surprise", target: "services", strength: 0.8, type: "direct" },
+            { source: "core_goods", target: "sticky", strength: 0.7, type: "direct" },
+            { source: "services", target: "sticky", strength: 0.8, type: "direct" },
+            { source: "sticky", target: "wage_spiral", strength: 0.7, type: "direct" },
+            { source: "sticky", target: "fed_response", strength: 0.8, type: "direct" },
+            { source: "fed_response", target: "real_rates", strength: 0.9, type: "direct" },
+            { source: "real_rates", target: "debt_burden", strength: 0.8, type: "direct" },
+            { source: "cpi_surprise", target: "tips", strength: 0.8, type: "direct" },
+            { source: "sticky", target: "commodities", strength: 0.7, type: "direct" },
+            { source: "sticky", target: "utilities", strength: 0.6, type: "direct" },
+            // 回饋迴路 - 工資-物價螺旋
+            { source: "wage_spiral", target: "services", strength: 0.8, type: "feedback", desc: "工資上漲推動服務業成本上升" },
+            { source: "services", target: "wage_spiral", strength: 0.7, type: "feedback", desc: "服務價格上漲要求更高工資" },
+            { source: "real_rates", target: "sticky", strength: -0.6, type: "feedback", desc: "高實質利率最終壓抑通膨" }
         ]
     },
     ai: {
@@ -390,15 +441,19 @@ const scenarios = {
             { id: "traditional", name: "傳產股被拋售", type: "asset", icon: "📉", desc: "資金集中AI概念股，傳統產業資金外流", x: 900, y: 400 }
         ],
         links: [
-            { source: "ai_breakthrough", target: "data_center", strength: 0.9 },
-            { source: "ai_breakthrough", target: "chip_demand", strength: 0.9 },
-            { source: "data_center", target: "power_demand", strength: 0.9 },
-            { source: "chip_demand", target: "supply_chain", strength: 0.9 },
-            { source: "chip_demand", target: "nvidia", strength: 0.9 },
-            { source: "supply_chain", target: "tsmc", strength: 0.9 },
-            { source: "power_demand", target: "power_stocks", strength: 0.8 },
-            { source: "data_center", target: "cooling", strength: 0.8 },
-            { source: "ai_breakthrough", target: "traditional", strength: -0.6 }
+            { source: "ai_breakthrough", target: "data_center", strength: 0.9, type: "direct" },
+            { source: "ai_breakthrough", target: "chip_demand", strength: 0.9, type: "direct" },
+            { source: "data_center", target: "power_demand", strength: 0.9, type: "direct" },
+            { source: "chip_demand", target: "supply_chain", strength: 0.9, type: "direct" },
+            { source: "chip_demand", target: "nvidia", strength: 0.9, type: "direct" },
+            { source: "supply_chain", target: "tsmc", strength: 0.9, type: "direct" },
+            { source: "power_demand", target: "power_stocks", strength: 0.8, type: "direct" },
+            { source: "data_center", target: "cooling", strength: 0.8, type: "direct" },
+            { source: "ai_breakthrough", target: "traditional", strength: -0.6, type: "direct" },
+            // 回饋迴路
+            { source: "nvidia", target: "chip_demand", strength: 0.7, type: "feedback", desc: "NVIDIA股價大漲吸引更多資金投入AI領域" },
+            { source: "tsmc", target: "supply_chain", strength: 0.6, type: "feedback", desc: "台積電擴產強化台灣供應鏈地位" },
+            { source: "power_stocks", target: "power_demand", strength: 0.5, type: "feedback", desc: "電力股上漲反映並強化電力需求預期" }
         ]
     },
     china: {
@@ -421,15 +476,19 @@ const scenarios = {
             { id: "luxury", name: "奢侈品股下跌", type: "asset", icon: "👜", desc: "中國消費者購買力下降，精品業績承壓", x: 900, y: 400 }
         ],
         links: [
-            { source: "property_crisis", target: "wealth_effect", strength: 0.9 },
-            { source: "property_crisis", target: "local_debt", strength: 0.8 },
-            { source: "wealth_effect", target: "consumption", strength: 0.8 },
-            { source: "property_crisis", target: "steel_demand", strength: 0.9 },
-            { source: "steel_demand", target: "iron_ore", strength: 0.9 },
-            { source: "consumption", target: "supply_chain", strength: 0.7 },
-            { source: "property_crisis", target: "china_stock", strength: -0.6 },
-            { source: "supply_chain", target: "em_asia", strength: 0.8 },
-            { source: "consumption", target: "luxury", strength: -0.7 }
+            { source: "property_crisis", target: "wealth_effect", strength: 0.9, type: "direct" },
+            { source: "property_crisis", target: "local_debt", strength: 0.8, type: "direct" },
+            { source: "wealth_effect", target: "consumption", strength: 0.8, type: "direct" },
+            { source: "property_crisis", target: "steel_demand", strength: 0.9, type: "direct" },
+            { source: "steel_demand", target: "iron_ore", strength: 0.9, type: "direct" },
+            { source: "consumption", target: "supply_chain", strength: 0.7, type: "direct" },
+            { source: "property_crisis", target: "china_stock", strength: -0.6, type: "direct" },
+            { source: "supply_chain", target: "em_asia", strength: 0.8, type: "direct" },
+            { source: "consumption", target: "luxury", strength: -0.7, type: "direct" },
+            // 回饋迴路
+            { source: "consumption", target: "property_crisis", strength: -0.5, type: "feedback", desc: "消費低迷加劇房地產去庫存壓力" },
+            { source: "local_debt", target: "property_crisis", strength: 0.6, type: "feedback", desc: "地方財政困難限制救市能力" },
+            { source: "em_asia", target: "supply_chain", strength: 0.5, type: "feedback", desc: "東南亞崛起加速供應鏈轉移" }
         ]
     },
     japan: {
@@ -452,15 +511,20 @@ const scenarios = {
             { id: "emerging", name: "新興市場承壓", type: "asset", icon: "🌏", desc: "資金撤離風險資產，新興市場股匯雙跌", x: 900, y: 500 }
         ],
         links: [
-            { source: "boj_hike", target: "yen_strength", strength: 0.9 },
-            { source: "boj_hike", target: "carry_cost", strength: 0.9 },
-            { source: "yen_strength", target: "unwind", strength: 0.8 },
-            { source: "carry_cost", target: "unwind", strength: 0.9 },
-            { source: "unwind", target: "liquidity", strength: 0.9 },
-            { source: "boj_hike", target: "nikkei", strength: -0.8 },
-            { source: "liquidity", target: "nasdaq", strength: -0.8 },
-            { source: "liquidity", target: "crypto", strength: -0.9 },
-            { source: "liquidity", target: "emerging", strength: -0.8 }
+            { source: "boj_hike", target: "yen_strength", strength: 0.9, type: "direct" },
+            { source: "boj_hike", target: "carry_cost", strength: 0.9, type: "direct" },
+            { source: "yen_strength", target: "unwind", strength: 0.8, type: "direct" },
+            { source: "carry_cost", target: "unwind", strength: 0.9, type: "direct" },
+            { source: "unwind", target: "liquidity", strength: 0.9, type: "direct" },
+            { source: "boj_hike", target: "nikkei", strength: -0.8, type: "direct" },
+            { source: "liquidity", target: "nasdaq", strength: -0.8, type: "direct" },
+            { source: "liquidity", target: "crypto", strength: -0.9, type: "direct" },
+            { source: "liquidity", target: "emerging", strength: -0.8, type: "direct" },
+            // 回饋迴路 - 惡性循環
+            { source: "yen_strength", target: "unwind", strength: 0.9, type: "feedback", desc: "日圓越強→平倉壓力越大→日圓更強（惡性循環）" },
+            { source: "unwind", target: "yen_strength", strength: 0.8, type: "feedback", desc: "套息平倉推升日圓需求" },
+            { source: "nikkei", target: "boj_hike", strength: -0.6, type: "feedback", desc: "股市暴跌可能迫使央行暫停升息" },
+            { source: "nasdaq", target: "unwind", strength: 0.7, type: "feedback", desc: "美股下跌加速套息交易平倉" }
         ]
     }
 };
@@ -468,8 +532,10 @@ const scenarios = {
 let currentScenario = 'oil';
 let simulation = null;
 let selectedNode = null;
+let currentImpactTab = 'outgoing';
 
 const colors = { trigger: '#ef4444', chain: '#f59e0b', impact: '#22c55e', asset: '#3b82f6' };
+const linkColors = { direct: '#ef4444', indirect: '#f59e0b', feedback: '#8b5cf6' };
 
 function init() {
     renderEventList();
@@ -496,6 +562,11 @@ function getTypeLabel(type) {
     return labels[type] || type;
 }
 
+function getLinkTypeLabel(type) {
+    const labels = { direct: '直接影響', indirect: '間接影響', feedback: '回饋迴路' };
+    return labels[type] || type;
+}
+
 function renderGraph() {
     const container = document.getElementById('graph-container');
     container.innerHTML = '';
@@ -514,37 +585,41 @@ function renderGraph() {
     const links = data.links.map(d => ({...d}));
 
     simulation = d3.forceSimulation(nodes)
-        .force('link', d3.forceLink(links).id(d => d.id).distance(120))
-        .force('charge', d3.forceManyBody().strength(-800))
+        .force('link', d3.forceLink(links).id(d => d.id).distance(130))
+        .force('charge', d3.forceManyBody().strength(-900))
         .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collision', d3.forceCollide().radius(50));
+        .force('collision', d3.forceCollide().radius(55));
 
+    // 繪製連結
     const link = g.append('g')
         .selectAll('line')
         .data(links)
         .enter()
         .append('line')
-        .attr('stroke', d => d.strength > 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)')
-        .attr('stroke-width', d => Math.abs(d.strength) * 3)
-        .attr('stroke-dasharray', d => d.strength < 0 ? '5,5' : null);
+        .attr('stroke', d => linkColors[d.type] || '#666')
+        .attr('stroke-width', d => Math.abs(d.strength) * 2.5)
+        .attr('stroke-dasharray', d => d.type === 'feedback' ? '8,4' : (d.strength < 0 ? '5,5' : null))
+        .attr('opacity', 0.7);
 
+    // 繪製箭頭
     svg.append('defs').selectAll('marker')
-        .data(['positive', 'negative'])
+        .data(['direct', 'indirect', 'feedback'])
         .enter()
         .append('marker')
         .attr('id', d => `arrow-${d}`)
         .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 35)
+        .attr('refX', 32)
         .attr('refY', 0)
-        .attr('markerWidth', 8)
-        .attr('markerHeight', 8)
+        .attr('markerWidth', 7)
+        .attr('markerHeight', 7)
         .attr('orient', 'auto')
         .append('path')
         .attr('d', 'M0,-5L10,0L0,5')
-        .attr('fill', d => d === 'positive' ? '#ef4444' : '#22c55e');
+        .attr('fill', d => linkColors[d]);
 
-    link.attr('marker-end', d => d.strength > 0 ? 'url(#arrow-positive)' : 'url(#arrow-negative)');
+    link.attr('marker-end', d => `url(#arrow-${d.type})`);
 
+    // 繪製節點
     const node = g.append('g')
         .selectAll('g')
         .data(nodes)
@@ -558,7 +633,7 @@ function renderGraph() {
             .on('end', dragended));
 
     node.append('circle')
-        .attr('r', 28)
+        .attr('r', 26)
         .attr('fill', d => colors[d.type])
         .attr('stroke', '#fff')
         .attr('stroke-width', 2)
@@ -567,14 +642,14 @@ function renderGraph() {
     node.append('text')
         .attr('text-anchor', 'middle')
         .attr('dy', '0.35em')
-        .style('font-size', '1.2rem')
+        .style('font-size', '1.1rem')
         .style('pointer-events', 'none')
         .text(d => d.icon);
 
     node.append('text')
-        .attr('dy', 45)
+        .attr('dy', 42)
         .attr('text-anchor', 'middle')
-        .style('font-size', '0.75rem')
+        .style('font-size', '0.7rem')
         .style('fill', '#fff')
         .style('font-weight', '500')
         .style('text-shadow', '0 2px 4px rgba(0,0,0,0.8)')
@@ -593,6 +668,7 @@ function renderGraph() {
     svg.on('click', () => {
         document.getElementById('info-panel').classList.remove('active');
         selectedNode = null;
+        document.querySelectorAll('.event-item').forEach(el => el.classList.remove('active'));
     });
 }
 
@@ -601,31 +677,33 @@ function selectNode(node) {
     const panel = document.getElementById('info-panel');
     const scenario = scenarios[currentScenario];
     
+    // 更新事件列表高亮
+    document.querySelectorAll('.event-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === node.id);
+    });
+    
     document.getElementById('info-icon').textContent = node.icon;
     document.getElementById('info-icon').style.background = `${colors[node.type]}33`;
     document.getElementById('info-title').textContent = node.name;
     document.getElementById('info-type').textContent = getTypeLabel(node.type);
     document.getElementById('info-desc').textContent = node.desc;
 
-    const impacts = scenario.links
-        .filter(l => l.source.id === node.id || l.source === node.id)
-        .map(l => {
-            const target = typeof l.target === 'object' ? l.target : scenario.nodes.find(n => n.id === l.target);
-            return { name: target.name, icon: target.icon, direction: l.strength > 0 ? 'up' : 'down' };
-        });
-
-    const impactList = document.getElementById('impact-list');
-    if (impacts.length > 0) {
-        impactList.innerHTML = impacts.map(i => `
-            <div class="impact-item">
-                <span>${i.icon}</span>
-                <span class="impact-arrow ${i.direction}">${i.direction === 'up' ? '↑' : '↓'}</span>
-                <span>${i.name}</span>
-            </div>
-        `).join('');
+    // 顯示連結資訊
+    const connectionInfo = document.getElementById('connection-info');
+    const totalConnections = scenario.links.filter(l => 
+        l.source.id === node.id || l.source === node.id ||
+        l.target.id === node.id || l.target === node.id
+    ).length;
+    
+    if (totalConnections > 0) {
+        connectionInfo.style.display = 'block';
+        document.getElementById('connection-desc').textContent = 
+            `此節點共有 ${totalConnections} 個連結（點擊下方標籤查看不同類型）`;
     } else {
-        impactList.innerHTML = '<div class="impact-item">此為終端影響節點</div>';
+        connectionInfo.style.display = 'none';
     }
+
+    renderImpactList();
 
     // 顯示資料來源
     const sourcesSection = document.getElementById('sources-section');
@@ -644,12 +722,90 @@ function selectNode(node) {
     panel.classList.add('active');
 }
 
+function renderImpactList() {
+    if (!selectedNode) return;
+    
+    const scenario = scenarios[currentScenario];
+    const impactList = document.getElementById('impact-list');
+    
+    let filteredLinks = [];
+    
+    if (currentImpactTab === 'outgoing') {
+        // 此節點影響其他
+        filteredLinks = scenario.links.filter(l => 
+            (l.source.id === selectedNode.id || l.source === selectedNode.id)
+        );
+    } else if (currentImpactTab === 'incoming') {
+        // 其他節點影響此節點
+        filteredLinks = scenario.links.filter(l => 
+            (l.target.id === selectedNode.id || l.target === selectedNode.id)
+        );
+    } else if (currentImpactTab === 'bidirectional') {
+        // 互相影響（回饋迴路）
+        filteredLinks = scenario.links.filter(l => 
+            l.type === 'feedback' && (
+                l.source.id === selectedNode.id || l.source === selectedNode.id ||
+                l.target.id === selectedNode.id || l.target === selectedNode.id
+            )
+        );
+    }
+    
+    if (filteredLinks.length > 0) {
+        impactList.innerHTML = filteredLinks.map(l => {
+            let targetNode, direction, arrow;
+            
+            if (currentImpactTab === 'outgoing') {
+                targetNode = typeof l.target === 'object' ? l.target : scenario.nodes.find(n => n.id === l.target);
+                direction = l.strength > 0 ? 'up' : 'down';
+                arrow = l.strength > 0 ? '↑' : '↓';
+            } else if (currentImpactTab === 'incoming') {
+                targetNode = typeof l.source === 'object' ? l.source : scenario.nodes.find(n => n.id === l.source);
+                direction = l.strength > 0 ? 'down' : 'up'; // 反向
+                arrow = l.strength > 0 ? '↓' : '↑';
+            } else {
+                // bidirectional
+                const isSource = l.source.id === selectedNode.id || l.source === selectedNode.id;
+                targetNode = isSource 
+                    ? (typeof l.target === 'object' ? l.target : scenario.nodes.find(n => n.id === l.target))
+                    : (typeof l.source === 'object' ? l.source : scenario.nodes.find(n => n.id === l.source));
+                direction = 'bidirectional';
+                arrow = '↔';
+            }
+            
+            return `
+                <div class="impact-item" onclick="highlightNode('${targetNode.id}')">
+                    <span>${targetNode.icon}</span>
+                    <span class="impact-arrow ${direction}">${arrow}</span>
+                    <span>${targetNode.name}</span>
+                    ${l.type === 'feedback' ? '<span class="loop-badge">回饋</span>' : ''}
+                </div>
+            `;
+        }).join('');
+    } else {
+        impactList.innerHTML = `<div class="impact-item">此分類下無連結</div>`;
+    }
+}
+
+function highlightNode(nodeId) {
+    const node = scenarios[currentScenario].nodes.find(n => n.id === nodeId);
+    if (node) selectNode(node);
+}
+
 function showTooltip(e, d) {
     const tooltip = document.getElementById('tooltip');
+    const scenario = scenarios[currentScenario];
+    const outgoing = scenario.links.filter(l => l.source.id === d.id || l.source === d.id).length;
+    const incoming = scenario.links.filter(l => l.target.id === d.id || l.target === d.id).length;
+    const feedback = scenario.links.filter(l => 
+        l.type === 'feedback' && (l.source.id === d.id || l.source === d.id || l.target.id === d.id || l.target === d.id)
+    ).length;
+    
     tooltip.innerHTML = `
         <strong>${d.icon} ${d.name}</strong><br>
         <span style="color: #8b8b9a; font-size: 0.75rem;">${getTypeLabel(d.type)}</span><br>
-        <span style="font-size: 0.8rem;">${d.desc.substring(0, 50)}...</span>
+        <span style="font-size: 0.75rem; color: #666;">
+            影響: ${outgoing} | 被影響: ${incoming} | 回饋: ${feedback}
+        </span>
     `;
     tooltip.style.left = e.pageX + 10 + 'px';
     tooltip.style.top = e.pageY - 10 + 'px';
@@ -683,6 +839,7 @@ function setupEventListeners() {
             renderEventList();
             renderGraph();
             document.getElementById('info-panel').classList.remove('active');
+            selectedNode = null;
         });
     });
 
@@ -693,6 +850,16 @@ function setupEventListeners() {
             const node = scenarios[currentScenario].nodes.find(n => n.id === nodeId);
             if (node) selectNode(node);
         }
+    });
+
+    // 影響分類標籤
+    document.querySelectorAll('.impact-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.impact-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentImpactTab = tab.dataset.tab;
+            renderImpactList();
+        });
     });
 }
 
@@ -710,13 +877,13 @@ function toggleAnimation() {
         const nodes = d3.selectAll('.node circle');
         function pulse() {
             if (!animationPlaying) return;
-            nodes.transition().duration(1000).attr('r', 32)
-                .transition().duration(1000).attr('r', 28)
+            nodes.transition().duration(1000).attr('r', 30)
+                .transition().duration(1000).attr('r', 26)
                 .on('end', pulse);
         }
         pulse();
     } else {
-        d3.selectAll('.node circle').interrupt().attr('r', 28);
+        d3.selectAll('.node circle').interrupt().attr('r', 26);
     }
 }
 
