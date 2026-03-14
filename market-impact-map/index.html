@@ -7,394 +7,154 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-dark: #0a0a0f;
-            --bg-card: #14141a;
-            --bg-hover: #1e1e28;
-            --border: rgba(255,255,255,0.08);
-            --text-primary: #ffffff;
-            --text-secondary: #8b8b9a;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-gold: #f59e0b;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
+            --bg-dark: #0a0a0f; --bg-card: #14141a; --bg-hover: #1e1e28;
+            --border: rgba(255,255,255,0.08); --text-primary: #ffffff; --text-secondary: #8b8b9a;
+            --accent-green: #22c55e; --accent-red: #ef4444; --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6; --accent-purple: #8b5cf6;
         }
-
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow: hidden;
+            background: var(--bg-dark); color: var(--text-primary);
+            min-height: 100vh; overflow: hidden;
         }
-
-        /* Header */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 1000;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .logo { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem;
         }
-
         .logo-text {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.1rem; font-weight: 700;
             background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
-
+        .header-actions { display: flex; gap: 12px; }
         .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-primary); font-size: 0.875rem;
+            cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 6px;
         }
-
-        .btn:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
+        .btn:hover { background: var(--bg-hover); border-color: var(--accent-gold); }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-gold), #d97706);
-            border: none;
-            color: #000;
-            font-weight: 600;
+            border: none; color: #000; font-weight: 600;
         }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        /* Layout */
-        .container {
-            display: flex;
-            height: 100vh;
-            padding-top: 60px;
-        }
-
-        /* Sidebar */
+        .btn-primary:hover { opacity: 0.9; }
+        .container { display: flex; height: 100vh; padding-top: 60px; }
         .sidebar {
-            width: 320px;
-            background: var(--bg-card);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            width: 340px; background: var(--bg-card); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; overflow: hidden;
         }
-
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
+        .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
         .sidebar-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            font-size: 0.875rem; font-weight: 600; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
         }
-
         .scenario-tabs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            display: flex; gap: 8px; flex-wrap: wrap; max-height: 120px; overflow-y: auto;
         }
-
         .scenario-tab {
-            padding: 6px 12px;
-            border-radius: 6px;
-            background: var(--bg-hover);
-            border: 1px solid var(--border);
-            font-size: 0.75rem;
-            cursor: pointer;
+            padding: 6px 12px; border-radius: 6px; background: var(--bg-hover);
+            border: 1px solid var(--border); font-size: 0.75rem; cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .scenario-tab:hover, .scenario-tab.active {
-            background: var(--accent-gold);
-            color: #000;
-            border-color: var(--accent-gold);
+            background: var(--accent-gold); color: #000; border-color: var(--accent-gold);
         }
-
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .sidebar-content { flex: 1; overflow-y: auto; padding: 20px; }
+        .event-list { display: flex; flex-direction: column; gap: 8px; }
         .event-item {
-            padding: 12px;
-            background: var(--bg-hover);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding: 12px; background: var(--bg-hover); border-radius: 10px;
+            border: 1px solid var(--border); cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 10px;
         }
-
-        .event-item:hover {
-            border-color: var(--accent-gold);
-            transform: translateX(4px);
-        }
-
+        .event-item:hover { border-color: var(--accent-gold); transform: translateX(4px); }
         .event-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; font-size: 1rem;
         }
-
         .event-icon.trigger { background: rgba(239, 68, 68, 0.2); }
+        .event-icon.chain { background: rgba(245, 158, 11, 0.2); }
         .event-icon.impact { background: rgba(34, 197, 94, 0.2); }
         .event-icon.asset { background: rgba(59, 130, 246, 0.2); }
-
-        .event-info {
-            flex: 1;
-        }
-
-        .event-name {
-            font-weight: 500;
-            font-size: 0.875rem;
-        }
-
-        .event-type {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Legend */
-        .legend {
-            padding: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .legend-title {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .legend-items {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /* Main Canvas */
-        .main {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #graph-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Info Panel */
+        .event-info { flex: 1; }
+        .event-name { font-weight: 500; font-size: 0.875rem; }
+        .event-type { font-size: 0.75rem; color: var(--text-secondary); }
+        .legend { padding: 20px; border-top: 1px solid var(--border); }
+        .legend-title { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 12px; }
+        .legend-items { display: flex; flex-direction: column; gap: 8px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .main { flex: 1; position: relative; overflow: hidden; }
+        #graph-container { width: 100%; height: 100%; }
         .info-panel {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 300px;
-            background: rgba(20, 20, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            transform: translateX(340px);
-            transition: transform 0.3s ease;
+            position: absolute; top: 20px; right: 20px; width: 340px;
+            background: rgba(20, 20, 26, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+            transform: translateX(380px); transition: transform 0.3s ease;
+            max-height: calc(100vh - 100px); overflow-y: auto;
         }
-
-        .info-panel.active {
-            transform: translateX(0);
-        }
-
+        .info-panel.active { transform: translateX(0); }
         .info-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
         }
-
         .info-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
         }
-
-        .info-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-
-        .info-type {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        .info-section {
-            margin-bottom: 16px;
-        }
-
+        .info-title { font-size: 1.125rem; font-weight: 600; }
+        .info-type { font-size: 0.75rem; color: var(--text-secondary); }
+        .info-section { margin-bottom: 16px; }
         .info-section-title {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            font-size: 0.75rem; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
         }
-
         .info-desc {
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
+            font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary);
         }
-
-        .impact-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
+        .impact-list { display: flex; flex-direction: column; gap: 6px; }
         .impact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--bg-hover);
-            border-radius: 8px;
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 12px; background: var(--bg-hover); border-radius: 8px;
             font-size: 0.875rem;
         }
-
-        .impact-arrow {
-            color: var(--accent-red);
-        }
-
+        .impact-arrow { color: var(--accent-red); }
         .impact-arrow.up { color: var(--accent-green); }
         .impact-arrow.down { color: var(--accent-red); }
-
-        /* Tooltip */
+        .sources-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .sources-list { display: flex; flex-direction: column; gap: 6px; }
+        .source-link {
+            font-size: 0.75rem; color: var(--accent-blue); text-decoration: none;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .source-link:hover { text-decoration: underline; }
         .tooltip {
-            position: absolute;
-            padding: 12px 16px;
-            background: rgba(20, 20, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.875rem;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 1000;
-            max-width: 250px;
+            position: absolute; padding: 12px 16px;
+            background: rgba(20, 20, 26, 0.95); backdrop-filter: blur(10px);
+            border: 1px solid var(--border); border-radius: 10px;
+            font-size: 0.875rem; pointer-events: none; opacity: 0;
+            transition: opacity 0.2s ease; z-index: 1000; max-width: 250px;
         }
-
-        .tooltip.visible {
-            opacity: 1;
-        }
-
-        /* Responsive */
+        .tooltip.visible { opacity: 1; }
         @media (max-width: 1024px) {
-            .sidebar {
-                width: 280px;
-            }
-            .info-panel {
-                width: 260px;
-            }
+            .sidebar { width: 280px; }
+            .info-panel { width: 280px; }
         }
-
         @media (max-width: 768px) {
-            .sidebar {
-                position: absolute;
-                left: -320px;
-                height: calc(100% - 60px);
-                transition: left 0.3s ease;
-                z-index: 100;
-            }
-            .sidebar.open {
-                left: 0;
-            }
+            .sidebar { position: absolute; left: -340px; height: calc(100% - 60px); transition: left 0.3s ease; z-index: 100; }
+            .sidebar.open { left: 0; }
         }
     </style>
 </head>
@@ -405,12 +165,8 @@
             <div class="logo-text">Market Impact Map</div>
         </div>
         <div class="header-actions">
-            <button class="btn" onclick="resetZoom()">
-                <span>🔍</span> 重置視圖
-            </button>
-            <button class="btn btn-primary" onclick="toggleAnimation()">
-                <span>▶️</span> 播放動畫
-            </button>
+            <button class="btn" onclick="resetZoom()"><span>🔍</span> 重置視圖</button>
+            <button class="btn btn-primary" onclick="toggleAnimation()"><span>▶️</span> 播放動畫</button>
         </div>
     </header>
 
@@ -423,40 +179,28 @@
                     <div class="scenario-tab" data-scenario="war">⚔️ 地緣衝突</div>
                     <div class="scenario-tab" data-scenario="fed">🏦 Fed政策</div>
                     <div class="scenario-tab" data-scenario="inflation">📈 通膨升溫</div>
+                    <div class="scenario-tab" data-scenario="ai">🤖 AI熱潮</div>
+                    <div class="scenario-tab" data-scenario="china">🇨🇳 中國經濟</div>
+                    <div class="scenario-tab" data-scenario="japan">🇯🇵 日本升息</div>
                 </div>
             </div>
             <div class="sidebar-content">
                 <div class="sidebar-title">事件節點</div>
-                <div class="event-list" id="event-list">
-                    <!-- Generated by JS -->
-                </div>
+                <div class="event-list" id="event-list"></div>
             </div>
             <div class="legend">
                 <div class="legend-title">圖例說明</div>
                 <div class="legend-items">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #ef4444;"></div>
-                        <span>觸發事件 (Trigger)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #f59e0b;"></div>
-                        <span>連鎖反應 (Chain)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #22c55e;"></div>
-                        <span>最終影響 (Impact)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #3b82f6;"></div>
-                        <span>資產價格 (Asset)</span>
-                    </div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #ef4444;"></div><span>觸發事件 (Trigger)</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #f59e0b;"></div><span>連鎖反應 (Chain)</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #22c55e;"></div><span>最終影響 (Impact)</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div><span>資產價格 (Asset)</span></div>
                 </div>
             </div>
         </aside>
 
         <main class="main">
             <div id="graph-container"></div>
-            
             <div class="info-panel" id="info-panel">
                 <div class="info-header">
                     <div class="info-icon" id="info-icon">📊</div>
@@ -467,15 +211,15 @@
                 </div>
                 <div class="info-section">
                     <div class="info-section-title">描述</div>
-                    <div class="info-desc" id="info-desc">
-                        點擊圖表中的節點，查看該事件如何影響市場，以及與其他事件的關聯。
-                    </div>
+                    <div class="info-desc" id="info-desc">點擊圖表中的節點，查看該事件如何影響市場，以及與其他事件的關聯。</div>
                 </div>
                 <div class="info-section">
                     <div class="info-section-title">影響路徑</div>
-                    <div class="impact-list" id="impact-list">
-                        <!-- Generated by JS -->
-                    </div>
+                    <div class="impact-list" id="impact-list"></div>
+                </div>
+                <div class="sources-section" id="sources-section" style="display: none;">
+                    <div class="info-section-title">資料來源</div>
+                    <div class="sources-list" id="sources-list"></div>
                 </div>
             </div>
         </main>
@@ -484,438 +228,500 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
-        // 市場因果關係數據
-        const scenarios = {
-            oil: {
-                name: "油價上漲情境",
-                nodes: [
-                    { id: "oil_price", name: "油價大漲", type: "trigger", icon: "🛢️", desc: "地緣政治緊張、OPEC減產或需求激增導致原油價格飆升", x: 100, y: 300 },
-                    { id: "transport_cost", name: "運輸成本上升", type: "chain", icon: "🚛", desc: "燃油成本增加直接推高物流與運輸費用", x: 300, y: 200 },
-                    { id: "production_cost", name: "生產成本增加", type: "chain", icon: "🏭", desc: "能源密集型產業（化工、塑膠、航空）成本上升", x: 300, y: 400 },
-                    { id: "cpi_up", name: "CPI上升", type: "chain", icon: "📊", desc: "消費者物價指數因能源與商品價格上漲而攀升", x: 500, y: 300 },
-                    { id: "inflation_exp", name: "通膨預期升溫", type: "chain", icon: "📈", desc: "市場預期未來通膨將持續走高", x: 700, y: 250 },
-                    { id: "fed_delay", name: "Fed降息延後", type: "chain", icon: "🏦", desc: "聯準會因通膨壓力而推遲降息時間表（6月→9月或更晚）", x: 700, y: 400 },
-                    { id: "bond_yield", name: "債券收益率上升", type: "impact", icon: "📉", desc: "市場預期利率維持高位，債券價格下跌，收益率攀升", x: 900, y: 350 },
-                    { id: "stock_pressure", name: "股市承壓", type: "impact", icon: "📉", desc: "高利率環境與成本上升雙重打擊企業盈利", x: 900, y: 200 },
-                    { id: "usd_strength", name: "美元走強", type: "impact", icon: "💵", desc: "美國利率相對較高吸引資金流入", x: 900, y: 500 },
-                    { id: "gold", name: "黃金上漲", type: "asset", icon: "🥇", desc: "避險需求與通膨對沖推升金價", x: 1100, y: 300 },
-                    { id: "oil_stocks", name: "能源股上漲", type: "asset", icon: "⛽", desc: "油價上漲直接利好石油生產商", x: 1100, y: 150 },
-                    { id: "airlines", name: "航空股下跌", type: "asset", icon: "✈️", desc: "燃油成本上升重創航空公司利潤", x: 1100, y: 450 },
-                    { id: "consumer", name: "消費股疲軟", type: "asset", icon: "🛒", desc: "通膨侵蝕購買力，消費支出放緩", x: 1100, y: 600 }
-                ],
-                links: [
-                    { source: "oil_price", target: "transport_cost", strength: 0.9 },
-                    { source: "oil_price", target: "production_cost", strength: 0.9 },
-                    { source: "transport_cost", target: "cpi_up", strength: 0.7 },
-                    { source: "production_cost", target: "cpi_up", strength: 0.8 },
-                    { source: "cpi_up", target: "inflation_exp", strength: 0.9 },
-                    { source: "cpi_up", target: "fed_delay", strength: 0.8 },
-                    { source: "inflation_exp", target: "bond_yield", strength: 0.8 },
-                    { source: "fed_delay", target: "bond_yield", strength: 0.9 },
-                    { source: "fed_delay", target: "stock_pressure", strength: 0.8 },
-                    { source: "fed_delay", target: "usd_strength", strength: 0.7 },
-                    { source: "inflation_exp", target: "gold", strength: 0.8 },
-                    { source: "oil_price", target: "oil_stocks", strength: 0.9 },
-                    { source: "oil_price", target: "airlines", strength: -0.9 },
-                    { source: "stock_pressure", target: "consumer", strength: 0.7 }
-                ]
-            },
-            war: {
-                name: "地緣衝突情境",
-                nodes: [
-                    { id: "conflict", name: "地緣衝突爆發", type: "trigger", icon: "⚔️", desc: "區域戰爭或軍事衝突突然升級", x: 100, y: 300 },
-                    { id: "oil_supply", name: "石油供應中斷", type: "chain", icon: "🛢️", desc: "主要產油區運輸受阻或生產設施受損", x: 300, y: 200 },
-                    { id: "safe_haven", name: "避險情緒升溫", type: "chain", icon: "🛡️", desc: "投資者尋求安全資產避險", x: 300, y: 400 },
-                    { id: "oil_spike", name: "油價暴漲", type: "chain", icon: "📈", desc: "供應擔憂推升原油價格", x: 500, y: 200 },
-                    { id: "volatility", name: "市場波動率飆升", type: "chain", icon: "⚡", desc: "VIX指數大幅上漲，市場恐慌", x: 500, y: 400 },
-                    { id: "inflation_war", name: "戰時通膨", type: "chain", icon: "🔥", desc: "能源與糧食價格雙雙上漲", x: 700, y: 300 },
-                    { id: "defense", name: "軍工股大漲", type: "asset", icon: "🎖️", desc: "國防開支增加預期", x: 900, y: 150 },
-                    { id: "gold_war", name: "黃金暴漲", type: "asset", icon: "🥇", desc: "避險需求激增", x: 900, y: 300 },
-                    { id: "bonds", name: "美債上漲", type: "asset", icon: "📜", desc: "資金湧入避險", x: 900, y: 450 },
-                    { id: "emerging", name: "新興市場下跌", type: "asset", icon: "📉", desc: "風險資產遭拋售", x: 1100, y: 200 },
-                    { id: "semiconductor", name: "半導體股波動", type: "asset", icon: "💻", desc: "供應鏈中斷擔憂", x: 1100, y: 400 }
-                ],
-                links: [
-                    { source: "conflict", target: "oil_supply", strength: 0.9 },
-                    { source: "conflict", target: "safe_haven", strength: 0.9 },
-                    { source: "oil_supply", target: "oil_spike", strength: 0.9 },
-                    { source: "conflict", target: "volatility", strength: 0.9 },
-                    { source: "oil_spike", target: "inflation_war", strength: 0.8 },
-                    { source: "safe_haven", target: "gold_war", strength: 0.9 },
-                    { source: "safe_haven", target: "bonds", strength: 0.8 },
-                    { source: "conflict", target: "defense", strength: 0.9 },
-                    { source: "volatility", target: "emerging", strength: -0.8 },
-                    { source: "conflict", target: "semiconductor", strength: -0.6 }
-                ]
-            },
-            fed: {
-                name: "Fed政策轉向",
-                nodes: [
-                    { id: "fed_hawkish", name: "Fed轉鷹派", type: "trigger", icon: "🦅", desc: "聯準會釋放更強硬的貨幣政策信號", x: 100, y: 300 },
-                    { id: "rate_expectation", name: "利率預期上調", type: "chain", icon: "📊", desc: "市場預期降息次數減少或延後", x: 300, y: 200 },
-                    { id: "dot_plot", name: "點陣圖上修", type: "chain", icon: "📈", desc: "委員對未來利率路徑預測更為保守", x: 300, y: 400 },
-                    { id: "yield_curve", name: "收益率曲線變化", type: "chain", icon: "📉", desc: "短端利率相對長端上升", x: 500, y: 300 },
-                    { id: "dollar", name: "美元指數飆升", type: "impact", icon: "💵", desc: "美國相對利率優勢擴大", x: 700, y: 200 },
-                    { id: "em_fund", name: "新興市場資金外流", type: "impact", icon: "💸", desc: "資金回流美國", x: 700, y: 400 },
-                    { id: "tech_valuation", name: "科技股估值壓縮", type: "impact", icon: "💻", desc: "高估值成長股對利率更敏感", x: 900, y: 150 },
-                    { id: "bank_benefit", name: "銀行股受益", type: "asset", icon: "🏛️", desc: "淨利息收入增加", x: 900, y: 300 },
-                    { id: "reit", name: "REITs下跌", type: "asset", icon: "🏢", desc: "利率敏感型資產遭拋售", x: 900, y: 450 },
-                    { id: "crypto", name: "加密貨幣下跌", type: "asset", icon: "₿", desc: "流動性預期收緊", x: 1100, y: 200 },
-                    { id: "gold_fed", name: "黃金承壓", type: "asset", icon: "🥇", desc: "無息資產吸引力下降", x: 1100, y: 400 }
-                ],
-                links: [
-                    { source: "fed_hawkish", target: "rate_expectation", strength: 0.9 },
-                    { source: "fed_hawkish", target: "dot_plot", strength: 0.9 },
-                    { source: "rate_expectation", target: "yield_curve", strength: 0.8 },
-                    { source: "dot_plot", target: "yield_curve", strength: 0.8 },
-                    { source: "yield_curve", target: "dollar", strength: 0.8 },
-                    { source: "yield_curve", target: "em_fund", strength: 0.8 },
-                    { source: "rate_expectation", target: "tech_valuation", strength: -0.8 },
-                    { source: "rate_expectation", target: "bank_benefit", strength: 0.7 },
-                    { source: "rate_expectation", target: "reit", strength: -0.8 },
-                    { source: "rate_expectation", target: "crypto", strength: -0.7 },
-                    { source: "rate_expectation", target: "gold_fed", strength: -0.7 }
-                ]
-            },
-            inflation: {
-                name: "通膨升溫",
-                nodes: [
-                    { id: "cpi_surprise", name: "CPI超預期", type: "trigger", icon: "📊", desc: "消費者物價指數高於市場預期", x: 100, y: 300 },
-                    { id: "core_goods", name: "核心商品上漲", type: "chain", icon: "📦", desc: "扣除食品能源的核心CPI上升", x: 300, y: 200 },
-                    { id: "services", name: "服務業通膨", type: "chain", icon: "💼", desc: "工資與服務價格持續攀升", x: 300, y: 400 },
-                    { id: "sticky", name: "黏性通膨", type: "chain", icon: "🍯", desc: "通膨持續時間比預期更長", x: 500, y: 300 },
-                    { id: "wage_spiral", name: "工資-物價螺旋", type: "chain", icon: "🔄", desc: "工資上漲推動物價，物價上漲要求更高工資", x: 700, y: 300 },
-                    { id: "fed_response", name: "Fed被迫緊縮", type: "chain", icon: "🔒", desc: "聯準會可能需要再次升息", x: 700, y: 150 },
-                    { id: "real_rates", name: "實質利率上升", type: "impact", icon: "📈", desc: "名目利率減通膨預期", x: 900, y: 200 },
-                    { id: "debt_burden", name: "債務負擔加重", type: "impact", icon: "⚖️", desc: "企業與政府借貸成本上升", x: 900, y: 400 },
-                    { id: "tips", name: "TIPS上漲", type: "asset", icon: "🛡️", desc: "通膨連結債券受追捧", x: 1100, y: 150 },
-                    { id: "commodities", name: "大宗商品上漲", type: "asset", icon: "⛏️", desc: "實物資產對沖通膨", x: 1100, y: 350 },
-                    { id: "utilities", name: "公用事業抗跌", type: "asset", icon: "⚡", desc: "定價能力轉嫁成本", x: 1100, y: 550 }
-                ],
-                links: [
-                    { source: "cpi_surprise", target: "core_goods", strength: 0.8 },
-                    { source: "cpi_surprise", target: "services", strength: 0.8 },
-                    { source: "core_goods", target: "sticky", strength: 0.7 },
-                    { source: "services", target: "sticky", strength: 0.8 },
-                    { source: "sticky", target: "wage_spiral", strength: 0.7 },
-                    { source: "sticky", target: "fed_response", strength: 0.8 },
-                    { source: "fed_response", target: "real_rates", strength: 0.9 },
-                    { source: "real_rates", target: "debt_burden", strength: 0.8 },
-                    { source: "cpi_surprise", target: "tips", strength: 0.8 },
-                    { source: "sticky", target: "commodities", strength: 0.7 },
-                    { source: "sticky", target: "utilities", strength: 0.6 }
-                ]
-            }
-        };
+// 市場因果關係數據
+const scenarios = {
+    oil: {
+        name: "油價上漲情境",
+        description: "地緣政治緊張或供應中斷導致油價飆升，推升通膨預期並影響Fed政策",
+        sources: [
+            { name: "財經M平方 - 油價與通膨關係", url: "https://www.macromicro.me/collections/4534/em-mkt/37411/us-dollar-index-vs-em-mkt-idx" },
+            { name: "Mitrade - 美國降息對股市影響", url: "https://www.mitrade.com/zh/insights/shares/us-stock-investment/Impact-of-interest-rate-cuts-on-stock-market" }
+        ],
+        nodes: [
+            { id: "oil_price", name: "油價大漲", type: "trigger", icon: "🛢️", desc: "地緣政治緊張、OPEC減產或需求激增導致原油價格飆升。油價每上漲5%，已開發市場通膨率約增加0.1個百分點。", x: 100, y: 300 },
+            { id: "transport_cost", name: "運輸成本上升", type: "chain", icon: "🚛", desc: "燃油成本增加直接推高物流與運輸費用，影響供應鏈各環節", x: 300, y: 200 },
+            { id: "production_cost", name: "生產成本增加", type: "chain", icon: "🏭", desc: "能源密集型產業（化工、塑膠、航空）成本上升，企業利潤受壓", x: 300, y: 400 },
+            { id: "cpi_up", name: "CPI上升", type: "chain", icon: "📊", desc: "消費者物價指數因能源與商品價格上漲而攀升，若油價升至每桶108美元，美國通膨率可能突破2%目標", x: 500, y: 300 },
+            { id: "inflation_exp", name: "通膨預期升溫", type: "chain", icon: "📈", desc: "市場預期未來通膨將持續走高，影響長期利率預期", x: 700, y: 250 },
+            { id: "fed_delay", name: "Fed降息延後", type: "chain", icon: "🏦", desc: "聯準會因通膨壓力而推遲降息時間表（6月→9月或更晚），甚至全年可能0次降息", x: 700, y: 400 },
+            { id: "bond_yield", name: "債券收益率上升", type: "impact", icon: "📉", desc: "市場預期利率維持高位，債券價格下跌，收益率攀升", x: 900, y: 350 },
+            { id: "stock_pressure", name: "股市承壓", type: "impact", icon: "📉", desc: "高利率環境與成本上升雙重打擊企業盈利，科技股估值受壓", x: 900, y: 200 },
+            { id: "usd_strength", name: "美元走強", type: "impact", icon: "💵", desc: "美國利率相對較高吸引資金流入，美元指數上升", x: 900, y: 500 },
+            { id: "gold", name: "黃金上漲", type: "asset", icon: "🥇", desc: "避險需求與通膨對沖推升金價，實質利率下降時黃金機會成本降低", x: 1100, y: 300 },
+            { id: "oil_stocks", name: "能源股上漲", type: "asset", icon: "⛽", desc: "油價上漲直接利好石油生產商，獲利預期改善", x: 1100, y: 150 },
+            { id: "airlines", name: "航空股下跌", type: "asset", icon: "✈️", desc: "燃油成本上升重創航空公司利潤，營運成本大幅增加", x: 1100, y: 450 },
+            { id: "consumer", name: "消費股疲軟", type: "asset", icon: "🛒", desc: "通膨侵蝕購買力，消費支出放緩，零售業績受影響", x: 1100, y: 600 }
+        ],
+        links: [
+            { source: "oil_price", target: "transport_cost", strength: 0.9 },
+            { source: "oil_price", target: "production_cost", strength: 0.9 },
+            { source: "transport_cost", target: "cpi_up", strength: 0.7 },
+            { source: "production_cost", target: "cpi_up", strength: 0.8 },
+            { source: "cpi_up", target: "inflation_exp", strength: 0.9 },
+            { source: "cpi_up", target: "fed_delay", strength: 0.8 },
+            { source: "inflation_exp", target: "bond_yield", strength: 0.8 },
+            { source: "fed_delay", target: "bond_yield", strength: 0.9 },
+            { source: "fed_delay", target: "stock_pressure", strength: 0.8 },
+            { source: "fed_delay", target: "usd_strength", strength: 0.7 },
+            { source: "inflation_exp", target: "gold", strength: 0.8 },
+            { source: "oil_price", target: "oil_stocks", strength: 0.9 },
+            { source: "oil_price", target: "airlines", strength: -0.9 },
+            { source: "stock_pressure", target: "consumer", strength: 0.7 }
+        ]
+    },
+    war: {
+        name: "地緣衝突情境",
+        description: "區域戰爭或軍事衝突升級，引發避險情緒與供應鏈中斷",
+        sources: [
+            { name: "天下雜誌 - 地緣政治衝突分析", url: "https://www.cw.com.tw/article/5140113" },
+            { name: "Visual Capitalist - 戰爭與股市", url: "https://www.visualcapitalist.com/cp/stock-market-performance-during-war/" }
+        ],
+        nodes: [
+            { id: "conflict", name: "地緣衝突爆發", type: "trigger", icon: "⚔️", desc: "區域戰爭或軍事衝突突然升級，市場不確定性急劇升高", x: 100, y: 300 },
+            { id: "oil_supply", name: "石油供應中斷", type: "chain", icon: "🛢️", desc: "主要產油區運輸受阻或生產設施受損，全球供應鏈受衝擊", x: 300, y: 200 },
+            { id: "safe_haven", name: "避險情緒升溫", type: "chain", icon: "🛡️", desc: "投資者尋求安全資產避險，風險偏好急劇下降", x: 300, y: 400 },
+            { id: "oil_spike", name: "油價暴漲", type: "chain", icon: "📈", desc: "供應擔憂推升原油價格，能源成本急遽上升", x: 500, y: 200 },
+            { id: "volatility", name: "市場波動率飆升", type: "chain", icon: "⚡", desc: "VIX指數大幅上漲，市場恐慌情緒蔓延", x: 500, y: 400 },
+            { id: "inflation_war", name: "戰時通膨", type: "chain", icon: "🔥", desc: "能源與糧食價格雙雙上漲，輸入性通膨壓力加劇", x: 700, y: 300 },
+            { id: "defense", name: "軍工股大漲", type: "asset", icon: "🎖️", desc: "國防開支增加預期，軍工企業訂單看增", x: 900, y: 150 },
+            { id: "gold_war", name: "黃金暴漲", type: "asset", icon: "🥇", desc: "避險需求激增，資金湧入黃金等避險資產", x: 900, y: 300 },
+            { id: "bonds", name: "美債上漲", type: "asset", icon: "📜", desc: "資金湧入避險，美國公債需求增加", x: 900, y: 450 },
+            { id: "emerging", name: "新興市場下跌", type: "asset", icon: "📉", desc: "風險資產遭拋售，新興市場資金外流", x: 1100, y: 200 },
+            { id: "semiconductor", name: "半導體股波動", type: "asset", icon: "💻", desc: "供應鏈中斷擔憂，晶片產業面臨不確定性", x: 1100, y: 400 }
+        ],
+        links: [
+            { source: "conflict", target: "oil_supply", strength: 0.9 },
+            { source: "conflict", target: "safe_haven", strength: 0.9 },
+            { source: "oil_supply", target: "oil_spike", strength: 0.9 },
+            { source: "conflict", target: "volatility", strength: 0.9 },
+            { source: "oil_spike", target: "inflation_war", strength: 0.8 },
+            { source: "safe_haven", target: "gold_war", strength: 0.9 },
+            { source: "safe_haven", target: "bonds", strength: 0.8 },
+            { source: "conflict", target: "defense", strength: 0.9 },
+            { source: "volatility", target: "emerging", strength: -0.8 },
+            { source: "conflict", target: "semiconductor", strength: -0.6 }
+        ]
+    },
+    fed: {
+        name: "Fed政策轉向",
+        description: "聯準會釋放鷹派信號，市場預期利率維持高位更久",
+        sources: [
+            { name: "Visual Capitalist - S&P500與降息", url: "https://www.visualcapitalist.com/sp-500-performance-after-interest-rate-cuts/" },
+            { name: "LPL Financial - Fed降息影響", url: "https://www.lpl.com/research/blog/the-federal-reserve-cut-rates-now-what.html" }
+        ],
+        nodes: [
+            { id: "fed_hawkish", name: "Fed轉鷹派", type: "trigger", icon: "🦅", desc: "聯準會釋放更強硬的貨幣政策信號，點陣圖顯示利率預期上修", x: 100, y: 300 },
+            { id: "rate_expectation", name: "利率預期上調", type: "chain", icon: "📊", desc: "市場預期降息次數減少或延後，終端利率預期上升", x: 300, y: 200 },
+            { id: "dot_plot", name: "點陣圖上修", type: "chain", icon: "📈", desc: "委員對未來利率路徑預測更為保守，2025年預計降息2碼", x: 300, y: 400 },
+            { id: "yield_curve", name: "收益率曲線變化", type: "chain", icon: "📉", desc: "短端利率相對長端上升，殖利率曲線平坦化", x: 500, y: 300 },
+            { id: "dollar", name: "美元指數飆升", type: "impact", icon: "💵", desc: "美國相對利率優勢擴大，資金流入美元資產", x: 700, y: 200 },
+            { id: "em_fund", name: "新興市場資金外流", type: "impact", icon: "💸", desc: "資金回流美國，新興市場面臨資本外流壓力", x: 700, y: 400 },
+            { id: "tech_valuation", name: "科技股估值壓縮", type: "impact", icon: "💻", desc: "高估值成長股對利率更敏感，折現率上升壓抑估值", x: 900, y: 150 },
+            { id: "bank_benefit", name: "銀行股受益", type: "asset", icon: "🏛️", desc: "淨利息收入增加，銀行獲利能力提升", x: 900, y: 300 },
+            { id: "reit", name: "REITs下跌", type: "asset", icon: "🏢", desc: "利率敏感型資產遭拋售，不動產投資信託承壓", x: 900, y: 450 },
+            { id: "crypto", name: "加密貨幣下跌", type: "asset", icon: "₿", desc: "流動性預期收緊，風險資產首當其衝", x: 1100, y: 200 },
+            { id: "gold_fed", name: "黃金承壓", type: "asset", icon: "🥇", desc: "無息資產吸引力下降，持有機會成本上升", x: 1100, y: 400 }
+        ],
+        links: [
+            { source: "fed_hawkish", target: "rate_expectation", strength: 0.9 },
+            { source: "fed_hawkish", target: "dot_plot", strength: 0.9 },
+            { source: "rate_expectation", target: "yield_curve", strength: 0.8 },
+            { source: "dot_plot", target: "yield_curve", strength: 0.8 },
+            { source: "yield_curve", target: "dollar", strength: 0.8 },
+            { source: "yield_curve", target: "em_fund", strength: 0.8 },
+            { source: "rate_expectation", target: "tech_valuation", strength: -0.8 },
+            { source: "rate_expectation", target: "bank_benefit", strength: 0.7 },
+            { source: "rate_expectation", target: "reit", strength: -0.8 },
+            { source: "rate_expectation", target: "crypto", strength: -0.7 },
+            { source: "rate_expectation", target: "gold_fed", strength: -0.7 }
+        ]
+    },
+    inflation: {
+        name: "通膨升溫",
+        description: "CPI超預期上升，黏性通膨引發工資-物價螺旋擔憂",
+        sources: [
+            { name: "財經M平方 - 美國通膨數據", url: "https://www.macromicro.me/charts/14791/mei-guo-ji-zhun-li-lv" },
+            { name: "Citi Wealth - Fed政策分析", url: "https://marketinsights.citi.com/Market-Commentary/Weekly-Market-Update/Record-Highs-as-Fed-Cuts-Rates.html" }
+        ],
+        nodes: [
+            { id: "cpi_surprise", name: "CPI超預期", type: "trigger", icon: "📊", desc: "消費者物價指數高於市場預期，核心PCE上修至2.8%", x: 100, y: 300 },
+            { id: "core_goods", name: "核心商品上漲", type: "chain", icon: "📦", desc: "扣除食品能源的核心CPI上升，商品價格壓力持續", x: 300, y: 200 },
+            { id: "services", name: "服務業通膨", type: "chain", icon: "💼", desc: "工資與服務價格持續攀升，勞動市場緊張", x: 300, y: 400 },
+            { id: "sticky", name: "黏性通膨", type: "chain", icon: "🍯", desc: "通膨持續時間比預期更長，降溫速度放緩", x: 500, y: 300 },
+            { id: "wage_spiral", name: "工資-物價螺旋", type: "chain", icon: "🔄", desc: "工資上漲推動物價，物價上漲要求更高工資的惡性循環", x: 700, y: 300 },
+            { id: "fed_response", name: "Fed被迫緊縮", type: "chain", icon: "🔒", desc: "聯準會可能需要再次升息或延長高利率時間", x: 700, y: 150 },
+            { id: "real_rates", name: "實質利率上升", type: "impact", icon: "📈", desc: "名目利率減通膨預期，實質借貸成本增加", x: 900, y: 200 },
+            { id: "debt_burden", name: "債務負擔加重", type: "impact", icon: "⚖️", desc: "企業與政府借貸成本上升，財政壓力增加", x: 900, y: 400 },
+            { id: "tips", name: "TIPS上漲", type: "asset", icon: "🛡️", desc: "通膨連結債券受追捧，抗通膨需求增加", x: 1100, y: 150 },
+            { id: "commodities", name: "大宗商品上漲", type: "asset", icon: "⛏️", desc: "實物資產對沖通膨，原物料價格上漲", x: 1100, y: 350 },
+            { id: "utilities", name: "公用事業抗跌", type: "asset", icon: "⚡", desc: "定價能力轉嫁成本，必需性服務需求穩定", x: 1100, y: 550 }
+        ],
+        links: [
+            { source: "cpi_surprise", target: "core_goods", strength: 0.8 },
+            { source: "cpi_surprise", target: "services", strength: 0.8 },
+            { source: "core_goods", target: "sticky", strength: 0.7 },
+            { source: "services", target: "sticky", strength: 0.8 },
+            { source: "sticky", target: "wage_spiral", strength: 0.7 },
+            { source: "sticky", target: "fed_response", strength: 0.8 },
+            { source: "fed_response", target: "real_rates", strength: 0.9 },
+            { source: "real_rates", target: "debt_burden", strength: 0.8 },
+            { source: "cpi_surprise", target: "tips", strength: 0.8 },
+            { source: "sticky", target: "commodities", strength: 0.7 },
+            { source: "sticky", target: "utilities", strength: 0.6 }
+        ]
+    },
+    ai: {
+        name: "AI熱潮",
+        description: "人工智慧技術突破帶動科技股飆升，重塑全球供應鏈與投資格局",
+        sources: [
+            { name: "PwC - 2025 AI商業預測", url: "https://www.pwc.tw/zh/publications/global-insights/2025-ai-business-predictions.html" },
+            { name: "資策會 - 2025 ICT趨勢", url: "https://www.bnext.com.tw/article/81904/mic-ict-trends-2025" }
+        ],
+        nodes: [
+            { id: "ai_breakthrough", name: "AI技術突破", type: "trigger", icon: "🤖", desc: "ChatGPT、LLM等生成式AI技術突破，企業AI採用率達88%", x: 100, y: 300 },
+            { id: "data_center", name: "資料中心需求", type: "chain", icon: "🏢", desc: "AI訓練與推理需求爆發，雲端運算資源緊張", x: 300, y: 200 },
+            { id: "chip_demand", name: "晶片需求激增", type: "chain", icon: "💻", desc: "GPU、ASIC等AI晶片供不應求，NVIDIA訂單能見度至2026年", x: 300, y: 400 },
+            { id: "power_demand", name: "電力需求飆升", type: "chain", icon: "⚡", desc: "AI資料中心耗電量巨大，GB200功耗達2,700瓦", x: 500, y: 200 },
+            { id: "supply_chain", name: "供應鏈重組", type: "chain", icon: "🔗", desc: "台灣供應鏈（台積電、鴻海、緯創）成為AI基礎設施核心", x: 500, y: 400 },
+            { id: "nvidia", name: "輝達股價飆升", type: "asset", icon: "📈", desc: "NVIDIA營收年增73%，Blackwell與Rubin訂單達5,000億美元", x: 700, y: 150 },
+            { id: "tsmc", name: "台積電受惠", type: "asset", icon: "🏭", desc: "唯一代工NVIDIA頂級GPU，CoWoS-L製程供不應求", x: 700, y: 300 },
+            { id: "power_stocks", name: "電力股上漲", type: "asset", icon: "🔌", desc: "AI資料中心供電需求帶動電力設備與能源股", x: 700, y: 450 },
+            { id: "cooling", name: "散熱股大漲", type: "asset", icon: "❄️", desc: "水冷散熱滲透率快速提高，雙鴻等廠商受惠", x: 900, y: 200 },
+            { id: "traditional", name: "傳產股被拋售", type: "asset", icon: "📉", desc: "資金集中AI概念股，傳統產業資金外流", x: 900, y: 400 }
+        ],
+        links: [
+            { source: "ai_breakthrough", target: "data_center", strength: 0.9 },
+            { source: "ai_breakthrough", target: "chip_demand", strength: 0.9 },
+            { source: "data_center", target: "power_demand", strength: 0.9 },
+            { source: "chip_demand", target: "supply_chain", strength: 0.9 },
+            { source: "chip_demand", target: "nvidia", strength: 0.9 },
+            { source: "supply_chain", target: "tsmc", strength: 0.9 },
+            { source: "power_demand", target: "power_stocks", strength: 0.8 },
+            { source: "data_center", target: "cooling", strength: 0.8 },
+            { source: "ai_breakthrough", target: "traditional", strength: -0.6 }
+        ]
+    },
+    china: {
+        name: "中國經濟放緩",
+        description: "房地產危機與經濟轉型挑戰，影響全球供應鏈與原物料需求",
+        sources: [
+            { name: "端傳媒 - 中國兩會經濟目標", url: "https://theinitium.com/20260310-whatsnew-mainland-2026-two-sessions-china-lowers-growth-target/" },
+            { name: "商業周刊 - 中國房地產危機", url: "https://www.businessweekly.com.tw/international/blog/3020225" }
+        ],
+        nodes: [
+            { id: "property_crisis", name: "房地產危機", type: "trigger", icon: "🏗️", desc: "恆大、碧桂園等開發商債務違約，房價下跌30%，爛尾樓問題嚴重", x: 100, y: 300 },
+            { id: "wealth_effect", name: "財富效應逆轉", type: "chain", icon: "💸", desc: "70%家庭資產綁定房地產，房價每跌5%蒸發19萬億元財富", x: 300, y: 200 },
+            { id: "local_debt", name: "地方債務壓力", type: "chain", icon: "📉", desc: "土地出讓收入銳減，地方政府財政壓力劇增", x: 300, y: 400 },
+            { id: "consumption", name: "消費信心低迷", type: "chain", icon: "🛒", desc: "居民儲蓄率上升，消費意願下降，內需疲弱", x: 500, y: 300 },
+            { id: "steel_demand", name: "鋼鐵需求下滑", type: "chain", icon: "🏭", desc: "建築用鋼需求減少10%，創20年新低，價格跌至多年低點", x: 500, y: 150 },
+            { id: "iron_ore", name: "鐵礦石下跌", type: "asset", icon: "⛏️", desc: "必和必拓、力拓等礦業巨頭利潤受損，港口庫存增加", x: 700, y: 150 },
+            { id: "supply_chain", name: "供應鏈轉移", type: "impact", icon: "🌏", desc: "跨國企業尋求製造業回流或多元化，中國衝擊2.0", x: 700, y: 300 },
+            { id: "china_stock", name: "中概股波動", type: "asset", icon: "📊", desc: "股市非理性繁榮與基本面脫節，投資風險增加", x: 700, y: 450 },
+            { id: "em_asia", name: "東南亞受惠", type: "asset", icon: "🌴", desc: "製造業轉移至越南、印度等國，供應鏈重組受益者", x: 900, y: 200 },
+            { id: "luxury", name: "奢侈品股下跌", type: "asset", icon: "👜", desc: "中國消費者購買力下降，精品業績承壓", x: 900, y: 400 }
+        ],
+        links: [
+            { source: "property_crisis", target: "wealth_effect", strength: 0.9 },
+            { source: "property_crisis", target: "local_debt", strength: 0.8 },
+            { source: "wealth_effect", target: "consumption", strength: 0.8 },
+            { source: "property_crisis", target: "steel_demand", strength: 0.9 },
+            { source: "steel_demand", target: "iron_ore", strength: 0.9 },
+            { source: "consumption", target: "supply_chain", strength: 0.7 },
+            { source: "property_crisis", target: "china_stock", strength: -0.6 },
+            { source: "supply_chain", target: "em_asia", strength: 0.8 },
+            { source: "consumption", target: "luxury", strength: -0.7 }
+        ]
+    },
+    japan: {
+        name: "日本升息與日圓套息交易",
+        description: "日本央行結束負利率，日圓套息交易平倉引發全球流動性衝擊",
+        sources: [
+            { name: "華爾街見聞 - 日圓套息交易分析", url: "https://wallstreetcn.com/articles/3723129" },
+            { name: "國際清算銀行BIS數據", url: "https://www.bis.org/" },
+            { name: "Pocket證券 - 日圓升息影響", url: "https://www.pocket.tw/school/report/SCHOOL/6748/" }
+        ],
+        nodes: [
+            { id: "boj_hike", name: "日本央行升息", type: "trigger", icon: "🏦", desc: "結束17年負利率，政策利率升至0.5%，預計2025年底達0.75%", x: 100, y: 300 },
+            { id: "yen_strength", name: "日圓升值", type: "chain", icon: "💴", desc: "日圓兌美元從160升值至140以下，避險貨幣屬性增強", x: 300, y: 200 },
+            { id: "carry_cost", name: "套息成本上升", type: "chain", icon: "📈", desc: "借入日圓成本增加，套利空間縮小，約5,000億美元倉位面臨平倉", x: 300, y: 400 },
+            { id: "unwind", name: "套息交易平倉", type: "chain", icon: "🔄", desc: "投資者拋售風險資產償還日圓債務，全球流動性收緊", x: 500, y: 300 },
+            { id: "liquidity", name: "全球流動性收緊", type: "impact", icon: "💧", desc: "日圓套息交易規模達19.2兆美元（BIS 2025Q3數據），相當於日本GDP近5倍", x: 700, y: 300 },
+            { id: "nikkei", name: "日經指數暴跌", type: "asset", icon: "📉", desc: "2024年8月日經單日暴跌12.4%，引發亞股熔斷", x: 700, y: 150 },
+            { id: "nasdaq", name: "那斯達克回調", type: "asset", icon: "💻", desc: "科技股首當其衝，AI相關投資面臨平倉壓力", x: 900, y: 200 },
+            { id: "crypto", name: "加密貨幣下跌", type: "asset", icon: "₿", desc: "高波動性資產最先被拋售，比特幣等價格劇烈波動", x: 900, y: 350 },
+            { id: "emerging", name: "新興市場承壓", type: "asset", icon: "🌏", desc: "資金撤離風險資產，新興市場股匯雙跌", x: 900, y: 500 }
+        ],
+        links: [
+            { source: "boj_hike", target: "yen_strength", strength: 0.9 },
+            { source: "boj_hike", target: "carry_cost", strength: 0.9 },
+            { source: "yen_strength", target: "unwind", strength: 0.8 },
+            { source: "carry_cost", target: "unwind", strength: 0.9 },
+            { source: "unwind", target: "liquidity", strength: 0.9 },
+            { source: "boj_hike", target: "nikkei", strength: -0.8 },
+            { source: "liquidity", target: "nasdaq", strength: -0.8 },
+            { source: "liquidity", target: "crypto", strength: -0.9 },
+            { source: "liquidity", target: "emerging", strength: -0.8 }
+        ]
+    }
+};
 
-        let currentScenario = 'oil';
-        let simulation = null;
-        let selectedNode = null;
+let currentScenario = 'oil';
+let simulation = null;
+let selectedNode = null;
 
-        // 顏色配置
-        const colors = {
-            trigger: '#ef4444',
-            chain: '#f59e0b',
-            impact: '#22c55e',
-            asset: '#3b82f6'
-        };
+const colors = { trigger: '#ef4444', chain: '#f59e0b', impact: '#22c55e', asset: '#3b82f6' };
 
-        // 初始化
-        function init() {
+function init() {
+    renderEventList();
+    renderGraph();
+    setupEventListeners();
+}
+
+function renderEventList() {
+    const list = document.getElementById('event-list');
+    const nodes = scenarios[currentScenario].nodes;
+    list.innerHTML = nodes.map(node => `
+        <div class="event-item" data-id="${node.id}">
+            <div class="event-icon ${node.type}">${node.icon}</div>
+            <div class="event-info">
+                <div class="event-name">${node.name}</div>
+                <div class="event-type">${getTypeLabel(node.type)}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function getTypeLabel(type) {
+    const labels = { trigger: '觸發事件', chain: '連鎖反應', impact: '最終影響', asset: '資產價格' };
+    return labels[type] || type;
+}
+
+function renderGraph() {
+    const container = document.getElementById('graph-container');
+    container.innerHTML = '';
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    const svg = d3.select('#graph-container')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .call(d3.zoom().on('zoom', (e) => { g.attr('transform', e.transform); }));
+
+    const g = svg.append('g');
+    const data = scenarios[currentScenario];
+    const nodes = data.nodes.map(d => ({...d}));
+    const links = data.links.map(d => ({...d}));
+
+    simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id).distance(120))
+        .force('charge', d3.forceManyBody().strength(-800))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(50));
+
+    const link = g.append('g')
+        .selectAll('line')
+        .data(links)
+        .enter()
+        .append('line')
+        .attr('stroke', d => d.strength > 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)')
+        .attr('stroke-width', d => Math.abs(d.strength) * 3)
+        .attr('stroke-dasharray', d => d.strength < 0 ? '5,5' : null);
+
+    svg.append('defs').selectAll('marker')
+        .data(['positive', 'negative'])
+        .enter()
+        .append('marker')
+        .attr('id', d => `arrow-${d}`)
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 35)
+        .attr('refY', 0)
+        .attr('markerWidth', 8)
+        .attr('markerHeight', 8)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', d => d === 'positive' ? '#ef4444' : '#22c55e');
+
+    link.attr('marker-end', d => d.strength > 0 ? 'url(#arrow-positive)' : 'url(#arrow-negative)');
+
+    const node = g.append('g')
+        .selectAll('g')
+        .data(nodes)
+        .enter()
+        .append('g')
+        .attr('class', 'node')
+        .style('cursor', 'pointer')
+        .call(d3.drag()
+            .on('start', dragstarted)
+            .on('drag', dragged)
+            .on('end', dragended));
+
+    node.append('circle')
+        .attr('r', 28)
+        .attr('fill', d => colors[d.type])
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))');
+
+    node.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '0.35em')
+        .style('font-size', '1.2rem')
+        .style('pointer-events', 'none')
+        .text(d => d.icon);
+
+    node.append('text')
+        .attr('dy', 45)
+        .attr('text-anchor', 'middle')
+        .style('font-size', '0.75rem')
+        .style('fill', '#fff')
+        .style('font-weight', '500')
+        .style('text-shadow', '0 2px 4px rgba(0,0,0,0.8)')
+        .text(d => d.name);
+
+    node.on('click', (e, d) => { e.stopPropagation(); selectNode(d); });
+    node.on('mouseenter', (e, d) => { showTooltip(e, d); });
+    node.on('mouseleave', () => { hideTooltip(); });
+
+    simulation.on('tick', () => {
+        link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+        node.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+    svg.on('click', () => {
+        document.getElementById('info-panel').classList.remove('active');
+        selectedNode = null;
+    });
+}
+
+function selectNode(node) {
+    selectedNode = node;
+    const panel = document.getElementById('info-panel');
+    const scenario = scenarios[currentScenario];
+    
+    document.getElementById('info-icon').textContent = node.icon;
+    document.getElementById('info-icon').style.background = `${colors[node.type]}33`;
+    document.getElementById('info-title').textContent = node.name;
+    document.getElementById('info-type').textContent = getTypeLabel(node.type);
+    document.getElementById('info-desc').textContent = node.desc;
+
+    const impacts = scenario.links
+        .filter(l => l.source.id === node.id || l.source === node.id)
+        .map(l => {
+            const target = typeof l.target === 'object' ? l.target : scenario.nodes.find(n => n.id === l.target);
+            return { name: target.name, icon: target.icon, direction: l.strength > 0 ? 'up' : 'down' };
+        });
+
+    const impactList = document.getElementById('impact-list');
+    if (impacts.length > 0) {
+        impactList.innerHTML = impacts.map(i => `
+            <div class="impact-item">
+                <span>${i.icon}</span>
+                <span class="impact-arrow ${i.direction}">${i.direction === 'up' ? '↑' : '↓'}</span>
+                <span>${i.name}</span>
+            </div>
+        `).join('');
+    } else {
+        impactList.innerHTML = '<div class="impact-item">此為終端影響節點</div>';
+    }
+
+    // 顯示資料來源
+    const sourcesSection = document.getElementById('sources-section');
+    const sourcesList = document.getElementById('sources-list');
+    if (scenario.sources && scenario.sources.length > 0) {
+        sourcesSection.style.display = 'block';
+        sourcesList.innerHTML = scenario.sources.map(s => `
+            <a href="${s.url}" target="_blank" class="source-link">
+                <span>🔗</span> ${s.name}
+            </a>
+        `).join('');
+    } else {
+        sourcesSection.style.display = 'none';
+    }
+
+    panel.classList.add('active');
+}
+
+function showTooltip(e, d) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.innerHTML = `
+        <strong>${d.icon} ${d.name}</strong><br>
+        <span style="color: #8b8b9a; font-size: 0.75rem;">${getTypeLabel(d.type)}</span><br>
+        <span style="font-size: 0.8rem;">${d.desc.substring(0, 50)}...</span>
+    `;
+    tooltip.style.left = e.pageX + 10 + 'px';
+    tooltip.style.top = e.pageY - 10 + 'px';
+    tooltip.classList.add('visible');
+}
+
+function hideTooltip() {
+    document.getElementById('tooltip').classList.remove('visible');
+}
+
+function dragstarted(e, d) {
+    if (!e.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x; d.fy = d.y;
+}
+
+function dragged(e, d) {
+    d.fx = e.x; d.fy = e.y;
+}
+
+function dragended(e, d) {
+    if (!e.active) simulation.alphaTarget(0);
+    d.fx = null; d.fy = null;
+}
+
+function setupEventListeners() {
+    document.querySelectorAll('.scenario-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.scenario-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentScenario = tab.dataset.scenario;
             renderEventList();
             renderGraph();
-            setupEventListeners();
-        }
-
-        // 渲染事件列表
-        function renderEventList() {
-            const list = document.getElementById('event-list');
-            const nodes = scenarios[currentScenario].nodes;
-            
-            list.innerHTML = nodes.map(node => `
-                <div class="event-item" data-id="${node.id}">
-                    <div class="event-icon ${node.type}">${node.icon}</div>
-                    <div class="event-info">
-                        <div class="event-name">${node.name}</div>
-                        <div class="event-type">${getTypeLabel(node.type)}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getTypeLabel(type) {
-            const labels = { trigger: '觸發事件', chain: '連鎖反應', impact: '最終影響', asset: '資產價格' };
-            return labels[type] || type;
-        }
-
-        // 渲染圖表
-        function renderGraph() {
-            const container = document.getElementById('graph-container');
-            container.innerHTML = '';
-            
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            const svg = d3.select('#graph-container')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height)
-                .call(d3.zoom().on('zoom', (e) => {
-                    g.attr('transform', e.transform);
-                }));
-
-            const g = svg.append('g');
-
-            const data = scenarios[currentScenario];
-            
-            // 創建節點和連結的深拷貝
-            const nodes = data.nodes.map(d => ({...d}));
-            const links = data.links.map(d => ({...d}));
-
-            // 力導向模擬
-            simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.id).distance(120))
-                .force('charge', d3.forceManyBody().strength(-800))
-                .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('collision', d3.forceCollide().radius(50));
-
-            // 繪製連結
-            const link = g.append('g')
-                .selectAll('line')
-                .data(links)
-                .enter()
-                .append('line')
-                .attr('stroke', d => d.strength > 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)')
-                .attr('stroke-width', d => Math.abs(d.strength) * 3)
-                .attr('stroke-dasharray', d => d.strength < 0 ? '5,5' : null);
-
-            // 繪製箭頭
-            svg.append('defs').selectAll('marker')
-                .data(['positive', 'negative'])
-                .enter()
-                .append('marker')
-                .attr('id', d => `arrow-${d}`)
-                .attr('viewBox', '0 -5 10 10')
-                .attr('refX', 35)
-                .attr('refY', 0)
-                .attr('markerWidth', 8)
-                .attr('markerHeight', 8)
-                .attr('orient', 'auto')
-                .append('path')
-                .attr('d', 'M0,-5L10,0L0,5')
-                .attr('fill', d => d === 'positive' ? '#ef4444' : '#22c55e');
-
-            link.attr('marker-end', d => d.strength > 0 ? 'url(#arrow-positive)' : 'url(#arrow-negative)');
-
-            // 繪製節點群組
-            const node = g.append('g')
-                .selectAll('g')
-                .data(nodes)
-                .enter()
-                .append('g')
-                .attr('class', 'node')
-                .style('cursor', 'pointer')
-                .call(d3.drag()
-                    .on('start', dragstarted)
-                    .on('drag', dragged)
-                    .on('end', dragended));
-
-            // 節點圓圈
-            node.append('circle')
-                .attr('r', 28)
-                .attr('fill', d => colors[d.type])
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2)
-                .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))');
-
-            // 節點圖標
-            node.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('dy', '0.35em')
-                .style('font-size', '1.2rem')
-                .style('pointer-events', 'none')
-                .text(d => d.icon);
-
-            // 節點標籤
-            node.append('text')
-                .attr('dy', 45)
-                .attr('text-anchor', 'middle')
-                .style('font-size', '0.75rem')
-                .style('fill', '#fff')
-                .style('font-weight', '500')
-                .style('text-shadow', '0 2px 4px rgba(0,0,0,0.8)')
-                .text(d => d.name);
-
-            // 互動事件
-            node.on('click', (e, d) => {
-                e.stopPropagation();
-                selectNode(d);
-            });
-
-            node.on('mouseenter', (e, d) => {
-                showTooltip(e, d);
-            });
-
-            node.on('mouseleave', () => {
-                hideTooltip();
-            });
-
-            // 更新位置
-            simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
-
-                node.attr('transform', d => `translate(${d.x},${d.y})`);
-            });
-
-            // 點擊空白處取消選擇
-            svg.on('click', () => {
-                document.getElementById('info-panel').classList.remove('active');
-                selectedNode = null;
-            });
-        }
-
-        // 選擇節點
-        function selectNode(node) {
-            selectedNode = node;
-            const panel = document.getElementById('info-panel');
-            
-            document.getElementById('info-icon').textContent = node.icon;
-            document.getElementById('info-icon').style.background = `${colors[node.type]}33`;
-            document.getElementById('info-title').textContent = node.name;
-            document.getElementById('info-type').textContent = getTypeLabel(node.type);
-            document.getElementById('info-desc').textContent = node.desc;
-
-            // 找出相關影響
-            const data = scenarios[currentScenario];
-            const impacts = data.links
-                .filter(l => l.source.id === node.id || l.source === node.id)
-                .map(l => {
-                    const target = typeof l.target === 'object' ? l.target : data.nodes.find(n => n.id === l.target);
-                    return {
-                        name: target.name,
-                        icon: target.icon,
-                        direction: l.strength > 0 ? 'up' : 'down'
-                    };
-                });
-
-            const impactList = document.getElementById('impact-list');
-            if (impacts.length > 0) {
-                impactList.innerHTML = impacts.map(i => `
-                    <div class="impact-item">
-                        <span>${i.icon}</span>
-                        <span class="impact-arrow ${i.direction}">${i.direction === 'up' ? '↑' : '↓'}</span>
-                        <span>${i.name}</span>
-                    </div>
-                `).join('');
-            } else {
-                impactList.innerHTML = '<div class="impact-item">此為終端影響節點</div>';
-            }
-
-            panel.classList.add('active');
-        }
-
-        // Tooltip
-        function showTooltip(e, d) {
-            const tooltip = document.getElementById('tooltip');
-            tooltip.innerHTML = `
-                <strong>${d.icon} ${d.name}</strong><br>
-                <span style="color: #8b8b9a; font-size: 0.75rem;">${getTypeLabel(d.type)}</span><br>
-                <span style="font-size: 0.8rem;">${d.desc.substring(0, 50)}...</span>
-            `;
-            tooltip.style.left = e.pageX + 10 + 'px';
-            tooltip.style.top = e.pageY - 10 + 'px';
-            tooltip.classList.add('visible');
-        }
-
-        function hideTooltip() {
-            document.getElementById('tooltip').classList.remove('visible');
-        }
-
-        // 拖曳功能
-        function dragstarted(e, d) {
-            if (!e.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(e, d) {
-            d.fx = e.x;
-            d.fy = e.y;
-        }
-
-        function dragended(e, d) {
-            if (!e.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
-        }
-
-        // 事件監聽
-        function setupEventListeners() {
-            // 情境切換
-            document.querySelectorAll('.scenario-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.scenario-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    currentScenario = tab.dataset.scenario;
-                    renderEventList();
-                    renderGraph();
-                    document.getElementById('info-panel').classList.remove('active');
-                });
-            });
-
-            // 事件列表點擊
-            document.getElementById('event-list').addEventListener('click', (e) => {
-                const item = e.target.closest('.event-item');
-                if (item) {
-                    const nodeId = item.dataset.id;
-                    const node = scenarios[currentScenario].nodes.find(n => n.id === nodeId);
-                    if (node) selectNode(node);
-                }
-            });
-        }
-
-        // 重置縮放
-        function resetZoom() {
-            renderGraph();
-        }
-
-        // 播放動畫
-        let animationPlaying = false;
-        function toggleAnimation() {
-            animationPlaying = !animationPlaying;
-            const btn = document.querySelector('.btn-primary');
-            btn.innerHTML = animationPlaying ? '<span>⏸️</span> 暫停動畫' : '<span>▶️</span> 播放動畫';
-            
-            if (animationPlaying) {
-                // 簡單的脈衝動畫
-                const nodes = d3.selectAll('.node circle');
-                function pulse() {
-                    if (!animationPlaying) return;
-                    nodes.transition()
-                        .duration(1000)
-                        .attr('r', 32)
-                        .transition()
-                        .duration(1000)
-                        .attr('r', 28)
-                        .on('end', pulse);
-                }
-                pulse();
-            } else {
-                d3.selectAll('.node circle').interrupt().attr('r', 28);
-            }
-        }
-
-        // 啟動
-        init();
-
-        // 視窗大小改變時重新渲染
-        window.addEventListener('resize', () => {
-            renderGraph();
+            document.getElementById('info-panel').classList.remove('active');
         });
+    });
+
+    document.getElementById('event-list').addEventListener('click', (e) => {
+        const item = e.target.closest('.event-item');
+        if (item) {
+            const nodeId = item.dataset.id;
+            const node = scenarios[currentScenario].nodes.find(n => n.id === nodeId);
+            if (node) selectNode(node);
+        }
+    });
+}
+
+function resetZoom() {
+    renderGraph();
+}
+
+let animationPlaying = false;
+function toggleAnimation() {
+    animationPlaying = !animationPlaying;
+    const btn = document.querySelector('.btn-primary');
+    btn.innerHTML = animationPlaying ? '<span>⏸️</span> 暫停動畫' : '<span>▶️</span> 播放動畫';
+    
+    if (animationPlaying) {
+        const nodes = d3.selectAll('.node circle');
+        function pulse() {
+            if (!animationPlaying) return;
+            nodes.transition().duration(1000).attr('r', 32)
+                .transition().duration(1000).attr('r', 28)
+                .on('end', pulse);
+        }
+        pulse();
+    } else {
+        d3.selectAll('.node circle').interrupt().attr('r', 28);
+    }
+}
+
+init();
+window.addEventListener('resize', () => { renderGraph(); });
     </script>
 </body>
 </html>
