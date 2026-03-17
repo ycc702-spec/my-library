@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-09",
+  "last_updated": "2026-03-17",
   "categories": [
     {
       "id": "knee-rehab",
@@ -8,6 +8,61 @@
       "icon": "🦵",
       "description": "Jumper's Knee 復健訓練影片",
       "bookmarks": [
+        {
+          "id": "bk_knee_local_001",
+          "title": "Sit to Stand (坐姿到站姿)",
+          "url": "./videos/rehab/01_sit_to_stand.mp4",
+          "source": "Local Video",
+          "author": "Knee Rehab",
+          "tags": ["膝蓋", "復健", "Sit to Stand", "功能性訓練", "基礎動作"],
+          "description": "基礎功能性動作訓練。從坐姿緩慢站起，訓練股四頭肌與髕骨肌腱。",
+          "date_added": "2026-03-17",
+          "video_file": "videos/rehab/01_sit_to_stand.mp4"
+        },
+        {
+          "id": "bk_knee_local_002",
+          "title": "Elevated SO Bridge (抬高臀橋)",
+          "url": "./videos/rehab/02_elevated_so_bridge.mp4",
+          "source": "Local Video",
+          "author": "Knee Rehab",
+          "tags": ["膝蓋", "復健", "臀橋", "臀部訓練", "穩定性"],
+          "description": "抬高式臀橋，強化臀部與後側鏈肌群，減輕膝蓋壓力。",
+          "date_added": "2026-03-17",
+          "video_file": "videos/rehab/02_elevated_so_bridge.mp4"
+        },
+        {
+          "id": "bk_knee_local_003",
+          "title": "Single Leg Wall Hinge (單腳靠牆鉸鏈)",
+          "url": "./videos/rehab/03_sl_wall_hinge.mp4",
+          "source": "Local Video",
+          "author": "Knee Rehab",
+          "tags": ["膝蓋", "復健", "單腳", "髖鉸鏈", "平衡"],
+          "description": "單腳靠牆髖鉸鏈動作，訓練單腳穩定性與髖關節活動度。",
+          "date_added": "2026-03-17",
+          "video_file": "videos/rehab/03_sl_wall_hinge.mp4"
+        },
+        {
+          "id": "bk_knee_local_004",
+          "title": "Reverse Tap Down (反向階梯下放)",
+          "url": "./videos/rehab/04_reverse_tap_down.mp4",
+          "source": "Local Video",
+          "author": "Knee Rehab",
+          "tags": ["膝蓋", "復健", "離心訓練", "階梯", "控制力"],
+          "description": "反向階梯下放訓練，強化離心控制能力，適合髕骨肌腱炎恢復期。",
+          "date_added": "2026-03-17",
+          "video_file": "videos/rehab/04_reverse_tap_down.mp4"
+        },
+        {
+          "id": "bk_knee_local_005",
+          "title": "Star Hold (星形支撐)",
+          "url": "./videos/rehab/05_star_hold.mp4",
+          "source": "Local Video",
+          "author": "Knee Rehab",
+          "tags": ["膝蓋", "復健", "穩定性", "平衡", "等長收縮"],
+          "description": "星形支撐動作，訓練膝蓋穩定性與本體感覺。",
+          "date_added": "2026-03-17",
+          "video_file": "videos/rehab/05_star_hold.mp4"
+        },
         {
           "id": "bk_knee_001",
           "title": "髕骨肌腱等長收縮訓練 (Spanish Squat)",
